@@ -34,15 +34,25 @@ namespace dadatacsharp {
             // enforce SSL v3 to respect DaData.ru security settings
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
         }
-            
+
         /// <summary>
         /// Creates an instance to interact with DaData clean API (https://dadata.ru/api/clean/).
         /// </summary>
         /// <param name="token">API key.</param>
         /// <param name="hostname">DaData server hostname.</param>
         /// <param name="protocol">HTTP protocol (http or https, defaut http).</param>
+        public CleanClient(string token, string hostname, string protocol = "http") : 
+            this(token, null, hostname, protocol) {
+        }
+            
+        /// <summary>
+        /// Creates an instance to interact with DaData clean API (https://dadata.ru/api/clean/).
+        /// </summary>
+        /// <param name="token">API key.</param>
         /// <param name="secret">API secret.</param>
-        public CleanClient(string token, string hostname, string protocol = "http", string secret = null) {
+        /// <param name="hostname">DaData server hostname.</param>
+        /// <param name="protocol">HTTP protocol (http or https, defaut http).</param>
+        public CleanClient(string token, string secret, string hostname, string protocol = "http") {
             this.token = token;
             this.secret = secret;
             this.url = String.Format(CLEAN_URL, protocol, hostname);
