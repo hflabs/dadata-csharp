@@ -43,7 +43,7 @@ API DaData.ru для C# / .NET
 Если вы обрабатываете однотипные данные (например, только адреса), то удобно воспользоваться методом `CleanClient.Clean<T>(IEnumerable<string> inputs)`:
 
 ```csharp
-var api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "dadata.ru", "https");
+var api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "REPLACE_WITH_YOUR_SECRET_KEY", "dadata.ru", "https");
 var inputs = new string[] { "Москва Милютинский 13", "Питер Восстания 1" };
 var cleaned = api.Clean<AddressData>(inputs);
 foreach (AddressData entity in cleaned) {
@@ -54,7 +54,7 @@ foreach (AddressData entity in cleaned) {
 Если вы обрабатываете записи, каждая из которых содержит данные нескольких типов (например, ФИО и телефоны), то больше подойдет метод `CleanClient.Clean(CleanRequest request)`:
 
 ```csharp
-var api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "dadata.ru", "https");
+var api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "REPLACE_WITH_YOUR_SECRET_KEY", "dadata.ru", "https");
 var structure = new List<StructureType>(
     new StructureType[] { StructureType.NAME, StructureType.PHONE }
 );
