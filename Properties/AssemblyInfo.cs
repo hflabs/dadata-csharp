@@ -5,11 +5,11 @@ using System.Runtime.CompilerServices;
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle ("dadata-csharp")]
-[assembly: AssemblyDescription ("")]
+[assembly: AssemblyDescription ("DaData.ru API client for C# / .NET")]
 [assembly: AssemblyConfiguration ("")]
-[assembly: AssemblyCompany ("")]
-[assembly: AssemblyProduct ("")]
-[assembly: AssemblyCopyright ("antonzh")]
+[assembly: AssemblyCompany ("HFLabs")]
+[assembly: AssemblyProduct ("DaData.ru")]
+[assembly: AssemblyCopyright ("HFLabs")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
 
