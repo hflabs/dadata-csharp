@@ -27,7 +27,9 @@ namespace dadatacsharp {
             { typeof(BirthdateData),    StructureType.BIRTHDATE },
             { typeof(EmailData),        StructureType.EMAIL },
             { typeof(NameData),         StructureType.NAME },
+            { typeof(PassportData),     StructureType.PASSPORT },
             { typeof(PhoneData),        StructureType.PHONE },
+            { typeof(VehicleData),      StructureType.VEHICLE }
         };
 
         static CleanClient() {

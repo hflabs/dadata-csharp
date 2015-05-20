@@ -41,8 +41,12 @@ namespace dadatacsharp {
                 return StructureType.EMAIL;
             } else if (jObject.Property("surname") != null) {
                 return StructureType.NAME;
+            } else if (jObject.Property("series") != null) {
+                return StructureType.PASSPORT;
             } else if (jObject.Property("phone") != null) {
                 return StructureType.PHONE;
+            } else if (jObject.Property("brand") != null) {
+                return StructureType.VEHICLE;
             } else {
                 return StructureType.AS_IS;
             }
@@ -65,8 +69,12 @@ namespace dadatacsharp {
                 return new EmailData();
             case StructureType.NAME:
                 return new NameData();
+            case StructureType.PASSPORT:
+                return new PassportData();
             case StructureType.PHONE:
                 return new PhoneData();
+            case StructureType.VEHICLE:
+                return new VehicleData();
             default:
                 return new AsIsData();
             }

@@ -41,7 +41,17 @@ namespace dadatacsharp {
 
         [Test]
         public void CleanPhoneTest() {
-            DoCleanGeneric<NameData>(new string[] { "495 245 23-34", "89168459285" });
+            DoCleanGeneric<PhoneData>(new string[] { "495 245 23-34", "89168459285" });
+        }
+        
+        [Test]
+        public void CleanPassportTest() {
+            DoCleanGeneric<PassportData>(new string[] { "4509 235857", "4506 629672" });
+        }
+        
+        [Test]
+        public void CleanVehicleTest() {
+            DoCleanGeneric<VehicleData>(new string[] { "форд фокус", "citroen c3" });
         }
 
         [Test]
@@ -80,6 +90,7 @@ namespace dadatacsharp {
             var cleaned = api.Clean<T>(inputs);
             var idx = 0;
             foreach (T entity in cleaned) {
+                Console.WriteLine(entity.ToString());
                 Assert.That(entity.ToString().Contains(inputs[idx]), 
                     String.Format("Expected {0} to be in {1}", inputs[idx], cleaned));
                 idx++;
