@@ -52,8 +52,8 @@ foreach (AddressData entity in cleaned) {
     Console.WriteLine(entity);
 }
 ```
+
 Если вы хотите получать поля объекта (например, kladr_id), используйте метод так:
-`CleanClient.Clean<T>(IEnumerable<string> inputs)`:
 
 ```csharp
 var api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "REPLACE_WITH_YOUR_SECRET_KEY", "dadata.ru", "https");
