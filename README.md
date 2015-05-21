@@ -13,7 +13,7 @@ API DaData.ru для C# / .NET
 
 ### 1. Подключите библиотеку
 
-Прежде всего, скачайте [бинарники](https://github.com/hflabs/dadata-csharp/releases/tag/v1.0) и подключите их к своему проекту.
+Прежде всего, скачайте [бинарники](https://github.com/hflabs/dadata-csharp/releases/tag/v15.5) и подключите их к своему проекту.
 
 Внешние зависимости:
 
@@ -35,10 +35,12 @@ API DaData.ru для C# / .NET
 Поддерживается обработка следующих типов данных:
 
 - ФИО
+- Паспорт
 - Почтовые адреса
 - Телефоны
 - Email
 - Даты
+- Автомобили
 
 Если вы обрабатываете однотипные данные (например, только адреса), то удобно воспользоваться методом `CleanClient.Clean<T>(IEnumerable<string> inputs)`:
 
@@ -48,6 +50,17 @@ var inputs = new string[] { "Москва Милютинский 13", "Пите�
 var cleaned = api.Clean<AddressData>(inputs);
 foreach (AddressData entity in cleaned) {
     Console.WriteLine(entity);
+}
+```
+Если вы хотите получать поля объекта (например, kladr_id), используйте метод так:
+`CleanClient.Clean<T>(IEnumerable<string> inputs)`:
+
+```csharp
+var api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "REPLACE_WITH_YOUR_SECRET_KEY", "dadata.ru", "https");
+var inputs = new string[] { "Москва Милютинский 13", "Питер Восстания 1" };
+var cleaned = api.Clean<AddressData>(inputs);
+foreach (AddressData address in cleaned) {
+    Console.WriteLine(address.kladr_id);
 }
 ```
 
