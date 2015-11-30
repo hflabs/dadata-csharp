@@ -30,6 +30,7 @@ namespace dadatacsharp {
         public string settlement_type       { get; set; }
         public string settlement_type_full  { get; set; }
         public string settlement            { get; set; }
+        public string city_district         { get; set; }
         public string street_type           { get; set; }
         public string street_type_full      { get; set; }
         public string street                { get; set; }
@@ -46,7 +47,9 @@ namespace dadatacsharp {
         public string flat_price            { get; set; }
         public string postal_box            { get; set; }
         public string fias_id               { get; set; }
+        public string fias_level            { get; set; }
         public string kladr_id              { get; set; }
+        public string capital_marker        { get; set; }
         public string okato                 { get; set; }
         public string oktmo                 { get; set; }
         public string tax_office            { get; set; }
