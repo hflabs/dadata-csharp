@@ -41,6 +41,7 @@ namespace dadatacsharp {
         public string block_type_full       { get; set; }
         public string block                 { get; set; }
         public string flat_type             { get; set; }
+        public string flat_type_full        { get; set; }
         public string flat                  { get; set; }
         public string flat_area             { get; set; }
         public string square_meter_price    { get; set; }
