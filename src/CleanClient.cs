@@ -33,8 +33,7 @@ namespace dadatacsharp {
         };
 
         static CleanClient() {
-            // enforce SSL v3 to respect DaData.ru security settings
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
         }
 
         /// <summary>

@@ -71,7 +71,7 @@ namespace dadatacsharp {
             Assert.AreEqual(cleanedRecords.Count, 3, 
                 String.Format("Expected 3 records, but got {0}", cleanedRecords.Count));
 
-            Assert.IsInstanceOf<NameData>(cleanedRecords[0][0], "Expected [0,0] entity to be a Name");
+            Assert.IsInstanceOfType(typeof(NameData), cleanedRecords[0][0], "Expected [0,0] entity to be a Name");
             var firstName = (NameData)cleanedRecords[0][0];
             Assert.AreEqual(firstName.name, "Петр", 
                 String.Format("Expected name 'Петр', but got {0}", firstName.name));
@@ -80,7 +80,7 @@ namespace dadatacsharp {
             Assert.AreEqual(firstName.surname, "Кузнецов", 
                 String.Format("Expected surname 'Кузнецов', but got {0}", firstName.surname));
 
-            Assert.IsInstanceOf<AddressData>(cleanedRecords[0][1], "Expected [0,1] entity to be an Address");
+            Assert.IsInstanceOfType(typeof(AddressData), cleanedRecords[0][1], "Expected [0,1] entity to be an Address");
             var firstAddress = (AddressData)cleanedRecords[0][1];
             Assert.AreEqual(firstAddress.kladr_id, "77000000000717100", 
                 String.Format("Expected kladr id '77000000000717100', but got {0}", firstAddress.kladr_id));
