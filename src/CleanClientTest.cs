@@ -11,7 +11,7 @@ namespace dadatacsharp {
 
         [SetUp]
         public void SetUp() {
-            this.api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "dadata.ru", "https");
+            this.api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "REPLACE_WITH_YOUR_SECRET_KEY", "dadata.ru", "https");
         }
 
         [Test]
@@ -84,6 +84,7 @@ namespace dadatacsharp {
             var firstAddress = (AddressData)cleanedRecords[0][1];
             Assert.AreEqual(firstAddress.kladr_id, "77000000000717100", 
                 String.Format("Expected kladr id '77000000000717100', but got {0}", firstAddress.kladr_id));
+            Assert.AreEqual(firstAddress.metro[0].name, "Чистые пруды");
         }
 
         private void DoCleanGeneric<T>(string[] inputs) where T : IDadataEntity  {

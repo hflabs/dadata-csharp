@@ -84,7 +84,9 @@ namespace dadatacsharp {
 
         public string postal_box            { get; set; }
         public string fias_id               { get; set; }
+        public string fias_code             { get; set; }
         public string fias_level            { get; set; }
+        public string fias_actuality_state  { get; set; }
         public string kladr_id              { get; set; }
         public string capital_marker        { get; set; }
         public string okato                 { get; set; }
@@ -105,6 +107,8 @@ namespace dadatacsharp {
 
         public string unparsed_parts        { get; set; }
 
+        public List<MetroData> metro        { get; set; }
+
         public StructureType structure_type {
             get { return StructureType.ADDRESS; }
         }
@@ -115,6 +119,12 @@ namespace dadatacsharp {
                 source, postal_code, result, qc
             );
         }
+    }
+
+    public class MetroData {
+        public string name { get; set; }
+        public string line { get; set; }
+        public decimal distance { get; set; }
     }
 
     /// <summary>
