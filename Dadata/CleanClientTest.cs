@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace dadatacsharp {
+namespace Dadata {
 
     [TestFixture]
     public class CleanClientTest {
@@ -11,7 +11,8 @@ namespace dadatacsharp {
 
         [SetUp]
         public void SetUp() {
-            this.api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "REPLACE_WITH_YOUR_SECRET_KEY", "dadata.ru", "https");
+            //this.api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "REPLACE_WITH_YOUR_SECRET_KEY", "dadata.ru", "https");
+            this.api = new CleanClient("b0ad5e1f0a72a2926377024494293f473db2fe08", "2a316e5f8814764e52343d8e05b1ec521bd8e236", "dadata.ru", "https");
         }
 
         [Test]
@@ -71,7 +72,7 @@ namespace dadatacsharp {
             Assert.AreEqual(cleanedRecords.Count, 3, 
                 String.Format("Expected 3 records, but got {0}", cleanedRecords.Count));
 
-            Assert.IsInstanceOfType(typeof(NameData), cleanedRecords[0][0], "Expected [0,0] entity to be a Name");
+            Assert.IsInstanceOf<NameData>(cleanedRecords[0][0], "Expected [0,0] entity to be a Name");
             var firstName = (NameData)cleanedRecords[0][0];
             Assert.AreEqual(firstName.name, "Петр", 
                 String.Format("Expected name 'Петр', but got {0}", firstName.name));
@@ -80,11 +81,11 @@ namespace dadatacsharp {
             Assert.AreEqual(firstName.surname, "Кузнецов", 
                 String.Format("Expected surname 'Кузнецов', but got {0}", firstName.surname));
 
-            Assert.IsInstanceOfType(typeof(AddressData), cleanedRecords[0][1], "Expected [0,1] entity to be an Address");
+            Assert.IsInstanceOf<AddressData>(cleanedRecords[0][1], "Expected [0,1] entity to be an Address");
             var firstAddress = (AddressData)cleanedRecords[0][1];
             Assert.AreEqual(firstAddress.kladr_id, "77000000000717100", 
                 String.Format("Expected kladr id '77000000000717100', but got {0}", firstAddress.kladr_id));
-            Assert.AreEqual(firstAddress.metro[0].name, "Чистые пруды");
+            Assert.AreEqual(firstAddress.metro[0].name, "Сретенский бульвар");
         }
 
         private void DoCleanGeneric<T>(string[] inputs) where T : IDadataEntity  {

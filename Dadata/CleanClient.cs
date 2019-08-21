@@ -5,7 +5,7 @@ using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace dadatacsharp {
+namespace Dadata {
 
     /// <summary>
     /// Interacts with DaData clean API (https://dadata.ru/api/clean/)
