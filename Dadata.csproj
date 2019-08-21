@@ -37,7 +37,6 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Dadata\CleanClient.cs" />
-        <Compile Include="Dadata\CleanResponseConverter.cs" />
         <Compile Include="Dadata\Model\Address.cs" />
         <Compile Include="Dadata\Model\IDadataEntity.cs" />
         <Compile Include="Dadata\Model\AsIs.cs" />
@@ -50,6 +49,21 @@
         <Compile Include="Dadata\Model\StructureType.cs" />
         <Compile Include="Dadata\Model\CleanRequest.cs" />
         <Compile Include="Dadata\Model\CleanResponse.cs" />
+        <Compile Include="Dadata\SuggestClient.cs" />
+        <Compile Include="Dadata\Model\SuggestAddressRequest.cs" />
+        <Compile Include="Dadata\Model\SuggestRequest.cs" />
+        <Compile Include="Dadata\Model\Suggestion.cs" />
+        <Compile Include="Dadata\Model\SuggestEntity.cs" />
+        <Compile Include="Dadata\Model\SuggestMethod.cs" />
+        <Compile Include="Dadata\Model\SuggestResponse.cs" />
+        <Compile Include="Dadata\Model\Bank.cs" />
+        <Compile Include="Dadata\Model\Party.cs" />
+        <Compile Include="Dadata\Model\SuggestBankRequest.cs" />
+        <Compile Include="Dadata\Model\SuggestNameRequest.cs" />
+        <Compile Include="Dadata\Model\SuggestPartyRequest.cs" />
+        <Compile Include="Dadata\Model\CleanResponseConverter.cs" />
+        <Compile Include="Dadata\Model\DateMillisConverter.cs" />
+        <Compile Include="Dadata\Model\DateRuConverter.cs" />
     </ItemGroup>
     <ItemGroup>
         <None Include="Dadata\packages.config" />

@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Dadata;
+using NUnit.Framework;
 using Dadata.Model;
 
 namespace Dadata.Test {
@@ -15,7 +14,7 @@ namespace Dadata.Test {
         public void SetUp() {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
             var secret = Environment.GetEnvironmentVariable("DADATA_SECRET_KEY");
-            this.api = new CleanClient(token, secret);
+            api = new CleanClient(token, secret);
         }
 
         [Test]
@@ -30,7 +29,8 @@ namespace Dadata.Test {
 
         [Test]
         public void CleanBirthdateTest() {
-            DoCleanGeneric<Birthdate>(new string[] { "12.03.1990", "25.12.1980" });
+            var response = api.Clean<Birthdate>(new string[] { "12.03.1990" });
+            Assert.AreEqual(response[0].birthdate, new DateTime(1990, 3, 12));
         }
 
         [Test]

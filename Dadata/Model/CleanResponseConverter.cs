@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Dadata.Model;
 
-namespace Dadata {
+namespace Dadata.Model {
 
     /// <summary>
     /// Custom deserializer for IDadataEntity concrete types.

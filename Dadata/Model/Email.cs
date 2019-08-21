@@ -4,6 +4,8 @@ namespace Dadata.Model
     public class Email: IDadataEntity
     {
         public string source { get; set; }
+        public string local { get; set; }
+        public string domain { get; set; }
         public string email { get; set; }
         public string qc { get; set; }
 

@@ -1,10 +1,13 @@
 ﻿using System;
+using Newtonsoft.Json;
+
 namespace Dadata.Model
 {
     public class Birthdate: IDadataEntity
     {
         public string source { get; set; }
-        public string birthdate { get; set; }
+        [JsonConverter(typeof(DateRuConverter))]
+        public DateTime? birthdate { get; set; }
         public string qc { get; set; }
 
         public StructureType structure_type

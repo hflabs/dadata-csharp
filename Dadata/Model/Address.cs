@@ -10,11 +10,15 @@ namespace Dadata.Model
     {
         public string source { get; set; }
         public string result { get; set; }
+
         public string postal_code { get; set; }
         public string country { get; set; }
+        public string country_iso_code { get; set; }
+        public string federal_district { get; set; }
 
         public string region_fias_id { get; set; }
         public string region_kladr_id { get; set; }
+        public string region_iso_code { get; set; }
         public string region_with_type { get; set; }
         public string region_type { get; set; }
         public string region_type_full { get; set; }
@@ -83,6 +87,7 @@ namespace Dadata.Model
         public string fias_actuality_state { get; set; }
         public string kladr_id { get; set; }
         public string capital_marker { get; set; }
+
         public string okato { get; set; }
         public string oktmo { get; set; }
         public string tax_office { get; set; }
@@ -101,6 +106,7 @@ namespace Dadata.Model
 
         public string unparsed_parts { get; set; }
 
+        public List<string> history_values { get; set; }
         public List<Metro> metro { get; set; }
 
         public StructureType structure_type
