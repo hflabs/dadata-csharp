@@ -64,6 +64,10 @@
         <Compile Include="Dadata\Model\CleanResponseConverter.cs" />
         <Compile Include="Dadata\Model\DateMillisConverter.cs" />
         <Compile Include="Dadata\Model\DateRuConverter.cs" />
+        <Compile Include="Dadata\Model\IplocateResponse.cs" />
+        <Compile Include="Dadata\IplocateClient.cs" />
+        <Compile Include="Dadata\GeolocateClient.cs" />
+        <Compile Include="Dadata\Model\GeolocateRequest.cs" />
     </ItemGroup>
     <ItemGroup>
         <None Include="Dadata\packages.config" />

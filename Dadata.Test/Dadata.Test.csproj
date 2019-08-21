@@ -36,6 +36,8 @@
   <ItemGroup>
     <Compile Include="CleanClientTest.cs" />
     <Compile Include="SuggestClientTest.cs" />
+    <Compile Include="IplocateClientTest.cs" />
+    <Compile Include="GeolocateClientTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
