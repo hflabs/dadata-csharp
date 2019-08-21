@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dadata-csharp", "dadata-csharp.csproj", "{30BEACDE-1B2A-498A-AA8C-5C56A92EAB51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dadata", "Dadata.csproj", "{30BEACDE-1B2A-498A-AA8C-5C56A92EAB51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

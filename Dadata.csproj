@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('packages\NUnit.3.12.0\build\NUnit.props')" />
+<Project DefaultTargets="Build" ToolsVersion="4.0" 
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('packages\NUnit.3.12.0\build\NUnit.props')" />
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <ProjectGuid>{30BEACDE-1B2A-498A-AA8C-5C56A92EAB51}</ProjectGuid>
         <OutputType>Library</OutputType>
         <RootNamespace>Dadata</RootNamespace>
-        <AssemblyName>dadata-csharp</AssemblyName>
+        <AssemblyName>Dadata</AssemblyName>
         <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -27,15 +28,12 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="System" />
+        <Reference Include="System.Web" />
         <Reference Include="nunit.framework">
             <HintPath>packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
         </Reference>
-        <Reference Include="RestSharp">
-            <HintPath>packages\RestSharp.106.6.10\lib\net452\RestSharp.dll</HintPath>
-        </Reference>
-        <Reference Include="System.Web" />
         <Reference Include="Newtonsoft.Json">
-          <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+            <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
