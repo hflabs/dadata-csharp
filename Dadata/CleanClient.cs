@@ -55,14 +55,14 @@ namespace Dadata {
                 new StructureType[] { TYPE_TO_STRUCTURE[typeof(T)] }
             );
             // transform enity list to CleanRequest data structure
-            var data = new string[][] { new string[] { source } };
-            var request = new CleanRequest(structure, data);
-            var response = Clean(request);
-            return (T)response.data[0][0];
+            var data = new string[] { source };
+            var response = Clean(structure, data);
+            return (T)response[0];
         }
 
-        public CleanResponse Clean(CleanRequest request)
+        public IList<IDadataEntity> Clean(IEnumerable<StructureType> structure, IEnumerable<string> data)
         {
+            var request = new CleanRequest(structure, data);
             var httpRequest = CreateHttpRequest();
 
             // prepare serialized json request
@@ -79,7 +79,8 @@ namespace Dadata {
             using (var r = new StreamReader(httpResponse.GetResponseStream()))
             {
                 string responseText = r.ReadToEnd();
-                return JsonConvert.DeserializeObject<CleanResponse>(responseText, this.converter);
+                var response = JsonConvert.DeserializeObject<CleanResponse>(responseText, this.converter);
+                return response.data[0];
             }
         }
 

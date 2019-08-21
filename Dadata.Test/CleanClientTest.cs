@@ -75,35 +75,22 @@ namespace Dadata.Test {
 
         [Test]
         public void CleanTest() {
-            var structure = new List<StructureType>(
-                new StructureType[] { StructureType.NAME, StructureType.ADDRESS }
-            );
+            var structure = new List<StructureType> { StructureType.NAME, StructureType.ADDRESS };
+            var data = new List<string> { "Кузнецов Петр Алексеич", "Москва Милютинский 13" };
 
-            var data = new List<List<string>>(new List<string>[] {
-                new List<string>(new string[] { "Кузнецов Петр Алексеич", "Москва Милютинский 13" }),
-                new List<string>(new string[] { "Марципанова Ольга Викторовна", null }),
-                new List<string>(new string[] { "Пузин Витя", null })
-            });
+            var cleaned = api.Clean(structure, data);
+            Assert.AreEqual(cleaned.Count, 2);
 
-            var request = new CleanRequest(structure, data);
-            var cleanedRecords = api.Clean(request).data;
-            Assert.AreEqual(cleanedRecords.Count, 3, 
-                String.Format("Expected 3 records, but got {0}", cleanedRecords.Count));
+            Assert.IsInstanceOf<Fullname>(cleaned[0], "Expected [0] entity to be a Fullname");
+            var firstName = (Fullname)cleaned[0];
+            Assert.AreEqual(firstName.name, "Петр");
+            Assert.AreEqual(firstName.patronymic, "Алексеевич");
+            Assert.AreEqual(firstName.surname, "Кузнецов");
 
-            Assert.IsInstanceOf<Fullname>(cleanedRecords[0][0], "Expected [0,0] entity to be a Name");
-            var firstName = (Fullname)cleanedRecords[0][0];
-            Assert.AreEqual(firstName.name, "Петр", 
-                String.Format("Expected name 'Петр', but got {0}", firstName.name));
-            Assert.AreEqual(firstName.patronymic, "Алексеевич", 
-                String.Format("Expected patronymic 'Алексеевич', but got {0}", firstName.patronymic));
-            Assert.AreEqual(firstName.surname, "Кузнецов", 
-                String.Format("Expected surname 'Кузнецов', but got {0}", firstName.surname));
-
-            Assert.IsInstanceOf<Address>(cleanedRecords[0][1], "Expected [0,1] entity to be an Address");
-            var firstAddress = (Address)cleanedRecords[0][1];
-            Assert.AreEqual(firstAddress.kladr_id, "77000000000717100", 
-                String.Format("Expected kladr id '77000000000717100', but got {0}", firstAddress.kladr_id));
-            Assert.AreEqual(firstAddress.metro[0].name, "Сретенский бульвар");
+            Assert.IsInstanceOf<Address>(cleaned[1], "Expected [1] entity to be an Address");
+            var address = (Address)cleaned[1];
+            Assert.AreEqual(address.kladr_id, "77000000000717100");
+            Assert.AreEqual(address.metro[0].name, "Сретенский бульвар");
         }
     }
 }

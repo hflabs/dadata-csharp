@@ -8,13 +8,13 @@ namespace Dadata.Model
     /// </summary>
     public class CleanRequest
     {
-        public IEnumerable<StructureType> structure { get; set; }
-        public IEnumerable<IEnumerable<string>> data { get; set; }
+        public IEnumerable<StructureType> structure { get; }
+        public IEnumerable<IEnumerable<string>> data { get; }
 
-        public CleanRequest(IEnumerable<StructureType> structure, IEnumerable<IEnumerable<string>> data)
+        public CleanRequest(IEnumerable<StructureType> structure, IEnumerable<string> data)
         {
             this.structure = structure;
-            this.data = data;
+            this.data = new List<IEnumerable<string>> { data };
         }
 
         public override string ToString()
