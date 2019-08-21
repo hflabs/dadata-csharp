@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Dadata.Model;
 
 namespace Dadata {
 
@@ -11,48 +12,49 @@ namespace Dadata {
 
         [SetUp]
         public void SetUp() {
-            this.api = new CleanClient(token: "YOUR_API_KEY", secret: "YOUR_SECRET_KEY");
-            this.api = new CleanClient(token: "b0ad5e1f0a72a2926377024494293f473db2fe08", secret: "2a316e5f8814764e52343d8e05b1ec521bd8e236");
+            var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
+            var secret = Environment.GetEnvironmentVariable("DADATA_SECRET_KEY");
+            this.api = new CleanClient(token, secret);
         }
 
         [Test]
         public void CleanAsIsTest() {
-            DoCleanGeneric<AsIsData>(new string[] { "Раз", "Два", "Три" });
+            DoCleanGeneric<AsIs>(new string[] { "Раз", "Два", "Три" });
         }
 
         [Test]
         public void CleanAddressTest() {
-            DoCleanGeneric<AddressData>(new string[] { "Москва Милютинский 13", "Питер Восстания 1" });
+            DoCleanGeneric<Address>(new string[] { "Москва Милютинский 13", "Питер Восстания 1" });
         }
 
         [Test]
         public void CleanBirthdateTest() {
-            DoCleanGeneric<BirthdateData>(new string[] { "12.03.1990", "25.12.1980" });
+            DoCleanGeneric<Birthdate>(new string[] { "12.03.1990", "25.12.1980" });
         }
 
         [Test]
         public void CleanEmailTest() {
-            DoCleanGeneric<EmailData>(new string[] { "mr@matrix.net", "anderson@matrix.ru" });
+            DoCleanGeneric<Email>(new string[] { "mr@matrix.net", "anderson@matrix.ru" });
         }
 
         [Test]
         public void CleanNameTest() {
-            DoCleanGeneric<NameData>(new string[] { "Леша Вязов", "Ольга Викторовна Раздербань" });
+            DoCleanGeneric<Fullname>(new string[] { "Леша Вязов", "Ольга Викторовна Раздербань" });
         }
 
         [Test]
         public void CleanPhoneTest() {
-            DoCleanGeneric<PhoneData>(new string[] { "495 245 23-34", "89168459285" });
+            DoCleanGeneric<Phone>(new string[] { "495 245 23-34", "89168459285" });
         }
         
         [Test]
         public void CleanPassportTest() {
-            DoCleanGeneric<PassportData>(new string[] { "4509 235857", "4506 629672" });
+            DoCleanGeneric<Passport>(new string[] { "4509 235857", "4506 629672" });
         }
         
         [Test]
         public void CleanVehicleTest() {
-            DoCleanGeneric<VehicleData>(new string[] { "форд фокус", "citroen c3" });
+            DoCleanGeneric<Vehicle>(new string[] { "форд фокус", "citroen c3" });
         }
 
         [Test]
@@ -72,8 +74,8 @@ namespace Dadata {
             Assert.AreEqual(cleanedRecords.Count, 3, 
                 String.Format("Expected 3 records, but got {0}", cleanedRecords.Count));
 
-            Assert.IsInstanceOf<NameData>(cleanedRecords[0][0], "Expected [0,0] entity to be a Name");
-            var firstName = (NameData)cleanedRecords[0][0];
+            Assert.IsInstanceOf<Fullname>(cleanedRecords[0][0], "Expected [0,0] entity to be a Name");
+            var firstName = (Fullname)cleanedRecords[0][0];
             Assert.AreEqual(firstName.name, "Петр", 
                 String.Format("Expected name 'Петр', but got {0}", firstName.name));
             Assert.AreEqual(firstName.patronymic, "Алексеевич", 
@@ -81,8 +83,8 @@ namespace Dadata {
             Assert.AreEqual(firstName.surname, "Кузнецов", 
                 String.Format("Expected surname 'Кузнецов', but got {0}", firstName.surname));
 
-            Assert.IsInstanceOf<AddressData>(cleanedRecords[0][1], "Expected [0,1] entity to be an Address");
-            var firstAddress = (AddressData)cleanedRecords[0][1];
+            Assert.IsInstanceOf<Address>(cleanedRecords[0][1], "Expected [0,1] entity to be an Address");
+            var firstAddress = (Address)cleanedRecords[0][1];
             Assert.AreEqual(firstAddress.kladr_id, "77000000000717100", 
                 String.Format("Expected kladr id '77000000000717100', but got {0}", firstAddress.kladr_id));
             Assert.AreEqual(firstAddress.metro[0].name, "Сретенский бульвар");

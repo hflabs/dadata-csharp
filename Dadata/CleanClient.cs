@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Dadata.Model;
 
 namespace Dadata {
 
@@ -22,14 +23,14 @@ namespace Dadata {
 
         // maps concrete IDadataEntity types to corresponding structure types
         static Dictionary<Type, StructureType> TYPE_TO_STRUCTURE = new Dictionary<Type, StructureType>() {
-            { typeof(AddressData),      StructureType.ADDRESS },
-            { typeof(AsIsData),         StructureType.AS_IS },
-            { typeof(BirthdateData),    StructureType.BIRTHDATE },
-            { typeof(EmailData),        StructureType.EMAIL },
-            { typeof(NameData),         StructureType.NAME },
-            { typeof(PassportData),     StructureType.PASSPORT },
-            { typeof(PhoneData),        StructureType.PHONE },
-            { typeof(VehicleData),      StructureType.VEHICLE }
+            { typeof(Address), StructureType.ADDRESS },
+            { typeof(AsIs), StructureType.AS_IS },
+            { typeof(Birthdate), StructureType.BIRTHDATE },
+            { typeof(Email), StructureType.EMAIL },
+            { typeof(Fullname), StructureType.NAME },
+            { typeof(Passport), StructureType.PASSPORT },
+            { typeof(Phone), StructureType.PHONE },
+            { typeof(Vehicle), StructureType.VEHICLE }
         };
 
         static CleanClient() {

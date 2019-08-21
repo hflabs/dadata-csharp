@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using Dadata.Model;
 
 namespace Dadata {
 
@@ -60,23 +61,23 @@ namespace Dadata {
         private IDadataEntity CreateEntity(StructureType type) {
             switch (type) {
             case StructureType.ADDRESS:
-                return new AddressData();
+                return new Address();
             case StructureType.AS_IS:
-                return new AsIsData();
+                return new AsIs();
             case StructureType.BIRTHDATE:
-                return new BirthdateData();
+                return new Birthdate();
             case StructureType.EMAIL:
-                return new EmailData();
+                return new Email();
             case StructureType.NAME:
-                return new NameData();
+                return new Fullname();
             case StructureType.PASSPORT:
-                return new PassportData();
+                return new Passport();
             case StructureType.PHONE:
-                return new PhoneData();
+                return new Phone();
             case StructureType.VEHICLE:
-                return new VehicleData();
+                return new Vehicle();
             default:
-                return new AsIsData();
+                return new AsIs();
             }
         }
     }

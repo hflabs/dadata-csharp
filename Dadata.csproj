@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" 
-    xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Project="packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('packages\NUnit.3.12.0\build\NUnit.props')" />
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -40,12 +39,26 @@
         <Compile Include="Dadata\CleanClient.cs" />
         <Compile Include="Dadata\CleanResponseConverter.cs" />
         <Compile Include="Dadata\CleanClientTest.cs" />
-        <Compile Include="Dadata\DadataModel.cs" />
+        <Compile Include="Dadata\Model\Address.cs" />
+        <Compile Include="Dadata\Model\IDadataEntity.cs" />
+        <Compile Include="Dadata\Model\AsIs.cs" />
+        <Compile Include="Dadata\Model\Birthdate.cs" />
+        <Compile Include="Dadata\Model\Email.cs" />
+        <Compile Include="Dadata\Model\Fullname.cs" />
+        <Compile Include="Dadata\Model\Phone.cs" />
+        <Compile Include="Dadata\Model\Passport.cs" />
+        <Compile Include="Dadata\Model\Vehicle.cs" />
+        <Compile Include="Dadata\Model\StructureType.cs" />
+        <Compile Include="Dadata\Model\CleanRequest.cs" />
+        <Compile Include="Dadata\Model\CleanResponse.cs" />
     </ItemGroup>
     <ItemGroup>
         <None Include="packages.config" />
         <None Include="LICENSE" />
         <None Include="README.md" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Dadata\Model\" />
     </ItemGroup>
     <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
