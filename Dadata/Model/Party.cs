@@ -67,7 +67,7 @@ namespace Dadata.Model
     public class PartyCapital
     {
         public string type { get; set; }
-        public decimal value { get; set; }
+        public decimal? value { get; set; }
     }
 
     public class PartyCitizenship
@@ -108,11 +108,11 @@ namespace Dadata.Model
 
     public class PartyFinance
     {
-        public PartyTaxSystem tax_system { get; set; }
-        public Decimal income { get; set; }
-        public Decimal expense { get; set; }
-        public Decimal debt { get; set; }
-        public Decimal penalty { get; set; }
+        public PartyTaxSystem? tax_system { get; set; }
+        public decimal? income { get; set; }
+        public decimal? expense { get; set; }
+        public decimal? debt { get; set; }
+        public decimal? penalty { get; set; }
     }
 
     public class PartyFounder
@@ -120,7 +120,7 @@ namespace Dadata.Model
         public string ogrn { get; set; }
         public string inn { get; set; }
         public string name { get; set; }
-        public string fio { get; set; }
+        public Fullname fio { get; set; }
         public string hid { get; set; }
         public PartyFounderType type { get; set; }
     }
@@ -161,7 +161,7 @@ namespace Dadata.Model
         public string ogrn { get; set; }
         public string inn { get; set; }
         public string name { get; set; }
-        public string fio { get; set; }
+        public Fullname fio { get; set; }
         public string post { get; set; }
         public string hid { get; set; }
         public string type { get; set; }

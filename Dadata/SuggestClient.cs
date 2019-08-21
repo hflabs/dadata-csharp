@@ -39,6 +39,12 @@ namespace Dadata
             return SuggestAddress(request);
         }
 
+        public SuggestResponse<Address> FindByIdAddress(string query)
+        {
+            var request = new SuggestRequest(query);
+            return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.FindById, entity: SuggestionsEntity.Address, request: request);
+        }
+
         public SuggestResponse<Address> SuggestAddress(SuggestAddressRequest request)
         {
             return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Address, request: request);
@@ -48,6 +54,12 @@ namespace Dadata
         {
             var request = new SuggestBankRequest(query, count);
             return SuggestBank(request);
+        }
+
+        public SuggestResponse<Bank> FindByIdBank(string query)
+        {
+            var request = new SuggestRequest(query);
+            return Execute<SuggestResponse<Bank>>(method: SuggestionsMethod.FindById, entity: SuggestionsEntity.Bank, request: request);
         }
 
         public SuggestResponse<Bank> SuggestBank(SuggestBankRequest request)
@@ -81,6 +93,12 @@ namespace Dadata
         {
             var request = new SuggestPartyRequest(query, count);
             return SuggestParty(request);
+        }
+
+        public SuggestResponse<Party> FindByIdParty(string query)
+        {
+            var request = new SuggestRequest(query);
+            return Execute<SuggestResponse<Party>>(method: SuggestionsMethod.FindById, entity: SuggestionsEntity.Party, request: request);
         }
 
         public SuggestResponse<Party> SuggestParty(SuggestPartyRequest request)

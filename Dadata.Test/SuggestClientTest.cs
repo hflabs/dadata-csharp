@@ -89,6 +89,15 @@ namespace Dadata.Test
         }
 
         [Test]
+        public void FindByIdAddressTest()
+        {
+            var response = api.FindByIdAddress("95dbf7fb-0dd4-4a04-8100-4f6c847564b5");
+            var address = response.suggestions[0].data;
+            Assert.AreEqual(address.city, "Москва");
+            Assert.AreEqual(address.street, "Сухонская");
+        }
+
+        [Test]
         public void SuggestBankTypeTest()
         {
             var query = new SuggestBankRequest("я");
@@ -97,6 +106,14 @@ namespace Dadata.Test
             Assert.AreEqual("044525444", response.suggestions[0].data.bic);
             Assert.AreEqual(new DateTime(2012, 08, 02), response.suggestions[0].data.state.registration_date);
             Console.WriteLine(string.Join("\n", response.suggestions));
+        }
+
+        [Test]
+        public void FindByIdBankTest()
+        {
+            var response = api.FindByIdBank("044525974");
+            var bank = response.suggestions[0].data;
+            Assert.AreEqual(bank.swift, "TICSRUMMXXX");
         }
 
         [Test]
@@ -159,6 +176,14 @@ namespace Dadata.Test
             var response = api.SuggestParty(query);
             Assert.AreEqual("773165008890", response.suggestions[0].data.inn);
             Console.WriteLine(string.Join("\n", response.suggestions));
+        }
+
+        [Test]
+        public void FindByIdPartyTest()
+        {
+            var response = api.FindByIdParty("7719402047");
+            var party = response.suggestions[0].data;
+            Assert.AreEqual(party.name.@short, "МОТОРИКА");
         }
     }
 }
