@@ -11,8 +11,8 @@ namespace Dadata {
 
         [SetUp]
         public void SetUp() {
-            //this.api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "REPLACE_WITH_YOUR_SECRET_KEY", "dadata.ru", "https");
-            this.api = new CleanClient("b0ad5e1f0a72a2926377024494293f473db2fe08", "2a316e5f8814764e52343d8e05b1ec521bd8e236", "dadata.ru", "https");
+            this.api = new CleanClient(token: "YOUR_API_KEY", secret: "YOUR_SECRET_KEY");
+            this.api = new CleanClient(token: "b0ad5e1f0a72a2926377024494293f473db2fe08", secret: "2a316e5f8814764e52343d8e05b1ec521bd8e236");
         }
 
         [Test]

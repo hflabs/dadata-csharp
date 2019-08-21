@@ -8,11 +8,11 @@ using Newtonsoft.Json.Converters;
 namespace Dadata {
 
     /// <summary>
-    /// Interacts with DaData clean API (https://dadata.ru/api/clean/)
+    /// DaData Clean API (https://dadata.ru/api/clean/)
     /// </summary>
     public class CleanClient {
     
-        const string CLEAN_URL = "{0}://{1}/api/v2/clean";
+        const string BASE_URL= "https://dadata.ru/api/v2/clean";
 
         string token;
         string secret;
@@ -37,26 +37,15 @@ namespace Dadata {
         }
 
         /// <summary>
-        /// Creates an instance to interact with DaData clean API (https://dadata.ru/api/clean/).
-        /// </summary>
-        /// <param name="token">API key.</param>
-        /// <param name="hostname">DaData server hostname.</param>
-        /// <param name="protocol">HTTP protocol (http or https, defaut http).</param>
-        public CleanClient(string token, string hostname, string protocol = "http") : 
-            this(token, null, hostname, protocol) {
-        }
-            
-        /// <summary>
-        /// Creates an instance to interact with DaData clean API (https://dadata.ru/api/clean/).
+        /// Creates an instance to interact with DaData Clean API.
         /// </summary>
         /// <param name="token">API key.</param>
         /// <param name="secret">API secret.</param>
-        /// <param name="hostname">DaData server hostname.</param>
-        /// <param name="protocol">HTTP protocol (http or https, defaut http).</param>
-        public CleanClient(string token, string secret, string hostname, string protocol = "http") {
+        /// <param name="baseUrl">API base URL.</param>
+        public CleanClient(string token, string secret, string baseUrl=BASE_URL) {
             this.token = token;
             this.secret = secret;
-            this.url = String.Format(CLEAN_URL, protocol, hostname);
+            this.url = baseUrl;
             // all response data entities look the same (IDadataEntity), 
             // need to manually convert them to specific types (address, phone etc)
             this.converter = new CleanResponseConverter();
