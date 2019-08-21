@@ -68,6 +68,7 @@
         <Compile Include="Model\IDadataRequest.cs" />
         <Compile Include="Model\IDadataResponse.cs" />
         <Compile Include="ClientBase.cs" />
+        <Compile Include="Model\FindByIdPartyRequest.cs" />
     </ItemGroup>
     <ItemGroup>
         <Folder Include="Model\" />

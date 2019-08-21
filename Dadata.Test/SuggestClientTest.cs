@@ -184,5 +184,14 @@ namespace Dadata.Test
             var party = response.suggestions[0].data;
             Assert.AreEqual(party.name.@short, "МОТОРИКА");
         }
+
+        [Test]
+        public void FindByIdPartyWithKppTest()
+        {
+            var request = new FindByIdPartyRequest(query: "7728168971", kpp: "667102002");
+            var response = api.FindByIdParty(request);
+            var party = response.suggestions[0].data;
+            Assert.AreEqual(party.name.short_with_opf, "ФИЛИАЛ \"ЕКАТЕРИНБУРГСКИЙ\" АО \"АЛЬФА-БАНК\"");
+        }
     }
 }

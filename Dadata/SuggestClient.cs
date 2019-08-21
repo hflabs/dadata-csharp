@@ -81,7 +81,12 @@ namespace Dadata
 
         public SuggestResponse<Party> FindByIdParty(string query)
         {
-            var request = new SuggestRequest(query);
+            var request = new FindByIdPartyRequest(query);
+            return FindByIdParty(request);
+        }
+
+        public SuggestResponse<Party> FindByIdParty(FindByIdPartyRequest request)
+        {
             return Execute<SuggestResponse<Party>>(method: SuggestionsMethod.FindById, entity: SuggestionsEntity.Party, request: request);
         }
 

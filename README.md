@@ -4,9 +4,7 @@ API DaData.ru для C# / .NET
 Описание
 ---------------
 
-Библиотека `dadata-csharp` — это обертка над [API стандартизации](https://dadata.ru/api/clean/) DaData.ru для C# и других .NET-языков.
-
-![Стандартизация](doc/api-clean.png)
+Библиотека `dadata-csharp` — это обертка над [API «Дадаты»](https://dadata.ru/api/) для C# и других .NET-языков.
 
 Установка
 ---------
@@ -18,8 +16,6 @@ API DaData.ru для C# / .NET
 Внешние зависимости:
 
 - [JSON.NET](http://james.newtonking.com/json)
-- [NUnit](http://www.nunit.org/) (для тестов)
-
 
 ### 2. Получите API-ключи
 
@@ -27,57 +23,195 @@ API DaData.ru для C# / .NET
 
 ### 3. Пользуйтесь API!
 
-Примеры вызова API смотрите в юнит-тестах (`CleanClientTest`) или ниже по тексту.
+Примеры вызова API смотрите [в юнит-тестах](https://github.com/hflabs/dadata-csharp/blob/master/Dadata.Test) или ниже по тексту.
 
 Использование
 ---------
 
-Поддерживается обработка следующих типов данных:
-
-- ФИО
-- Паспорт
-- Почтовые адреса
-- Телефоны
-- Email
-- Даты
-- Автомобили
-
-Если вы обрабатываете однотипные данные (например, только адреса), то удобно воспользоваться методом `CleanClient.Clean<T>(IEnumerable<string> inputs)`:
+Прежде всего, подключите пространства имён:
 
 ```csharp
-var api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "REPLACE_WITH_YOUR_SECRET_KEY", "dadata.ru", "https");
-var inputs = new string[] { "Москва Милютинский 13", "Питер Восстания 1" };
-var cleaned = api.Clean<AddressData>(inputs);
-foreach (AddressData entity in cleaned) {
-    Console.WriteLine(entity);
-}
+using Dadata;
+using Dadata.Model;
 ```
 
-Если вы хотите получать поля объекта (например, kladr_id), используйте метод так:
+### [API стандартизации](https://dadata.ru/api/clean/)
+
+Создайте апи-клиента:
 
 ```csharp
-var api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "REPLACE_WITH_YOUR_SECRET_KEY", "dadata.ru", "https");
-var inputs = new string[] { "Москва Милютинский 13", "Питер Восстания 1" };
-var cleaned = api.Clean<AddressData>(inputs);
-foreach (AddressData address in cleaned) {
-    Console.WriteLine(address.kladr_id);
-}
+var token = "ВАШ_API_КЛЮЧ";
+var secret = "ВАШ_СЕКРЕТНЫЙ_КЛЮЧ";
+var api = new CleanClient(token, secret);
 ```
 
-Если вы обрабатываете записи, каждая из которых содержит данные нескольких типов (например, ФИО и телефоны), то больше подойдет метод `CleanClient.Clean(CleanRequest request)`:
+И используйте для обработки интересных вам типов данных:
 
 ```csharp
-var api = new CleanClient("REPLACE_WITH_YOUR_API_KEY", "REPLACE_WITH_YOUR_SECRET_KEY", "dadata.ru", "https");
-var structure = new List<StructureType>(
-    new StructureType[] { StructureType.NAME, StructureType.PHONE }
-);
+var address = api.Clean<Address>("Москва Милютинский 13");
+var birthdate = api.Clean<Birthdate>("12.03.1990");
+var email = api.Clean<Email>("anderson@matrix.ru");
+var fullname = api.Clean<Fullname>("Ольга Викторовна Раздербань");
+var phone = api.Clean<Phone>("89168459285");
+var passport = api.Clean<Passport>("4506 629672");
+var vehicle = api.Clean<Vehicle>("форд фокус");
+```
 
-var data = new List<List<string>>(new List<string>[] {
-    new List<string>(new string[] { "Кузнецов Петр Алексеич", "8916 82345.34" }),
-    new List<string>(new string[] { "Марципанова Ольга Викторовна", null }),
-    new List<string>(new string[] { "Пузин Витя", null })
-});
+Можно за один раз обработать запись из нескольких полей (например, ФИО + адрес + телефон):
 
-var request = new CleanRequest(structure, data);
-var cleanedRecords = api.Clean(request).data;
+```csharp
+var structure = new List<StructureType> { StructureType.NAME, StructureType.ADDRESS, StructureType.PHONE };
+var data = new List<string> { "Кузнецов Петр Алексеич", "Москва Милютинский 13", "846)231.60.14" };
+var cleaned = api.Clean(structure, data);
+var fullname = (Fullname)cleaned[0];
+var address = (Fullname)cleaned[1];
+var phone = (Fullname)cleaned[2];
+```
+
+### [API подсказок](https://dadata.ru/api/suggest/)
+
+Создайте апи-клиента:
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new SuggestClient(token);
+```
+
+И используйте для обработки интересных вам типов данных.
+
+Например, компаний:
+
+```csharp
+var response = api.SuggestParty("моторика сколково");
+var party = response.suggestions[0];
+```
+
+```csharp
+var request = new SuggestPartyRequest("витас");
+request.type = PartyType.INDIVIDUAL;
+var response = api.SuggestParty(request);
+var party = response.suggestions[0];
+```
+
+Или банков:
+
+```csharp
+var response = api.SuggestBank("тинь");
+var bank = response.suggestions[0].data;
+```
+
+```csharp
+var request = new SuggestBankRequest("я");
+request.type = new BankType[] { BankType.NKO };
+var response = api.SuggestBank(request);
+var bank = response.suggestions[0].data;
+```
+
+### [Адрес по координатам](https://dadata.ru/api/geolocate/)
+
+Создайте апи-клиента:
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new GeolocateClient(token);
+```
+
+И получите список ближайших адресов по заданным координатам:
+
+```csharp
+var response = api.Geolocate(lat: 55.7366021, lon: 37.597643);
+var address = response.suggestions[0].data;
+```
+
+### [Адрес по коду КЛАДР или ФИАС](https://dadata.ru/api/find-address/)
+
+Создайте апи-клиента:
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new SuggestClient(token);
+```
+
+И получите адрес по КЛАДР- или ФИАС-коду:
+
+```csharp
+var response = api.FindByIdAddress("7700000000000");
+var address = response.suggestions[0].data;
+```
+
+```csharp
+var response = api.FindByIdAddress("95dbf7fb-0dd4-4a04-8100-4f6c847564b5");
+var address = response.suggestions[0].data;
+```
+
+### [Город по IP-адресу](https://dadata.ru/api/iplocate/)
+
+Создайте апи-клиента:
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new IplocateClient(token);
+```
+
+И получите город по IP-адресу:
+
+```csharp
+var response = api.Iplocate("213.180.193.3");
+var address = response.location.data;
+```
+
+### [Организация по ИНН или ОГРН](https://dadata.ru/api/find-party/)
+
+Создайте апи-клиента:
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new SuggestClient(token);
+```
+
+И получите компанию по ИНН или ОГРН:
+
+```csharp
+var response = api.FindByIdParty("7719402047");
+var party = response.suggestions[0].data;
+```
+
+```csharp
+var response = api.FindByIdParty("1157746078984");
+var party = response.suggestions[0].data;
+```
+
+```csharp
+var request = new FindByIdPartyRequest(query: "7728168971", kpp: "667102002");
+var response = api.FindByIdParty(request);
+var party = response.suggestions[0].data;
+```
+
+### [Банк по БИК, SWIFT или рег. номеру](https://dadata.ru/api/find-bank/)
+
+Создайте апи-клиента:
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new SuggestClient(token);
+```
+
+И получите банк по идентификатору:
+
+```csharp
+// БИК
+var response = api.FindByIdBank("044525974");
+var bank = response.suggestions[0].data;
+```
+
+```csharp
+// SWIFT
+var response = api.FindByIdBank("TICSRUMMXXX");
+var bank = response.suggestions[0].data;
+```
+
+```csharp
+// Рег. номер
+var response = api.FindByIdBank("2673");
+var bank = response.suggestions[0].data;
 ```
