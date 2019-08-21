@@ -2,7 +2,7 @@
 
 namespace Dadata.Model
 {
-    public class IplocateResponse
+    public class IplocateResponse : IDadataResponse
     {
         public Suggestion<Address> location;
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Dadata.Model
 {
-    public class GeolocateRequest
+    public class GeolocateRequest : IDadataRequest
     {
         public double lat { get; set; }
         public double lon { get; set; }

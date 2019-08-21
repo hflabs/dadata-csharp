@@ -6,7 +6,7 @@ namespace Dadata.Model
     /// <summary>
     /// Clean request.
     /// </summary>
-    public class CleanRequest
+    public class CleanRequest : IDadataRequest
     {
         public IEnumerable<StructureType> structure { get; }
         public IEnumerable<IEnumerable<string>> data { get; }

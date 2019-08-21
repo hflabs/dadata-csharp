@@ -6,7 +6,7 @@ namespace Dadata.Model
     /// <summary>
     /// Clean response.
     /// </summary>
-    public class CleanResponse
+    public class CleanResponse : IDadataResponse
     {
         public IList<StructureType> structure { get; set; }
         public IList<IList<IDadataEntity>> data { get; set; }

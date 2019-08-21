@@ -68,6 +68,9 @@
         <Compile Include="Dadata\IplocateClient.cs" />
         <Compile Include="Dadata\GeolocateClient.cs" />
         <Compile Include="Dadata\Model\GeolocateRequest.cs" />
+        <Compile Include="Dadata\Model\IDadataRequest.cs" />
+        <Compile Include="Dadata\Model\IDadataResponse.cs" />
+        <Compile Include="Dadata\ClientBase.cs" />
     </ItemGroup>
     <ItemGroup>
         <None Include="Dadata\packages.config" />

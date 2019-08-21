@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Dadata.Model
 {
-    public class SuggestRequest
+    public class SuggestRequest : IDadataRequest
     {
         public string query { get; set; }
         public int count { get; set; }

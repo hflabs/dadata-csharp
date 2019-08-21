@@ -11,15 +11,13 @@ namespace Dadata {
     /// <summary>
     /// DaData Clean API (https://dadata.ru/api/clean/)
     /// </summary>
-    public class CleanClient {
+    public class CleanClient : ClientBase
+    {
     
         const string BASE_URL= "https://dadata.ru/api/v2/clean";
 
-        string token;
         string secret;
-        string url;
         CustomCreationConverter<IDadataEntity> converter;
-        JsonSerializer serializer;
 
         // maps concrete IDadataEntity types to corresponding structure types
         static Dictionary<Type, StructureType> TYPE_TO_STRUCTURE = new Dictionary<Type, StructureType>() {
@@ -33,18 +31,13 @@ namespace Dadata {
             { typeof(Vehicle), StructureType.VEHICLE }
         };
 
-        static CleanClient() {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
-        }
 
-        public CleanClient(string token, string secret, string baseUrl=BASE_URL) {
-            this.token = token;
+        public CleanClient(string token, string secret, string baseUrl=BASE_URL) : base(token, baseUrl)
+        {
             this.secret = secret;
-            this.url = baseUrl;
             // all response data entities look the same (IDadataEntity), 
             // need to manually convert them to specific types (address, phone etc)
             this.converter = new CleanResponseConverter();
-            this.serializer = new JsonSerializer();
             // need to serialize StructureType as string, not int
             serializer.Converters.Add(new StringEnumConverter());
         }
@@ -64,35 +57,28 @@ namespace Dadata {
         {
             var request = new CleanRequest(structure, data);
             var httpRequest = CreateHttpRequest();
-
-            // prepare serialized json request
-            using (var w = new StreamWriter(httpRequest.GetRequestStream()))
-            {
-                using (JsonWriter writer = new JsonTextWriter(w))
-                {
-                    this.serializer.Serialize(writer, request);
-                }
-            }
-
-            // get response and de-serialize it to typed records
+            httpRequest = Serialize(httpRequest, request);
             var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
-            using (var r = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                string responseText = r.ReadToEnd();
-                var response = JsonConvert.DeserializeObject<CleanResponse>(responseText, this.converter);
-                return response.data[0];
-            }
+            var response = Deserialize<CleanResponse>(httpResponse);
+            return response.data[0];
         }
 
-        private HttpWebRequest CreateHttpRequest() {
-            var request = (HttpWebRequest) WebRequest.Create(this.url);
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            request.Headers.Add("Authorization", "Token " + this.token);
-            if (this.secret != null) {
+        protected HttpWebRequest CreateHttpRequest()
+        {
+            var request = base.CreateHttpRequest(verb: "POST", url: baseUrl);
+            if (secret != null) {
                 request.Headers.Add("X-Secret", this.secret);
             }
             return request;
+        }
+
+        protected override T Deserialize<T>(HttpWebResponse httpResponse)
+        {
+            using (var r = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                string responseText = r.ReadToEnd();
+                return JsonConvert.DeserializeObject<T>(responseText, this.converter);
+            }
         }
 
     }
