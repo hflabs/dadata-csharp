@@ -19,43 +19,58 @@ namespace Dadata.Test {
 
         [Test]
         public void CleanAsIsTest() {
-            DoCleanGeneric<AsIs>(new string[] { "Раз", "Два", "Три" });
+            var cleaned = api.Clean<AsIs>("Омномном");
+            Assert.AreEqual(cleaned.source, "Омномном");
         }
 
         [Test]
         public void CleanAddressTest() {
-            DoCleanGeneric<Address>(new string[] { "Москва Милютинский 13", "Питер Восстания 1" });
+            var cleaned = api.Clean<Address>("Москва Милютинский 13");
+            Assert.AreEqual(cleaned.street, "Милютинский");
+            Assert.AreEqual(cleaned.qc, "0");
         }
 
         [Test]
         public void CleanBirthdateTest() {
-            var response = api.Clean<Birthdate>(new string[] { "12.03.1990" });
-            Assert.AreEqual(response[0].birthdate, new DateTime(1990, 3, 12));
+            var cleaned = api.Clean<Birthdate>("12.03.1990");
+            Assert.AreEqual(cleaned.birthdate, new DateTime(1990, 3, 12));
+            Assert.AreEqual(cleaned.qc, "0");
         }
 
         [Test]
         public void CleanEmailTest() {
-            DoCleanGeneric<Email>(new string[] { "mr@matrix.net", "anderson@matrix.ru" });
+            var cleaned = api.Clean<Email>("anderson@matrix.ru");
+            Assert.AreEqual(cleaned.email, "anderson@matrix.ru");
+            Assert.AreEqual(cleaned.qc, "0");
+
         }
 
         [Test]
         public void CleanNameTest() {
-            DoCleanGeneric<Fullname>(new string[] { "Леша Вязов", "Ольга Викторовна Раздербань" });
+            var cleaned = api.Clean<Fullname>("Ольга Викторовна Раздербань");
+            Assert.AreEqual(cleaned.name, "Ольга");
+            Assert.AreEqual(cleaned.qc, "0");
         }
 
         [Test]
         public void CleanPhoneTest() {
-            DoCleanGeneric<Phone>(new string[] { "495 245 23-34", "89168459285" });
+            var cleaned = api.Clean<Phone>("89168459285");
+            Assert.AreEqual(cleaned.number, "8459285");
+            Assert.AreEqual(cleaned.qc, "0");
         }
         
         [Test]
         public void CleanPassportTest() {
-            DoCleanGeneric<Passport>(new string[] { "4509 235857", "4506 629672" });
+            var cleaned = api.Clean<Passport>("4506 629672");
+            Assert.AreEqual(cleaned.series, "45 06");
+            Assert.AreEqual(cleaned.qc, "10");
         }
         
         [Test]
         public void CleanVehicleTest() {
-            DoCleanGeneric<Vehicle>(new string[] { "форд фокус", "citroen c3" });
+            var cleaned = api.Clean<Vehicle>("форд фокус");
+            Assert.AreEqual(cleaned.brand, "FORD");
+            Assert.AreEqual(cleaned.qc, "0");
         }
 
         [Test]
@@ -89,17 +104,6 @@ namespace Dadata.Test {
             Assert.AreEqual(firstAddress.kladr_id, "77000000000717100", 
                 String.Format("Expected kladr id '77000000000717100', but got {0}", firstAddress.kladr_id));
             Assert.AreEqual(firstAddress.metro[0].name, "Сретенский бульвар");
-        }
-
-        private void DoCleanGeneric<T>(string[] inputs) where T : IDadataEntity  {
-            var cleaned = api.Clean<T>(inputs);
-            var idx = 0;
-            foreach (T entity in cleaned) {
-                Console.WriteLine(entity.ToString());
-                Assert.That(entity.ToString().Contains(inputs[idx]), 
-                    String.Format("Expected {0} to be in {1}", inputs[idx], cleaned));
-                idx++;
-            }
         }
     }
 }

@@ -37,12 +37,6 @@ namespace Dadata {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
         }
 
-        /// <summary>
-        /// Creates an instance to interact with DaData Clean API.
-        /// </summary>
-        /// <param name="token">API key.</param>
-        /// <param name="secret">API secret.</param>
-        /// <param name="baseUrl">API base URL.</param>
         public CleanClient(string token, string secret, string baseUrl=BASE_URL) {
             this.token = token;
             this.secret = secret;
@@ -55,57 +49,40 @@ namespace Dadata {
             serializer.Converters.Add(new StringEnumConverter());
         }
 
-        /// <summary>
-        /// Clean records via DaData.ru.
-        /// </summary>
-        /// <param name="request">Clean request.</param>
-        public CleanResponse Clean(CleanRequest request) {
-            var httpRequest = CreateHttpRequest();
-
-            // prepare serialized json request
-            using (var w = new StreamWriter(httpRequest.GetRequestStream())) {
-                using (JsonWriter writer = new JsonTextWriter(w)) {
-                    this.serializer.Serialize(writer, request);
-                }
-            }
-
-            // get response and de-serialize it to typed records
-            var httpResponse = (HttpWebResponse) httpRequest.GetResponse();
-            using (var r = new StreamReader(httpResponse.GetResponseStream())) {
-                string responseText = r.ReadToEnd();
-                return JsonConvert.DeserializeObject<CleanResponse>(responseText, this.converter);
-            }
-        }
-
-        /// <summary>
-        /// Clean entities of specified type via DaData.ru.
-        /// </summary>
-        /// <param name="inputs">Input data as array of raw strings (addresses, phones etc).</param>
-        /// <typeparam name="T">Target entity type as supported by DaData (IDadataEntity subtypes — AddressData, PhoneData etc).</typeparam>
-        public IList<T> Clean<T>(IEnumerable<string> inputs) where T : IDadataEntity {
+        public T Clean<T>(string source) where T : IDadataEntity {
             // infer structure from target entity type
             var structure = new List<StructureType>(
                 new StructureType[] { TYPE_TO_STRUCTURE[typeof(T)] }
             );
             // transform enity list to CleanRequest data structure
-            var data = new List<List<string>>();
-            foreach (string input in inputs) {
-                data.Add(new List<string>(new string[] { input }));
-            }
+            var data = new string[][] { new string[] { source } };
             var request = new CleanRequest(structure, data);
-            // get response and transform it to list of entities
             var response = Clean(request);
-            var outputs = new List<T>();
-            foreach (IList<IDadataEntity> row in response.data) {
-                outputs.Add((T)row[0]);
-            }
-            return outputs;
+            return (T)response.data[0][0];
         }
 
-        /// <summary>
-        /// Create DaData HTTP request with necessary defaults.
-        /// </summary>
-        /// <returns>The http request.</returns>
+        public CleanResponse Clean(CleanRequest request)
+        {
+            var httpRequest = CreateHttpRequest();
+
+            // prepare serialized json request
+            using (var w = new StreamWriter(httpRequest.GetRequestStream()))
+            {
+                using (JsonWriter writer = new JsonTextWriter(w))
+                {
+                    this.serializer.Serialize(writer, request);
+                }
+            }
+
+            // get response and de-serialize it to typed records
+            var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+            using (var r = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                string responseText = r.ReadToEnd();
+                return JsonConvert.DeserializeObject<CleanResponse>(responseText, this.converter);
+            }
+        }
+
         private HttpWebRequest CreateHttpRequest() {
             var request = (HttpWebRequest) WebRequest.Create(this.url);
             request.Method = "POST";
