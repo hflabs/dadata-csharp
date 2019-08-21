@@ -1,9 +1,10 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Dadata;
 using Dadata.Model;
 
-namespace Dadata {
+namespace Dadata.Test {
 
     [TestFixture]
     public class CleanClientTest {
