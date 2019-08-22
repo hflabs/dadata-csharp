@@ -88,9 +88,9 @@ namespace Dadata.Test
         }
 
         [Test]
-        public void FindByIdAddressTest()
+        public void FindAddressTest()
         {
-            var response = api.FindByIdAddress("95dbf7fb-0dd4-4a04-8100-4f6c847564b5");
+            var response = api.FindAddress("95dbf7fb-0dd4-4a04-8100-4f6c847564b5");
             var address = response.suggestions[0].data;
             Assert.AreEqual(address.city, "Москва");
             Assert.AreEqual(address.street, "Сухонская");
@@ -108,9 +108,9 @@ namespace Dadata.Test
         }
 
         [Test]
-        public void FindByIdBankTest()
+        public void FindBankTest()
         {
-            var response = api.FindByIdBank("044525974");
+            var response = api.FindBank("044525974");
             var bank = response.suggestions[0].data;
             Assert.AreEqual(bank.swift, "TICSRUMMXXX");
         }
@@ -178,18 +178,18 @@ namespace Dadata.Test
         }
 
         [Test]
-        public void FindByIdPartyTest()
+        public void FindPartyTest()
         {
-            var response = api.FindByIdParty("7719402047");
+            var response = api.FindParty("7719402047");
             var party = response.suggestions[0].data;
             Assert.AreEqual(party.name.@short, "МОТОРИКА");
         }
 
         [Test]
-        public void FindByIdPartyWithKppTest()
+        public void FindPartyWithKppTest()
         {
-            var request = new FindByIdPartyRequest(query: "7728168971", kpp: "667102002");
-            var response = api.FindByIdParty(request);
+            var request = new FindPartyRequest(query: "7728168971", kpp: "667102002");
+            var response = api.FindParty(request);
             var party = response.suggestions[0].data;
             Assert.AreEqual(party.name.short_with_opf, "ФИЛИАЛ \"ЕКАТЕРИНБУРГСКИЙ\" АО \"АЛЬФА-БАНК\"");
         }

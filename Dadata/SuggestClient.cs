@@ -23,10 +23,10 @@ namespace Dadata
             return SuggestAddress(request);
         }
 
-        public SuggestResponse<Address> FindByIdAddress(string query)
+        public SuggestResponse<Address> FindAddress(string query)
         {
             var request = new SuggestRequest(query);
-            return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.FindById, entity: SuggestionsEntity.Address, request: request);
+            return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Address, request: request);
         }
 
         public SuggestResponse<Address> SuggestAddress(SuggestAddressRequest request)
@@ -40,10 +40,10 @@ namespace Dadata
             return SuggestBank(request);
         }
 
-        public SuggestResponse<Bank> FindByIdBank(string query)
+        public SuggestResponse<Bank> FindBank(string query)
         {
             var request = new SuggestRequest(query);
-            return Execute<SuggestResponse<Bank>>(method: SuggestionsMethod.FindById, entity: SuggestionsEntity.Bank, request: request);
+            return Execute<SuggestResponse<Bank>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Bank, request: request);
         }
 
         public SuggestResponse<Bank> SuggestBank(SuggestBankRequest request)
@@ -79,15 +79,15 @@ namespace Dadata
             return SuggestParty(request);
         }
 
-        public SuggestResponse<Party> FindByIdParty(string query)
+        public SuggestResponse<Party> FindParty(string query)
         {
-            var request = new FindByIdPartyRequest(query);
-            return FindByIdParty(request);
+            var request = new FindPartyRequest(query);
+            return FindParty(request);
         }
 
-        public SuggestResponse<Party> FindByIdParty(FindByIdPartyRequest request)
+        public SuggestResponse<Party> FindParty(FindPartyRequest request)
         {
-            return Execute<SuggestResponse<Party>>(method: SuggestionsMethod.FindById, entity: SuggestionsEntity.Party, request: request);
+            return Execute<SuggestResponse<Party>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Party, request: request);
         }
 
         public SuggestResponse<Party> SuggestParty(SuggestPartyRequest request)
