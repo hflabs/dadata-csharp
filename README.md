@@ -135,12 +135,12 @@ var api = new SuggestClient(token);
 И получите адрес по КЛАДР- или ФИАС-коду:
 
 ```csharp
-var response = api.FindByIdAddress("7700000000000");
+var response = api.FindAddress("7700000000000");
 var address = response.suggestions[0].data;
 ```
 
 ```csharp
-var response = api.FindByIdAddress("95dbf7fb-0dd4-4a04-8100-4f6c847564b5");
+var response = api.FindAddress("95dbf7fb-0dd4-4a04-8100-4f6c847564b5");
 var address = response.suggestions[0].data;
 ```
 
@@ -172,18 +172,18 @@ var api = new SuggestClient(token);
 И получите компанию по ИНН или ОГРН:
 
 ```csharp
-var response = api.FindByIdParty("7719402047");
+var response = api.FindParty("7719402047");
 var party = response.suggestions[0].data;
 ```
 
 ```csharp
-var response = api.FindByIdParty("1157746078984");
+var response = api.FindParty("1157746078984");
 var party = response.suggestions[0].data;
 ```
 
 ```csharp
-var request = new FindByIdPartyRequest(query: "7728168971", kpp: "667102002");
-var response = api.FindByIdParty(request);
+var request = new FindPartyRequest(query: "7728168971", kpp: "667102002");
+var response = api.FindParty(request);
 var party = response.suggestions[0].data;
 ```
 
@@ -200,18 +200,18 @@ var api = new SuggestClient(token);
 
 ```csharp
 // БИК
-var response = api.FindByIdBank("044525974");
+var response = api.FindBank("044525974");
 var bank = response.suggestions[0].data;
 ```
 
 ```csharp
 // SWIFT
-var response = api.FindByIdBank("TICSRUMMXXX");
+var response = api.FindBank("TICSRUMMXXX");
 var bank = response.suggestions[0].data;
 ```
 
 ```csharp
 // Рег. номер
-var response = api.FindByIdBank("2673");
+var response = api.FindBank("2673");
 var bank = response.suggestions[0].data;
 ```
