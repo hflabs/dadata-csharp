@@ -11,7 +11,7 @@ API DaData.ru для C# / .NET
 
 ### 1. Подключите библиотеку
 
-Можно установить через [NuGet](https://www.nuget.org/packages/Dadata/18.9.0) или скачать [бинарники](https://github.com/hflabs/dadata-csharp/releases/latest).
+Можно установить через [NuGet](https://www.nuget.org/packages/Dadata) или скачать [бинарники](https://github.com/hflabs/dadata-csharp/releases/latest).
 
 Внешние зависимости:
 
