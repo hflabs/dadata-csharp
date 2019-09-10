@@ -228,7 +228,8 @@ namespace Dadata.Model
     {
         ACTIVE,
         LIQUIDATING,
-        LIQUIDATED
+        LIQUIDATED,
+        REORGANIZING
     }
 
     public enum PartyTaxSystem
