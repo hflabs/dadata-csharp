@@ -1,21 +1,19 @@
-﻿using System;
-using System.IO;
-using System.Net;
-using Newtonsoft.Json;
-using DadataCore.Model;
+﻿using DadataCore.Model;
+using System.Threading.Tasks;
 
-namespace DadataCore
-{
-    public class GeolocateClient : ClientBase
-    {
-        const string BASE_URL = "https://suggestions.dadata.ru/suggestions/api/4_1/rs";
+namespace DadataCore {
+	public class GeolocateClient : ClientBase {
+		const string BASE_URL = "https://suggestions.dadata.ru/suggestions/api/4_1/rs";
 
-        public GeolocateClient(string token, string baseUrl = BASE_URL) : base(token, baseUrl) { }
+		public GeolocateClient(string token, string baseUrl = BASE_URL) : base(token, baseUrl) { }
 
-        public SuggestResponse<Address> Geolocate(double lat, double lon)
-        {
-            var request = new GeolocateRequest(lat, lon);
-            return Execute<SuggestResponse<Address>>(method: "geolocate", entity: "address", request: request);
-        }
-    }
+		public async Task<SuggestResponse<Address>> Geolocate(double lat, double lon) {
+			var request = new GeolocateRequest(lat, lon);
+			return await Execute<SuggestResponse<Address>>(
+				method: "geolocate",
+				entity: "address",
+				request: request
+				);
+		}
+	}
 }
