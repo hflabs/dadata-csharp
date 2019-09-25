@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" 
-    xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Project="..\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" />
     <PropertyGroup>
         <ProjectGuid>{7326D3DF-0F8B-4870-8CB3-EB05D8E11C3E}</ProjectGuid>
         <OutputType>Library</OutputType>
-        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
         <RootNamespace>Test</RootNamespace>
+        <TargetFrameworkProfile />
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <DebugType>full</DebugType>
@@ -31,7 +31,7 @@
     </ItemGroup>
     <ItemGroup>
         <Reference Include="nunit.framework">
-            <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+            <HintPath>..\packages\NUnit.3.12.0\lib\net40\nunit.framework.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
