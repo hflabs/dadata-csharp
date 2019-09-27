@@ -8,7 +8,7 @@
         <OutputType>Library</OutputType>
         <RootNamespace>Dadata</RootNamespace>
         <AssemblyName>Dadata</AssemblyName>
-        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <DebugSymbols>true</DebugSymbols>
