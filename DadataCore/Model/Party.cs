@@ -235,9 +235,11 @@ namespace DadataCore.Model
     public enum PartyTaxSystem
     {
         ENVD,
+        ENVD_ESHN,
         ESHN,
         SRP,
-        USN
+        USN,
+        USN_ENVD
     }
 
     public enum PartyType
