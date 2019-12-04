@@ -31,8 +31,8 @@ API DaData.ru для C# / .NET
 Прежде всего, подключите пространства имён:
 
 ```csharp
-using Dadata;
-using Dadata.Model;
+using DadataCore;
+using DadataCore.Model;
 ```
 
 ### [API стандартизации](https://dadata.ru/api/clean/)
