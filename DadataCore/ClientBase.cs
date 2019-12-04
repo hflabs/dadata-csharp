@@ -27,21 +27,21 @@ namespace DadataCore {
 			var queryString = SerializeParameters(parameters);
 			var httpRequest = CreateHttpRequest(verb: "GET", method: method, entity: entity, queryString: queryString);
 			var httpResponse = await httpRequest.GetResponseAsync();
-			return Deserialize<T>((HttpWebResponse)httpResponse);
+			return await Deserialize<T>((HttpWebResponse)httpResponse);
 		}
 
 		protected async Task<T> Execute<T>(string method, string entity, IDadataRequest request) {
 			var httpRequest = CreateHttpRequest(verb: "POST", method: method, entity: entity);
 			httpRequest = Serialize(httpRequest, request);
 			var httpResponse = await httpRequest.GetResponseAsync();
-			return Deserialize<T>((HttpWebResponse)httpResponse);
+			return await Deserialize<T>((HttpWebResponse)httpResponse);
 		}
 
-		protected T Execute<T>(IDadataRequest request) {
+		protected async Task<T> Execute<T>(IDadataRequest request) {
 			var httpRequest = CreateHttpRequest(verb: "POST", url: baseUrl);
 			httpRequest = Serialize(httpRequest, request);
-			var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
-			return Deserialize<T>(httpResponse);
+			var httpResponse = (HttpWebResponse)await httpRequest.GetResponseAsync();
+			return await Deserialize<T>(httpResponse);
 		}
 
 		protected HttpWebRequest CreateHttpRequest(string verb, string method, string entity, string queryString = null) {
@@ -76,9 +76,9 @@ namespace DadataCore {
 			return httpRequest;
 		}
 
-		protected virtual T Deserialize<T>(HttpWebResponse httpResponse) {
+		protected virtual async Task<T> Deserialize<T>(HttpWebResponse httpResponse) {
 			using (var r = new StreamReader(httpResponse.GetResponseStream())) {
-				string responseText = r.ReadToEnd();
+				string responseText = await r.ReadToEndAsync();
 				return JsonConvert.DeserializeObject<T>(responseText);
 			}
 		}
