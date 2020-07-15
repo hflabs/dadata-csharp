@@ -1,34 +1,32 @@
 ﻿using System;
-using NUnit.Framework;
+using Xunit;
+using Dadata;
 
 namespace Dadata.Test
 {
-    [TestFixture]
     public class GeolocateClientTest
     {
         public GeolocateClient api { get; set; }
 
-        [SetUp]
-        public void SetUp()
-        {
+        public GeolocateClientTest() {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
             this.api = new GeolocateClient(token);
         }
 
-        [Test]
+        [Fact]
         public void GeolocateTest()
         {
             var response = api.Geolocate(lat: 55.7366021, lon: 37.597643);
             var address = response.suggestions[0].data;
-            Assert.AreEqual(address.city, "Москва");
-            Assert.AreEqual(address.street, "Турчанинов");
+            Assert.Equal("Москва", address.city);
+            Assert.Equal("Турчанинов", address.street);
         }
 
-        [Test]
+        [Fact]
         public void NotFoundTest()
         {
-            var response = api.Geolocate(lat: 0, lon: 0);
-            Assert.AreEqual(response.suggestions.Count, 0);
+            var response = api.Geolocate(lat: 1, lon: 1);
+            Assert.Equal(0, response.suggestions.Count);
         }
     }
 }

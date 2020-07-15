@@ -4,7 +4,7 @@ API DaData.ru для C# / .NET
 Описание
 ---------------
 
-Библиотека `dadata-csharp` — это обертка над [API «Дадаты»](https://dadata.ru/api/) для C# и других .NET-языков.
+Библиотека `dadata-csharp` — это обертка над [API «Дадаты»](https://dadata.ru/api/) для C# и других .NET-языков (.NET Standard 2.0).
 
 Установка
 ---------

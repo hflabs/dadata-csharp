@@ -1,32 +1,30 @@
 ﻿using System;
-using NUnit.Framework;
+using Xunit;
 
 namespace Dadata.Test
 {
-    [TestFixture]
     public class IplocateClientTest
     {
         public IplocateClient api { get; set; }
 
-        [SetUp]
-        public void SetUp()
+        public IplocateClientTest()
         {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
             this.api = new IplocateClient(token);
         }
 
-        [Test]
+        [Fact]
         public void IplocateTest()
         {
             var response = api.Iplocate("213.180.193.3");
-            Assert.AreEqual(response.location.data.city, "Москва");
+            Assert.Equal("Москва", response.location.data.city);
         }
 
-        [Test]
+        [Fact]
         public void NotFoundTest()
         {
             var response = api.Iplocate("192.168.0.1");
-            Assert.AreEqual(response.location, null);
+            Assert.Null(response.location);
         }
     }
 }

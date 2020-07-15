@@ -1,80 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('packages\NUnit.3.12.0\build\NUnit.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{30BEACDE-1B2A-498A-AA8C-5C56A92EAB51}</ProjectGuid>
-        <OutputType>Library</OutputType>
-        <RootNamespace>Dadata</RootNamespace>
-        <AssemblyName>Dadata</AssemblyName>
-        <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Debug</OutputPath>
-        <DefineConstants>DEBUG;</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <Optimize>true</Optimize>
-        <OutputPath>bin\Release</OutputPath>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <Version>20.7.0</Version>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="System" />
-        <Reference Include="System.Web" />
-        <Reference Include="Newtonsoft.Json">
-          <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-        </Reference>
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     </ItemGroup>
-    <ItemGroup>
-        <Compile Include="CleanClient.cs" />
-        <Compile Include="Model\Address.cs" />
-        <Compile Include="Model\IDadataEntity.cs" />
-        <Compile Include="Model\AsIs.cs" />
-        <Compile Include="Model\Birthdate.cs" />
-        <Compile Include="Model\Email.cs" />
-        <Compile Include="Model\Fullname.cs" />
-        <Compile Include="Model\Phone.cs" />
-        <Compile Include="Model\Passport.cs" />
-        <Compile Include="Model\Vehicle.cs" />
-        <Compile Include="Model\StructureType.cs" />
-        <Compile Include="Model\CleanRequest.cs" />
-        <Compile Include="Model\CleanResponse.cs" />
-        <Compile Include="SuggestClient.cs" />
-        <Compile Include="Model\SuggestAddressRequest.cs" />
-        <Compile Include="Model\SuggestRequest.cs" />
-        <Compile Include="Model\Suggestion.cs" />
-        <Compile Include="Model\SuggestEntity.cs" />
-        <Compile Include="Model\SuggestMethod.cs" />
-        <Compile Include="Model\SuggestResponse.cs" />
-        <Compile Include="Model\Bank.cs" />
-        <Compile Include="Model\Party.cs" />
-        <Compile Include="Model\SuggestBankRequest.cs" />
-        <Compile Include="Model\SuggestNameRequest.cs" />
-        <Compile Include="Model\SuggestPartyRequest.cs" />
-        <Compile Include="Model\CleanResponseConverter.cs" />
-        <Compile Include="Model\DateMillisConverter.cs" />
-        <Compile Include="Model\DateRuConverter.cs" />
-        <Compile Include="Model\IplocateResponse.cs" />
-        <Compile Include="IplocateClient.cs" />
-        <Compile Include="GeolocateClient.cs" />
-        <Compile Include="Model\GeolocateRequest.cs" />
-        <Compile Include="Model\IDadataRequest.cs" />
-        <Compile Include="Model\IDadataResponse.cs" />
-        <Compile Include="ClientBase.cs" />
-        <Compile Include="Model\FindPartyRequest.cs" />
-    </ItemGroup>
-    <ItemGroup>
-        <Folder Include="Model\" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Include="packages.config" />
-    </ItemGroup>
-    <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
