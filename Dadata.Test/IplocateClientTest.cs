@@ -5,12 +5,12 @@ namespace Dadata.Test
 {
     public class IplocateClientTest
     {
-        public IplocateClient api { get; set; }
+        public SuggestClient api { get; set; }
 
         public IplocateClientTest()
         {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
-            this.api = new IplocateClient(token);
+            this.api = new SuggestClient(token);
         }
 
         [Fact]

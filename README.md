@@ -113,7 +113,7 @@ var bank = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new GeolocateClient(token);
+var api = new SuggestClient(token);
 ```
 
 И получите список ближайших адресов по заданным координатам:
@@ -150,7 +150,7 @@ var address = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new IplocateClient(token);
+var api = new SuggestClient(token);
 ```
 
 И получите город по IP-адресу:

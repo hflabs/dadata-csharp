@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using Newtonsoft.Json;
@@ -17,6 +18,8 @@ namespace Dadata
 
         public SuggestClient(string token, string baseUrl = BASE_URL) : base(token, baseUrl) { }
 
+        #region Address
+
         public SuggestResponse<Address> SuggestAddress(string query, int count = 5)
         {
             var request = new SuggestAddressRequest(query, count);
@@ -33,6 +36,23 @@ namespace Dadata
         {
             return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Address, request: request);
         }
+
+        public SuggestResponse<Address> Geolocate(double lat, double lon)
+        {
+            var request = new GeolocateRequest(lat, lon);
+            return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Geolocate, entity: SuggestionsEntity.Address, request: request);
+        }
+
+        public IplocateResponse Iplocate(string ip)
+        {
+            var parameters = new NameValueCollection();
+            parameters["ip"] = ip;
+            return ExecuteGet<IplocateResponse>(method: SuggestionsMethod.Iplocate, entity: SuggestionsEntity.Address, parameters: parameters);
+        }
+
+        #endregion
+
+        #region Bank
 
         public SuggestResponse<Bank> SuggestBank(string query, int count = 5)
         {
@@ -51,6 +71,10 @@ namespace Dadata
             return Execute<SuggestResponse<Bank>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Bank, request: request);
         }
 
+        #endregion
+
+        #region Email
+
         public SuggestResponse<Email> SuggestEmail(string query, int count = 5)
         {
             var request = new SuggestRequest(query, count);
@@ -62,6 +86,10 @@ namespace Dadata
             return Execute<SuggestResponse<Email>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Email, request: request);
         }
 
+        #endregion
+
+        #region Name
+
         public SuggestResponse<Fullname> SuggestName(string query, int count = 5)
         {
             var request = new SuggestNameRequest(query, count);
@@ -72,6 +100,10 @@ namespace Dadata
         {
             return Execute<SuggestResponse<Fullname>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Name, request: request);
         }
+
+        #endregion
+
+        #region Party
 
         public SuggestResponse<Party> SuggestParty(string query, int count = 5)
         {
@@ -94,5 +126,7 @@ namespace Dadata
         {
             return Execute<SuggestResponse<Party>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Party, request: request);
         }
+
+        #endregion
     }
 }

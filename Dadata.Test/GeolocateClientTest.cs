@@ -6,11 +6,11 @@ namespace Dadata.Test
 {
     public class GeolocateClientTest
     {
-        public GeolocateClient api { get; set; }
+        public SuggestClient api { get; set; }
 
         public GeolocateClientTest() {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
-            this.api = new GeolocateClient(token);
+            this.api = new SuggestClient(token);
         }
 
         [Fact]
