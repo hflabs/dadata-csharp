@@ -111,6 +111,11 @@ namespace Dadata
             return SuggestParty(request);
         }
 
+        public SuggestResponse<Party> SuggestParty(SuggestPartyRequest request)
+        {
+            return Execute<SuggestResponse<Party>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Party, request: request);
+        }
+
         public SuggestResponse<Party> FindParty(string query)
         {
             var request = new FindPartyRequest(query);
@@ -122,9 +127,15 @@ namespace Dadata
             return Execute<SuggestResponse<Party>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Party, request: request);
         }
 
-        public SuggestResponse<Party> SuggestParty(SuggestPartyRequest request)
+        public SuggestResponse<Party> FindAffiliated(string query)
         {
-            return Execute<SuggestResponse<Party>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Party, request: request);
+            var request = new FindAffiliatedRequest(query);
+            return FindAffiliated(request);
+        }
+
+        public SuggestResponse<Party> FindAffiliated(FindAffiliatedRequest request)
+        {
+            return Execute<SuggestResponse<Party>>(method: SuggestionsMethod.FindAffiliated, entity: SuggestionsEntity.Party, request: request);
         }
 
         #endregion

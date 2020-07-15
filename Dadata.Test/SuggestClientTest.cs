@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xunit;
 using Dadata.Model;
 
@@ -190,6 +191,22 @@ namespace Dadata.Test
             var response = api.FindParty(request);
             var party = response.suggestions[0].data;
             Assert.Equal("ФИЛИАЛ \"ЕКАТЕРИНБУРГСКИЙ\" АО \"АЛЬФА-БАНК\"", party.name.short_with_opf);
+        }
+
+        [Fact]
+        public void FindAffiliatedTest()
+        {
+            var response = api.FindAffiliated("7736207543");
+            Assert.Equal("ООО \"ДЗЕН.ПЛАТФОРМА\"", response.suggestions[0].value);
+        }
+
+        [Fact]
+        public void FindAffilliatedScopeTest()
+        {
+            var request = new FindAffiliatedRequest("773006366201");
+            request.scope = new FindAffiliatedScope[] { FindAffiliatedScope.MANAGERS };
+            var response = api.FindAffiliated(request);
+            Assert.Equal("ООО \"ЯНДЕКС\"", response.suggestions[0].value);
         }
     }
 }

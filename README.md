@@ -187,6 +187,29 @@ var response = api.FindParty(request);
 var party = response.suggestions[0].data;
 ```
 
+### [Поиск аффилированных компаний](https://dadata.ru/api/find-affiliated/)
+
+Создайте апи-клиента:
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new SuggestClient(token);
+```
+
+И найдите компании по ИНН учредителей и руководителей:
+
+```csharp
+var response = api.FindAffiliated("7736207543");
+var party = response.suggestions[0].data;
+```
+
+```csharp
+var request = new FindAffiliatedRequest("773006366201");
+request.scope = new FindAffiliatedScope[] { FindAffiliatedScope.MANAGERS };
+var response = api.FindAffiliated(request);
+var party = response.suggestions[0].data;
+```
+
 ### [Банк по БИК, SWIFT или рег. номеру](https://dadata.ru/api/find-bank/)
 
 Создайте апи-клиента:
