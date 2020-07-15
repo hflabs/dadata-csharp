@@ -11,6 +11,7 @@ namespace Dadata
     public abstract class ClientBase
     {
         protected string token;
+        protected string secret;
         protected string baseUrl;
         protected JsonSerializer serializer;
 
@@ -19,9 +20,14 @@ namespace Dadata
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
         }
 
-        public ClientBase(string token, string baseUrl)
+        public ClientBase(string token, string baseUrl) : this(token, null, baseUrl)
+        {
+        }
+
+        public ClientBase(string token, string secret, string baseUrl)
         {
             this.token = token;
+            this.secret = secret;
             this.baseUrl = baseUrl;
             this.serializer = new JsonSerializer();
         }
@@ -66,6 +72,10 @@ namespace Dadata
             request.Method = verb;
             request.ContentType = "application/json";
             request.Headers.Add("Authorization", "Token " + this.token);
+            if (this.secret != null)
+            {
+                request.Headers.Add("X-Secret", this.secret);
+            }
             return request;
         }
 

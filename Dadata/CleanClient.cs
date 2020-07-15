@@ -16,7 +16,6 @@ namespace Dadata {
     
         const string BASE_URL= "https://dadata.ru/api/v2/clean";
 
-        string secret;
         CustomCreationConverter<IDadataEntity> converter;
 
         // maps concrete IDadataEntity types to corresponding structure types
@@ -32,9 +31,8 @@ namespace Dadata {
         };
 
 
-        public CleanClient(string token, string secret, string baseUrl=BASE_URL) : base(token, baseUrl)
+        public CleanClient(string token, string secret, string baseUrl=BASE_URL) : base(token, secret, baseUrl)
         {
-            this.secret = secret;
             // all response data entities look the same (IDadataEntity), 
             // need to manually convert them to specific types (address, phone etc)
             this.converter = new CleanResponseConverter();
@@ -56,20 +54,11 @@ namespace Dadata {
         public IList<IDadataEntity> Clean(IEnumerable<StructureType> structure, IEnumerable<string> data)
         {
             var request = new CleanRequest(structure, data);
-            var httpRequest = CreateHttpRequest();
+            var httpRequest = CreateHttpRequest(verb: "POST", url: baseUrl);
             httpRequest = Serialize(httpRequest, request);
             var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
             var response = Deserialize<CleanResponse>(httpResponse);
             return response.data[0];
-        }
-
-        protected HttpWebRequest CreateHttpRequest()
-        {
-            var request = base.CreateHttpRequest(verb: "POST", url: baseUrl);
-            if (secret != null) {
-                request.Headers.Add("X-Secret", this.secret);
-            }
-            return request;
         }
 
         protected override T Deserialize<T>(HttpWebResponse httpResponse)
