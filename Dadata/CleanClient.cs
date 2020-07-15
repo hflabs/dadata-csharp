@@ -14,7 +14,7 @@ namespace Dadata {
     public class CleanClient : ClientBase
     {
     
-        const string BASE_URL= "https://dadata.ru/api/v2/clean";
+        const string BASE_URL= "https://cleaner.dadata.ru/api/v1/clean";
 
         CustomCreationConverter<IDadataEntity> converter;
 
