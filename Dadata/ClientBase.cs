@@ -16,7 +16,7 @@ namespace Dadata
 
         static ClientBase()
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
         }
 
         public ClientBase(string token, string baseUrl)
