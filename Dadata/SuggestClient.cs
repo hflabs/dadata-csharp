@@ -26,6 +26,11 @@ namespace Dadata
             return SuggestAddress(request);
         }
 
+        public SuggestResponse<Address> SuggestAddress(SuggestAddressRequest request)
+        {
+            return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Address, request: request);
+        }
+
         public SuggestResponse<Address> FindAddress(string query)
         {
             var request = new SuggestRequest(query);
@@ -35,11 +40,6 @@ namespace Dadata
         public SuggestResponse<Address> FindAddress(SuggestRequest request)
         {
             return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Address, request: request);
-        }
-
-        public SuggestResponse<Address> SuggestAddress(SuggestAddressRequest request)
-        {
-            return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Address, request: request);
         }
 
         public SuggestResponse<Address> Geolocate(double lat, double lon, int count = 5)
@@ -71,6 +71,11 @@ namespace Dadata
             return SuggestBank(request);
         }
 
+        public SuggestResponse<Bank> SuggestBank(SuggestBankRequest request)
+        {
+            return Execute<SuggestResponse<Bank>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Bank, request: request);
+        }
+
         public SuggestResponse<Bank> FindBank(string query)
         {
             var request = new FindBankRequest(query);
@@ -80,11 +85,6 @@ namespace Dadata
         public SuggestResponse<Bank> FindBank(FindBankRequest request)
         {
             return Execute<SuggestResponse<Bank>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Bank, request: request);
-        }
-
-        public SuggestResponse<Bank> SuggestBank(SuggestBankRequest request)
-        {
-            return Execute<SuggestResponse<Bank>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Bank, request: request);
         }
 
         #endregion
@@ -100,6 +100,32 @@ namespace Dadata
         public SuggestResponse<Email> SuggestEmail(SuggestRequest request)
         {
             return Execute<SuggestResponse<Email>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Email, request: request);
+        }
+
+        #endregion
+
+        #region Fias
+
+        public SuggestResponse<FiasAddress> SuggestFias(string query, int count = 5)
+        {
+            var request = new SuggestAddressRequest(query, count);
+            return SuggestFias(request);
+        }
+
+        public SuggestResponse<FiasAddress> SuggestFias(SuggestAddressRequest request)
+        {
+            return Execute<SuggestResponse<FiasAddress>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Fias, request: request);
+        }
+
+        public SuggestResponse<Address> FindFias(string query)
+        {
+            var request = new SuggestRequest(query);
+            return FindFias(request);
+        }
+
+        public SuggestResponse<Address> FindFias(SuggestRequest request)
+        {
+            return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Fias, request: request);
         }
 
         #endregion

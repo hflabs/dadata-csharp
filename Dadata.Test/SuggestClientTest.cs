@@ -167,6 +167,28 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public void SuggestFiasTest()
+        {
+            var query = "москва турчанинов 6с2";
+            var response = api.SuggestFias(query);
+            var address = response.suggestions[0].data;
+            Assert.Equal("Москва", address.region);
+            Assert.Equal("Турчанинов", address.street);
+            Assert.Equal("6", address.house);
+            Assert.Equal("стр", address.building_type);
+            Assert.Equal("2", address.building);
+        }
+
+        [Fact]
+        public void FindFiasTest()
+        {
+            var response = api.FindFias("95dbf7fb-0dd4-4a04-8100-4f6c847564b5");
+            var address = response.suggestions[0].data;
+            Assert.Equal("Москва", address.region);
+            Assert.Equal("Сухонская", address.street);
+        }
+
+        [Fact]
         public void SuggestNameTest()
         {
             var query = "викт";
