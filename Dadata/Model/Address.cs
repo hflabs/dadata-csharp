@@ -108,7 +108,7 @@ namespace Dadata.Model
         public string unparsed_parts { get; set; }
 
         public List<string> history_values { get; set; }
-        public List<Metro> metro { get; set; }
+        public List<AddressMetro> metro { get; set; }
 
         public StructureType structure_type
         {
@@ -124,7 +124,7 @@ namespace Dadata.Model
         }
     }
 
-    public class Metro
+    public class AddressMetro
     {
         public string name { get; set; }
         public string line { get; set; }
