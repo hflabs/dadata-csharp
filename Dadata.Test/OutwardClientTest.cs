@@ -91,5 +91,13 @@ namespace Dadata.Test
             var station = response.suggestions[0].data;
             Assert.Equal("Площадь Александра Невского 1", station.name);
         }
+
+        [Fact]
+        public void SuggestCarBrand()
+        {
+            var response = api.Suggest<CarBrand>("FORD");
+            var brand = response.suggestions[0].data;
+            Assert.Equal("Форд", brand.name_ru);
+        }
     }
 }
