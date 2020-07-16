@@ -38,6 +38,15 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public void FindFnsUnit()
+        {
+            var response = api.Find<FnsUnit>("5257");
+            var unit = response.suggestions[0].data;
+            Assert.Equal("5257", unit.code);
+            Assert.StartsWith("Инспекция ФНС России", unit.name);
+        }
+
+        [Fact]
         public void SuggestPostalUnit()
         {
             var response = api.Suggest<PostalUnit>("дежнева 2а");

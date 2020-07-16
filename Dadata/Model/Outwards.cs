@@ -9,6 +9,7 @@ namespace Dadata.Model
             { typeof(CarBrand), SuggestionsEntity.CarBrand },
             { typeof(DeliveryCity), SuggestionsEntity.Delivery },
             { typeof(FmsUnit), SuggestionsEntity.FmsUnit },
+            { typeof(FnsUnit), SuggestionsEntity.FnsUnit },
             { typeof(MetroStation), SuggestionsEntity.Metro },
             { typeof(PostalUnit), SuggestionsEntity.PostalUnit },
         };
