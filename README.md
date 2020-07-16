@@ -13,9 +13,28 @@ API DaData.ru для C# / .NET
 
 Можно установить через [NuGet](https://www.nuget.org/packages/Dadata) или скачать [бинарники](https://github.com/hflabs/dadata-csharp/releases/latest).
 
-Внешние зависимости:
+Внешние зависимости: [JSON.NET](http://james.newtonking.com/json)
 
-- [JSON.NET](http://james.newtonking.com/json)
+Установать через [.NET Core CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/):
+
+```
+dotnet add package Newtonsoft.Json
+dotnet add package Dadata
+```
+
+Установать через [NuGet CLI](https://docs.microsoft.com/en-us/nuget/reference/nuget-exe-cli-reference):
+
+```
+nuget install Newtonsoft.Json
+nuget install Dadata
+```
+
+Установать через [Package Manager](https://docs.microsoft.com/en-us/nuget/consume-packages/install-use-packages-powershell):
+
+```
+Install-Package Newtonsoft.Json
+Install-Package Dadata
+```
 
 ### 2. Получите API-ключи
 
@@ -237,4 +256,36 @@ var bank = response.suggestions[0].data;
 // Рег. номер
 var response = api.FindBank("2673");
 var bank = response.suggestions[0].data;
+```
+
+### [API личного кабинета](https://dadata.ru/api/#profile)
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var secret = "ВАШ_СЕКРЕТНЫЙ_КЛЮЧ";
+var api = new ProfileClient(token, secret);
+```
+
+Баланс:
+
+```csharp
+var response = api.GetBalance();
+var balance = response.balance;
+```
+
+Статистика использования:
+
+```csharp
+var response = api.GetDailyStats();
+var cleanCount = response.services.clean;
+var suggestionsCount = response.services.suggestions;
+var mergingCount = response.services.merging;
+```
+
+Версии справочников:
+
+```csharp
+var response = api.GetVersions();
+var egrulVersion = response.suggestions.resources["ЕГРЮЛ"];
+var geoVersion = response.factor.resources["Геокоординаты"];
 ```
