@@ -66,6 +66,20 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public void SuggestAddressLocationsGeoTest()
+        {
+            var request = new SuggestAddressRequest("сухонская ") {
+                locations_geo = new LocationGeo[]
+                {
+                    new LocationGeo() { lat=59.244634, lon=39.913355, radius_meters=200}
+                }
+            };
+            var response = api.SuggestAddress(request);
+            Assert.Equal("г Вологда, ул Сухонская", response.suggestions[0].value);
+            Console.WriteLine(string.Join("\n", response.suggestions));
+        }
+
+        [Fact]
         public void SuggestAddressBoundsTest()
         {
             var query = new SuggestAddressRequest("ново");

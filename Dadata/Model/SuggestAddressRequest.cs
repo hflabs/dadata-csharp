@@ -5,6 +5,7 @@ namespace Dadata.Model
     {
         public Address[] locations { get; set; }
         public Address[] locations_boost { get; set; }
+        public LocationGeo[] locations_geo { get; set; }
         public AddressBound from_bound { get; set; }
         public AddressBound to_bound { get; set; }
         public bool restrict_value { get; set; }
@@ -19,5 +20,12 @@ namespace Dadata.Model
         {
             this.value = name;
         }
+    }
+
+    public class LocationGeo
+    {
+        public double lat { get; set; }
+        public double lon { get; set; }
+        public int radius_meters { get; set; }
     }
 }
