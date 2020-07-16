@@ -7,6 +7,7 @@ namespace Dadata.Model
         public string local { get; set; }
         public string domain { get; set; }
         public string email { get; set; }
+        public string type { get; set; }
         public string qc { get; set; }
 
         public StructureType structure_type

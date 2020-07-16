@@ -39,6 +39,7 @@ namespace Dadata.Test {
         public void CleanEmailTest() {
             var cleaned = api.Clean<Email>("anderson@matrix.ru");
             Assert.Equal("anderson@matrix.ru", cleaned.email);
+            Assert.Equal("CORPORATE", cleaned.type);
             Assert.Equal("0", cleaned.qc);
 
         }
