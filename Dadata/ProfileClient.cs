@@ -10,22 +10,24 @@ namespace Dadata
 
         public ProfileClient(string token, string secret, string baseUrl=BASE_URL) : base(token, secret, baseUrl) { }
 
-        public DailyStatsResponse DailyStats()
-        {
-            return DailyStats(DateTime.Today);
-        }
 
-        public BalanceResponse Balance()
+        public GetBalanceResponse GetBalance()
         {
             var parameters = new NameValueCollection();
-            return ExecuteGet<BalanceResponse>("profile", "balance", parameters);
+            return ExecuteGet<GetBalanceResponse>("profile", "balance", parameters);
         }
 
-        public DailyStatsResponse DailyStats(DateTime date)
+        public GetDailyStatsResponse GetDailyStats()
+        {
+            return GetDailyStats(DateTime.Today);
+        }
+
+        public GetDailyStatsResponse GetDailyStats(DateTime date)
         {
             var parameters = new NameValueCollection(1);
             parameters.Add("date", date.ToString("yyyy-MM-dd"));
-            return ExecuteGet<DailyStatsResponse>("stat", "daily", parameters);
+            return ExecuteGet<GetDailyStatsResponse>("stat", "daily", parameters);
         }
+
     }
 }

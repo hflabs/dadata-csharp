@@ -2,7 +2,7 @@
 
 namespace Dadata.Model
 {
-    public class DailyStatsResponse : IDadataResponse
+    public class GetDailyStatsResponse : IDadataResponse
     {
         public DateTime date { get; set; }
         public ServicesStats services { get; set; }

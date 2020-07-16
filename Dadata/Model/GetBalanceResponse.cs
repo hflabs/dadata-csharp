@@ -2,7 +2,7 @@
 
 namespace Dadata.Model
 {
-    public class BalanceResponse : IDadataResponse
+    public class GetBalanceResponse : IDadataResponse
     {
         public Decimal balance { get; set; }
     }

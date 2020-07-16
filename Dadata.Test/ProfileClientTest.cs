@@ -17,14 +17,14 @@ namespace Dadata.Test
         [Fact]
         public void BalanceTest()
         {
-            var response = api.Balance();
-            Assert.True(response.balance > 0);
+            var response = api.GetBalance();
+            Assert.True(response.balance >= 0);
         }
 
         [Fact]
         public void DailyStatsTest()
         {
-            var response = api.DailyStats();
+            var response = api.GetDailyStats();
             Assert.Equal(DateTime.Today, response.date);
         }
     }
