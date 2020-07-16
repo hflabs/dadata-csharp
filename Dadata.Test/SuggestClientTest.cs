@@ -124,7 +124,7 @@ namespace Dadata.Test
         }
 
         [Fact]
-        public void SuggestFioTest()
+        public void SuggestNameTest()
         {
             var query = "викт";
             var response = api.SuggestName(query);
@@ -133,12 +133,26 @@ namespace Dadata.Test
         }
 
         [Fact]
-        public void SuggestFioPartsTest()
+        public void SuggestNamePartsTest()
         {
-            var query = new SuggestNameRequest("викт");
-            query.parts = new FullnamePart[] { FullnamePart.SURNAME };
-            var response = api.SuggestName(query);
+            var request = new SuggestNameRequest("викт")
+            {
+                parts = new FullnamePart[] { FullnamePart.SURNAME }
+            };
+            var response = api.SuggestName(request);
             Assert.Equal("Викторова", response.suggestions[0].data.surname);
+            Console.WriteLine(string.Join("\n", response.suggestions));
+        }
+
+        [Fact]
+        public void SuggestNameGenderTest()
+        {
+            var request = new SuggestNameRequest("виктор")
+            {
+                gender = Gender.FEMALE
+            };
+            var response = api.SuggestName(request);
+            Assert.Equal("Виктория", response.suggestions[0].data.name);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
 

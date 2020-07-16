@@ -28,4 +28,11 @@ namespace Dadata.Model
                 source, surname, name, patronymic, qc);
         }
     }
+
+    public enum Gender
+    {
+        UNKNOWN,
+        MALE,
+        FEMALE
+    }
 }
