@@ -1,15 +1,16 @@
 ﻿using System;
 namespace Dadata.Model
 {
-    public class GeolocateRequest : IDadataRequest
+    public class GeolocateRequest : LocationGeo, IDadataRequest
     {
-        public double lat { get; set; }
-        public double lon { get; set; }
+        public int count { get; set; }
+        public string language { get; set; }
 
-        public GeolocateRequest(double lat, double lon)
+        public GeolocateRequest(double lat, double lon, int count = 5)
         {
             this.lat = lat;
             this.lon = lon;
+            this.count = count;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using Xunit;
-using Dadata;
+using Dadata.Model;
 
 namespace Dadata.Test
 {
@@ -20,6 +20,16 @@ namespace Dadata.Test
             var address = response.suggestions[0].data;
             Assert.Equal("Москва", address.city);
             Assert.Equal("Турчанинов", address.street);
+        }
+
+        [Fact]
+        public void LanguageTest()
+        {
+            var request = new GeolocateRequest(lat: 55.7366021, lon: 37.597643) { language = "en" };
+            var response = api.Geolocate(request);
+            var address = response.suggestions[0].data;
+            Assert.Equal("Moscow", address.city);
+            Assert.Equal("Turchaninov", address.street);
         }
 
         [Fact]

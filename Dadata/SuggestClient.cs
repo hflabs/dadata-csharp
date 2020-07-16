@@ -29,6 +29,11 @@ namespace Dadata
         public SuggestResponse<Address> FindAddress(string query)
         {
             var request = new SuggestRequest(query);
+            return FindAddress(request);
+        }
+
+        public SuggestResponse<Address> FindAddress(SuggestRequest request)
+        {
             return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Address, request: request);
         }
 
@@ -37,16 +42,22 @@ namespace Dadata
             return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Address, request: request);
         }
 
-        public SuggestResponse<Address> Geolocate(double lat, double lon)
+        public SuggestResponse<Address> Geolocate(double lat, double lon, int count = 5)
         {
             var request = new GeolocateRequest(lat, lon);
+            return Geolocate(request);
+        }
+
+        public SuggestResponse<Address> Geolocate(GeolocateRequest request)
+        {
             return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Geolocate, entity: SuggestionsEntity.Address, request: request);
         }
 
-        public IplocateResponse Iplocate(string ip)
+        public IplocateResponse Iplocate(string ip, string language = "ru")
         {
             var parameters = new NameValueCollection();
-            parameters["ip"] = ip;
+            parameters.Add("ip", ip);
+            parameters.Add("language", language);
             return ExecuteGet<IplocateResponse>(method: SuggestionsMethod.Iplocate, entity: SuggestionsEntity.Address, parameters: parameters);
         }
 

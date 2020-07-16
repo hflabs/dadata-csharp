@@ -5,6 +5,7 @@ namespace Dadata.Model
     {
         public string query { get; set; }
         public int count { get; set; }
+        public string language { get; set; }
 
         public SuggestRequest(string query, int count=5)
         {

@@ -28,6 +28,14 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public void SuggestAddressLanguageTest()
+        {
+            var request = new SuggestAddressRequest("samara metallurgov") { language = "en" };
+            var response = api.SuggestAddress(request);
+            Assert.Equal("Russia, gorod Samara, prospekt Metallurgov", response.suggestions[0].value);
+        }
+
+        [Fact]
         public void SuggestAddressLocationsKladrTest()
         {
             var query = new SuggestAddressRequest("ватутина");
@@ -107,6 +115,16 @@ namespace Dadata.Test
             var address = response.suggestions[0].data;
             Assert.Equal("Москва", address.city);
             Assert.Equal("Сухонская", address.street);
+        }
+
+        [Fact]
+        public void FindAddressLanguageTest()
+        {
+            var request = new SuggestRequest("94b67f2f-f0f2-4a56-983b-90f0cec1d789") { language = "en" };
+            var response = api.FindAddress(request);
+            var address = response.suggestions[0].data;
+            Assert.Equal("Samara", address.city);
+            Assert.Equal("Metallurgov", address.street);
         }
 
         [Fact]
