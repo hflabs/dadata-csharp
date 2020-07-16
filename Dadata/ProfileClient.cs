@@ -15,6 +15,12 @@ namespace Dadata
             return DailyStats(DateTime.Today);
         }
 
+        public BalanceResponse Balance()
+        {
+            var parameters = new NameValueCollection();
+            return ExecuteGet<BalanceResponse>("profile", "balance", parameters);
+        }
+
         public DailyStatsResponse DailyStats(DateTime date)
         {
             var parameters = new NameValueCollection(1);

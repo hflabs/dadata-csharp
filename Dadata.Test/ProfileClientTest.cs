@@ -15,6 +15,13 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public void BalanceTest()
+        {
+            var response = api.Balance();
+            Assert.True(response.balance > 0);
+        }
+
+        [Fact]
         public void DailyStatsTest()
         {
             var response = api.DailyStats();
