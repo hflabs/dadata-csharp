@@ -179,7 +179,17 @@ var response = api.Iplocate("213.180.193.3");
 var address = response.location.data;
 ```
 
-### [Почтовые отделения](https://dadata.ru/api/suggest/postal_unit/)
+### [Город в службе доставки](https://dadata.ru/api/delivery/)
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new OutwardClient(token);
+
+var response = api.Find<DeliveryCity>("3100400100000");
+var city = response.suggestions[0].data;
+```
+
+### [Почтовое отделение](https://dadata.ru/api/suggest/postal_unit/)
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";

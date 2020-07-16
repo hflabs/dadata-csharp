@@ -60,5 +60,15 @@ namespace Dadata.Test
             var unit = response.suggestions[0].data;
             Assert.Equal("127642", unit.postal_code);
         }
+
+        [Fact]
+        public void FindDelivery()
+        {
+            var response = api.Find<DeliveryCity>("3100400100000");
+            var city = response.suggestions[0].data;
+            Assert.Equal("01929", city.boxberry_id);
+            Assert.Equal("344", city.cdek_id);
+            Assert.Equal("196006461", city.dpd_id);
+        }
     }
 }

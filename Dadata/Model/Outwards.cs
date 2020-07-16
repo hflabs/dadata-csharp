@@ -6,6 +6,7 @@ namespace Dadata.Model
     public class Outwards
     {
         static Dictionary<Type, string> TYPE_TO_ENTITY = new Dictionary<Type, string>() {
+            { typeof(DeliveryCity), SuggestionsEntity.Delivery },
             { typeof(FmsUnit), SuggestionsEntity.FmsUnit },
             { typeof(PostalUnit), SuggestionsEntity.PostalUnit },
         };
