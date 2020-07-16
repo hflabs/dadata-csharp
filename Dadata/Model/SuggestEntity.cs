@@ -9,6 +9,7 @@ namespace Dadata.Model
         public static readonly string Email = "email";
         public static readonly string Fias = "fias";
         public static readonly string FmsUnit = "fms_unit";
+        public static readonly string Metro = "metro";
         public static readonly string Name = "fio";
         public static readonly string Party = "party";
         public static readonly string PostalUnit = "postal_unit";

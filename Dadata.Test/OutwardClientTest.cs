@@ -70,5 +70,26 @@ namespace Dadata.Test
             Assert.Equal("344", city.cdek_id);
             Assert.Equal("196006461", city.dpd_id);
         }
+
+        [Fact]
+        public void SuggestMetro()
+        {
+            var response = api.Suggest<MetroStation>("александр");
+            var station = response.suggestions[0].data;
+            Assert.Equal("Александровский сад", station.name);
+            Assert.False(station.is_closed);
+        }
+
+        [Fact]
+        public void FilterMetro()
+        {
+            var request = new SuggestOutwardRequest("александр")
+            {
+                filters = new Dictionary<string, string>() { { "city", "Санкт-Петербург" } }
+            };
+            var response = api.Suggest<MetroStation>(request);
+            var station = response.suggestions[0].data;
+            Assert.Equal("Площадь Александра Невского 1", station.name);
+        }
     }
 }
