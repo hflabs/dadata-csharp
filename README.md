@@ -15,21 +15,21 @@ API DaData.ru для C# / .NET
 
 Внешние зависимости: [JSON.NET](http://james.newtonking.com/json)
 
-Установать через [.NET Core CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/):
+Установить через [.NET Core CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/):
 
 ```
 dotnet add package Newtonsoft.Json
 dotnet add package Dadata
 ```
 
-Установать через [NuGet CLI](https://docs.microsoft.com/en-us/nuget/reference/nuget-exe-cli-reference):
+Установить через [NuGet CLI](https://docs.microsoft.com/en-us/nuget/reference/nuget-exe-cli-reference):
 
 ```
 nuget install Newtonsoft.Json
 nuget install Dadata
 ```
 
-Установать через [Package Manager](https://docs.microsoft.com/en-us/nuget/consume-packages/install-use-packages-powershell):
+Установить через [Package Manager](https://docs.microsoft.com/en-us/nuget/consume-packages/install-use-packages-powershell):
 
 ```
 Install-Package Newtonsoft.Json
