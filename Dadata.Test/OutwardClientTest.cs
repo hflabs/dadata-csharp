@@ -108,5 +108,13 @@ namespace Dadata.Test
             var brand = response.suggestions[0].data;
             Assert.Equal("Форд", brand.name_ru);
         }
+
+        [Fact]
+        public void SuggestOkved2()
+        {
+            var response = api.Suggest<OkvedRecord>("51.22.3");
+            var record = response.suggestions[0].data;
+            Assert.Equal("H.51.22.3", record.idx);
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace Dadata.Model
         public static readonly string FnsUnit = "fns_unit";
         public static readonly string Metro = "metro";
         public static readonly string Name = "fio";
+        public static readonly string Okved2 = "okved2";
         public static readonly string Party = "party";
         public static readonly string PostalUnit = "postal_unit";
     }
