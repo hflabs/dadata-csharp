@@ -129,6 +129,17 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public void FindBankWithKppTest()
+        {
+            var request = new FindBankRequest(query: "7728168971", kpp: "667102002");
+            var response = api.FindBank(request);
+            var bank = response.suggestions[0].data;
+            Assert.Equal("046577964", bank.bic);
+            Assert.Equal("7728168971", bank.inn);
+            Assert.Equal("667102002", bank.kpp);
+        }
+
+        [Fact]
         public void SuggestEmailTest()
         {
             var query = "anton@m";

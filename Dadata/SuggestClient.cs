@@ -62,7 +62,12 @@ namespace Dadata
 
         public SuggestResponse<Bank> FindBank(string query)
         {
-            var request = new SuggestRequest(query);
+            var request = new FindBankRequest(query);
+            return FindBank(request);
+        }
+
+        public SuggestResponse<Bank> FindBank(FindBankRequest request)
+        {
             return Execute<SuggestResponse<Bank>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Bank, request: request);
         }
 
