@@ -32,6 +32,12 @@ namespace Dadata
             this.serializer = new JsonSerializer();
         }
 
+        protected T ExecuteGet<T>(string method, string entity)
+        {
+            var parameters = new NameValueCollection();
+            return ExecuteGet<T>(method, entity, parameters);
+        }
+
         protected T ExecuteGet<T>(string method, string entity, NameValueCollection parameters)
         {
             var queryString = SerializeParameters(parameters);
@@ -58,7 +64,11 @@ namespace Dadata
 
         protected HttpWebRequest CreateHttpRequest(string verb, string method, string entity, string queryString = null)
         {
-            var url = String.Format("{0}/{1}/{2}", baseUrl, method, entity);
+            var url = String.Format("{0}/{1}", baseUrl, method);
+            if (!String.IsNullOrEmpty(entity))
+            {
+                url = String.Format("{0}/{1}", url, entity);
+            }
             if (queryString != null)
             {
                 url += "?" + queryString;

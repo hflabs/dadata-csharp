@@ -13,8 +13,7 @@ namespace Dadata
 
         public GetBalanceResponse GetBalance()
         {
-            var parameters = new NameValueCollection();
-            return ExecuteGet<GetBalanceResponse>("profile", "balance", parameters);
+            return ExecuteGet<GetBalanceResponse>(method: "profile", entity: "balance");
         }
 
         public GetDailyStatsResponse GetDailyStats()
@@ -26,7 +25,12 @@ namespace Dadata
         {
             var parameters = new NameValueCollection(1);
             parameters.Add("date", date.ToString("yyyy-MM-dd"));
-            return ExecuteGet<GetDailyStatsResponse>("stat", "daily", parameters);
+            return ExecuteGet<GetDailyStatsResponse>(method: "stat", entity: "daily", parameters: parameters);
+        }
+
+        public GetVersionsResponse GetVersions()
+        {
+            return ExecuteGet<GetVersionsResponse>(method: "version", entity: null);
         }
 
     }
