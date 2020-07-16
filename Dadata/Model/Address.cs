@@ -86,6 +86,7 @@ namespace Dadata.Model
         public string fias_level { get; set; }
         public string fias_actuality_state { get; set; }
         public string kladr_id { get; set; }
+        public string geoname_id { get; set; }
         public string capital_marker { get; set; }
 
         public string okato { get; set; }
