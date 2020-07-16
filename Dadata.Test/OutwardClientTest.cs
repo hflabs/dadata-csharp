@@ -116,5 +116,13 @@ namespace Dadata.Test
             var record = response.suggestions[0].data;
             Assert.Equal("H.51.22.3", record.idx);
         }
+
+        [Fact]
+        public void SuggestCountry()
+        {
+            var response = api.Suggest<Country>("ru");
+            var country = response.suggestions[0].data;
+            Assert.Equal("Россия", country.name_short);
+        }
     }
 }

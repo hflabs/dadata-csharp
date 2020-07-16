@@ -6,6 +6,7 @@ namespace Dadata.Model
         public static readonly string Address = "address";
         public static readonly string Bank = "bank";
         public static readonly string CarBrand = "car_brand";
+        public static readonly string Country = "country";
         public static readonly string Delivery = "delivery";
         public static readonly string Email = "email";
         public static readonly string Fias = "fias";
