@@ -179,6 +179,34 @@ var response = api.Iplocate("213.180.193.3");
 var address = response.location.data;
 ```
 
+### [Почтовые отделения](https://dadata.ru/api/suggest/postal_unit/)
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new OutwardClient(token);
+```
+
+Полнотекстовый поиск:
+
+```csharp
+var response = api.Suggest<PostalUnit>("дежнева 2а");
+var unit = response.suggestions[0].data;
+```
+
+Поиск по почтовому индексу:
+
+```csharp
+var response = api.Find<PostalUnit>("127642");
+var unit = response.suggestions[0].data;
+```
+
+Поиск ближайшего по координатам:
+
+```csharp
+var response = api.Geolocate<PostalUnit>(lat: 55.878, lon: 37.653, radius_meters: 1000);
+var unit = response.suggestions[0].data;
+```
+
 ### [Организация по ИНН или ОГРН](https://dadata.ru/api/find-party/)
 
 Создайте апи-клиента:
@@ -256,6 +284,16 @@ var bank = response.suggestions[0].data;
 // Рег. номер
 var response = api.FindBank("2673");
 var bank = response.suggestions[0].data;
+```
+
+### [Кем выдан паспорт](https://dadata.ru/api/suggest/fms_unit/)
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new OutwardClient(token);
+
+var response = api.Suggest<FmsUnit>("772-053");
+var unit = response.suggestions[0].data;
 ```
 
 ### [API личного кабинета](https://dadata.ru/api/#profile)
