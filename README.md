@@ -217,6 +217,41 @@ var response = api.Geolocate<PostalUnit>(lat: 55.878, lon: 37.653, radius_meters
 var unit = response.suggestions[0].data;
 ```
 
+### [Станция метро](https://dadata.ru/api/suggest/metro/)
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new OutwardClient(token);
+```
+
+Полнотекстовый поиск:
+
+```csharp
+var response = api.Suggest<MetroStation>("александр");
+var station = response.suggestions[0].data;
+```
+
+Фильтрация по городу:
+
+```csharp
+var request = new SuggestOutwardRequest("александр")
+{
+    filters = new Dictionary<string, string>() { { "city", "Санкт-Петербург" } }
+};
+var response = api.Suggest<MetroStation>(request);
+var station = response.suggestions[0].data;
+```
+
+### [Страна](https://dadata.ru/api/suggest/country/)
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new OutwardClient(token);
+
+var response = api.Suggest<Country>("ru");
+var country = response.suggestions[0].data;
+```
+
 ### [Организация по ИНН или ОГРН](https://dadata.ru/api/find-party/)
 
 Создайте апи-клиента:
@@ -304,6 +339,36 @@ var api = new OutwardClient(token);
 
 var response = api.Suggest<FmsUnit>("772-053");
 var unit = response.suggestions[0].data;
+```
+
+### [Налоговая инспекция](https://dadata.ru/api/suggest/fns_unit/)
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new OutwardClient(token);
+
+var response = api.Find<FnsUnit>("5257");
+var unit = response.suggestions[0].data;
+```
+
+### [Марка автомобиля](https://dadata.ru/api/suggest/car_brand/)
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new OutwardClient(token);
+
+var response = api.Suggest<CarBrand>("FORD");
+var brand = response.suggestions[0].data;
+```
+
+### [ОКВЭД 2](https://dadata.ru/api/suggest/okved2/)
+
+```csharp
+var token = "ВАШ_API_КЛЮЧ";
+var api = new OutwardClient(token);
+
+var response = api.Suggest<OkvedRecord>("51.22.3");
+var record = response.suggestions[0].data;
 ```
 
 ### [API личного кабинета](https://dadata.ru/api/#profile)
