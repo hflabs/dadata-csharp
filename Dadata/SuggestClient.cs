@@ -33,18 +33,18 @@ namespace Dadata
 
         public SuggestResponse<Address> FindAddress(string query)
         {
-            var request = new SuggestRequest(query);
+            var request = new FindAddressRequest(query);
             return FindAddress(request);
         }
 
-        public SuggestResponse<Address> FindAddress(SuggestRequest request)
+        public SuggestResponse<Address> FindAddress(FindAddressRequest request)
         {
             return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Address, request: request);
         }
 
-        public SuggestResponse<Address> Geolocate(double lat, double lon, int count = 5)
+        public SuggestResponse<Address> Geolocate(double lat, double lon, int radius_meters = 100, int count = 5)
         {
-            var request = new GeolocateRequest(lat, lon);
+            var request = new GeolocateRequest(lat, lon, radius_meters, count);
             return Geolocate(request);
         }
 

@@ -120,7 +120,7 @@ namespace Dadata.Test
         [Fact]
         public void FindAddressLanguageTest()
         {
-            var request = new SuggestRequest("94b67f2f-f0f2-4a56-983b-90f0cec1d789") { language = "en" };
+            var request = new FindAddressRequest("94b67f2f-f0f2-4a56-983b-90f0cec1d789") { language = "en" };
             var response = api.FindAddress(request);
             var address = response.suggestions[0].data;
             Assert.Equal("Samara", address.city);
