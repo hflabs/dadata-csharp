@@ -196,6 +196,8 @@ namespace Dadata.Test
             var response = api.FindParty("7719402047");
             var party = response.suggestions[0].data;
             Assert.Equal("МОТОРИКА", party.name.@short);
+            Assert.Equal(PartyFounderShareType.PERCENT, party.founders[0].share.type);
+            Assert.Equal(100, party.founders[0].share.value);
         }
 
         [Fact]

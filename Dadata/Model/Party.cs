@@ -123,6 +123,22 @@ namespace Dadata.Model
         public Fullname fio { get; set; }
         public string hid { get; set; }
         public PartyFounderType type { get; set; }
+        public PartyFounderShare share { get; set; }
+    }
+
+    public class PartyFounderShare
+    {
+        public PartyFounderShareType type { get; set; }
+        public decimal value { get; set; }
+        public long numerator { get; set; }
+        public long denominator { get; set; }
+    }
+
+    public enum PartyFounderShareType
+    {
+        PERCENT,
+        DECIMAL,
+        FRACTION
     }
 
     public enum PartyFounderType
