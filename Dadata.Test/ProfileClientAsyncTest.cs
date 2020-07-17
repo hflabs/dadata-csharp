@@ -4,11 +4,11 @@ using Xunit;
 
 namespace Dadata.Test
 {
-    public class ProfileClientTest
+    public class ProfileClientAsyncTest
     {
         public ProfileClientAsync api { get; set; }
 
-        public ProfileClientTest()
+        public ProfileClientAsyncTest()
         {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
             var secret = Environment.GetEnvironmentVariable("DADATA_SECRET_KEY");

@@ -77,8 +77,8 @@ namespace Dadata.Test
         [Fact]
         public void CleanTest()
         {
-            var structure = new List<StructureType> { StructureType.NAME, StructureType.ADDRESS };
-            var data = new List<string> { "Кузнецов Петр Алексеич", "Москва Милютинский 13" };
+            var structure = new[] { StructureType.NAME, StructureType.ADDRESS };
+            var data = new[] { "Кузнецов Петр Алексеич", "Москва Милютинский 13" };
 
             var cleaned = api.Clean(structure, data);
             Assert.Equal(2, cleaned.Count);

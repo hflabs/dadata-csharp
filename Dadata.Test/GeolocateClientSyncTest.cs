@@ -4,11 +4,11 @@ using Dadata.Model;
 
 namespace Dadata.Test
 {
-    public class GeolocateClientTest
+    public class GeolocateClientSyncTest
     {
         public SuggestClientSync api { get; set; }
 
-        public GeolocateClientTest()
+        public GeolocateClientSyncTest()
         {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
             this.api = new SuggestClientSync(token);

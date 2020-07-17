@@ -38,11 +38,13 @@ namespace Dadata.Test
         [Fact]
         public void SuggestAddressLocationsKladrTest()
         {
-            var query = new SuggestAddressRequest("ватутина");
-            query.locations = new[] {
-                new Address() { kladr_id = "65" },
+            var request = new SuggestAddressRequest("ватутина")
+            {
+                locations = new[] {
+                    new Address() { kladr_id = "65" },
+                }
             };
-            var response = api.SuggestAddress(query);
+            var response = api.SuggestAddress(request);
             Assert.Equal("693022", response.suggestions[0].data.postal_code);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
@@ -50,12 +52,15 @@ namespace Dadata.Test
         [Fact]
         public void SuggestAddressLocationsMultipleLocationsTest()
         {
-            var query = new SuggestAddressRequest("зеленоград");
-            query.locations = new[] {
-                new Address() { kladr_id = "50" },
-                new Address() { kladr_id = "77" }
+            var request = new SuggestAddressRequest("зеленоград")
+            {
+                locations = new[]
+                {
+                    new Address() { kladr_id = "50" },
+                    new Address() { kladr_id = "77" }
+                }
             };
-            var response = api.SuggestAddress(query);
+            var response = api.SuggestAddress(request);
             Assert.Equal("Зеленоград", response.suggestions[0].data.city);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
@@ -63,12 +68,15 @@ namespace Dadata.Test
         [Fact]
         public void SuggestAddressLocationsFiasCityTest()
         {
-            var query = new SuggestAddressRequest("ватутина");
-            query.locations = new[] {
-                // Южно-Сахалинск
-                new Address() { city_fias_id = "44388ad0-06aa-49b0-bbf9-1704629d1d68" }
+            var request = new SuggestAddressRequest("ватутина")
+            {
+                locations = new[]
+                {
+                    // Южно-Сахалинск
+                    new Address() { city_fias_id = "44388ad0-06aa-49b0-bbf9-1704629d1d68" }
+                }
             };
-            var response = api.SuggestAddress(query);
+            var response = api.SuggestAddress(request);
             Assert.Equal("693022", response.suggestions[0].data.postal_code);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
@@ -78,7 +86,7 @@ namespace Dadata.Test
         {
             var request = new SuggestAddressRequest("сухонская ")
             {
-                locations_geo = new LocationGeo[]
+                locations_geo = new[]
                 {
                     new LocationGeo() { lat=59.244634, lon=39.913355, radius_meters=200}
                 }
@@ -91,10 +99,12 @@ namespace Dadata.Test
         [Fact]
         public void SuggestAddressBoundsTest()
         {
-            var query = new SuggestAddressRequest("ново");
-            query.from_bound = new AddressBound("city");
-            query.to_bound = new AddressBound("city");
-            var response = api.SuggestAddress(query);
+            var request = new SuggestAddressRequest("ново")
+            {
+                from_bound = new AddressBound("city"),
+                to_bound = new AddressBound("city")
+            };
+            var response = api.SuggestAddress(request);
             Assert.Equal("Новосибирск", response.suggestions[0].data.city);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
@@ -131,9 +141,11 @@ namespace Dadata.Test
         [Fact]
         public void SuggestBankTypeTest()
         {
-            var query = new SuggestBankRequest("я");
-            query.type = new BankType[] { BankType.NKO };
-            var response = api.SuggestBank(query);
+            var request = new SuggestBankRequest("я")
+            {
+                type = new[] { BankType.NKO }
+            };
+            var response = api.SuggestBank(request);
             Assert.Equal("044525444", response.suggestions[0].data.bic);
             Assert.Equal(new DateTime(2012, 08, 02), response.suggestions[0].data.state.registration_date);
             Console.WriteLine(string.Join("\n", response.suggestions));
@@ -239,9 +251,11 @@ namespace Dadata.Test
         [Fact]
         public void SuggestPartyStatusTest()
         {
-            var query = new SuggestPartyRequest("витас");
-            query.status = new PartyStatus[] { PartyStatus.LIQUIDATED };
-            var response = api.SuggestParty(query);
+            var request = new SuggestPartyRequest("витас")
+            {
+                status = new[] { PartyStatus.LIQUIDATED }
+            };
+            var response = api.SuggestParty(request);
             Assert.Equal("4713008497", response.suggestions[0].data.inn);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
@@ -249,9 +263,11 @@ namespace Dadata.Test
         [Fact]
         public void SuggestPartyTypeTest()
         {
-            var query = new SuggestPartyRequest("лаукаитис витас");
-            query.type = PartyType.INDIVIDUAL;
-            var response = api.SuggestParty(query);
+            var request = new SuggestPartyRequest("лаукаитис витас")
+            {
+                type = PartyType.INDIVIDUAL
+            };
+            var response = api.SuggestParty(request);
             Assert.Equal("773165008890", response.suggestions[0].data.inn);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
@@ -285,8 +301,10 @@ namespace Dadata.Test
         [Fact]
         public void FindAffilliatedScopeTest()
         {
-            var request = new FindAffiliatedRequest("773006366201");
-            request.scope = new FindAffiliatedScope[] { FindAffiliatedScope.MANAGERS };
+            var request = new FindAffiliatedRequest("773006366201")
+            {
+                scope = new[] { FindAffiliatedScope.MANAGERS }
+            };
             var response = api.FindAffiliated(request);
             Assert.Equal("ООО \"ЯНДЕКС\"", response.suggestions[0].value);
         }

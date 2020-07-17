@@ -6,11 +6,11 @@ using Dadata.Model;
 
 namespace Dadata.Test
 {
-    public class CleanClientTest
+    public class CleanClientAsyncTest
     {
         public CleanClientAsync api { get; set; }
 
-        public CleanClientTest()
+        public CleanClientAsyncTest()
         {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
             var secret = Environment.GetEnvironmentVariable("DADATA_SECRET_KEY");
@@ -77,8 +77,8 @@ namespace Dadata.Test
         [Fact]
         public async Task CleanTest()
         {
-            var structure = new List<StructureType> { StructureType.NAME, StructureType.ADDRESS };
-            var data = new List<string> { "Кузнецов Петр Алексеич", "Москва Милютинский 13" };
+            var structure = new[] { StructureType.NAME, StructureType.ADDRESS };
+            var data = new[] { "Кузнецов Петр Алексеич", "Москва Милютинский 13" };
 
             var cleaned = await api.Clean(structure, data);
             Assert.Equal(2, cleaned.Count);

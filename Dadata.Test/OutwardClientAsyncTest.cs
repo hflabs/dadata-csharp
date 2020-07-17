@@ -6,11 +6,11 @@ using Dadata.Model;
 
 namespace Dadata.Test
 {
-    public class OutwardClientTest
+    public class OutwardClientAsyncTest
     {
         public OutwardClientAsync api { get; set; }
 
-        public OutwardClientTest()
+        public OutwardClientAsyncTest()
         {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
             api = new OutwardClientAsync(token);

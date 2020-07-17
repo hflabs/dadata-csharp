@@ -47,6 +47,8 @@ Install-Package Dadata
 Использование
 ---------
 
+В примерах используются асинхронные API-клиенты: `CleanClientAsync`, `SuggestClientAsync`, `OutwardClientAsync` и `ProfileClientAsync`. У них есть синхронные альтернативые с суффиксом `Sync` — они существуют для обратной совместимости и в будущих версиях будут удалены. Рекомендуем использовать асинхронные версии.
+
 Прежде всего, подключите пространства имён:
 
 ```csharp
@@ -61,27 +63,27 @@ using Dadata.Model;
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
 var secret = "ВАШ_СЕКРЕТНЫЙ_КЛЮЧ";
-var api = new CleanClient(token, secret);
+var api = new CleanClientAsync(token, secret);
 ```
 
 И используйте для обработки интересных вам типов данных:
 
 ```csharp
-var address = api.Clean<Address>("Москва Милютинский 13");
-var birthdate = api.Clean<Birthdate>("12.03.1990");
-var email = api.Clean<Email>("anderson@matrix.ru");
-var fullname = api.Clean<Fullname>("Ольга Викторовна Раздербань");
-var phone = api.Clean<Phone>("89168459285");
-var passport = api.Clean<Passport>("4506 629672");
-var vehicle = api.Clean<Vehicle>("форд фокус");
+var address = await api.Clean<Address>("Москва Милютинский 13");
+var birthdate = await api.Clean<Birthdate>("12.03.1990");
+var email = await api.Clean<Email>("anderson@matrix.ru");
+var fullname = await api.Clean<Fullname>("Ольга Викторовна Раздербань");
+var phone = await api.Clean<Phone>("89168459285");
+var passport = await api.Clean<Passport>("4506 629672");
+var vehicle = await api.Clean<Vehicle>("форд фокус");
 ```
 
 Можно за один раз обработать запись из нескольких полей (например, ФИО + адрес + телефон):
 
 ```csharp
-var structure = new List<StructureType> { StructureType.NAME, StructureType.ADDRESS, StructureType.PHONE };
-var data = new List<string> { "Кузнецов Петр Алексеич", "Москва Милютинский 13", "846)231.60.14" };
-var cleaned = api.Clean(structure, data);
+var structure = new[] { StructureType.NAME, StructureType.ADDRESS, StructureType.PHONE };
+var data = new[] { "Кузнецов Петр Алексеич", "Москва Милютинский 13", "846)231.60.14" };
+var cleaned = await api.Clean(structure, data);
 var fullname = (Fullname)cleaned[0];
 var address = (Fullname)cleaned[1];
 var phone = (Fullname)cleaned[2];
@@ -93,7 +95,7 @@ var phone = (Fullname)cleaned[2];
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new SuggestClient(token);
+var api = new SuggestClientAsync(token);
 ```
 
 И используйте для обработки интересных вам типов данных.
@@ -101,28 +103,32 @@ var api = new SuggestClient(token);
 Например, компаний:
 
 ```csharp
-var response = api.SuggestParty("моторика сколково");
+var response = await api.SuggestParty("моторика сколково");
 var party = response.suggestions[0];
 ```
 
 ```csharp
-var request = new SuggestPartyRequest("витас");
-request.type = PartyType.INDIVIDUAL;
-var response = api.SuggestParty(request);
+var request = new SuggestPartyRequest("витас")
+{
+    type = PartyType.INDIVIDUAL
+};
+var response = await api.SuggestParty(request);
 var party = response.suggestions[0];
 ```
 
 Или банков:
 
 ```csharp
-var response = api.SuggestBank("тинь");
+var response = await api.SuggestBank("тинь");
 var bank = response.suggestions[0].data;
 ```
 
 ```csharp
-var request = new SuggestBankRequest("я");
-request.type = new BankType[] { BankType.NKO };
-var response = api.SuggestBank(request);
+var request = new SuggestBankRequest("я")
+{
+    type = new[] { BankType.NKO }
+};
+var response = await api.SuggestBank(request);
 var bank = response.suggestions[0].data;
 ```
 
@@ -132,13 +138,13 @@ var bank = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new SuggestClient(token);
+var api = new SuggestClientAsync(token);
 ```
 
 И получите список ближайших адресов по заданным координатам:
 
 ```csharp
-var response = api.Geolocate(lat: 55.7366021, lon: 37.597643);
+var response = await api.Geolocate(lat: 55.7366021, lon: 37.597643);
 var address = response.suggestions[0].data;
 ```
 
@@ -148,18 +154,18 @@ var address = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new SuggestClient(token);
+var api = new SuggestClientAsync(token);
 ```
 
 И получите адрес по КЛАДР- или ФИАС-коду:
 
 ```csharp
-var response = api.FindAddress("7700000000000");
+var response = await api.FindAddress("7700000000000");
 var address = response.suggestions[0].data;
 ```
 
 ```csharp
-var response = api.FindAddress("95dbf7fb-0dd4-4a04-8100-4f6c847564b5");
+var response = await api.FindAddress("95dbf7fb-0dd4-4a04-8100-4f6c847564b5");
 var address = response.suggestions[0].data;
 ```
 
@@ -169,13 +175,13 @@ var address = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new SuggestClient(token);
+var api = new SuggestClientAsync(token);
 ```
 
 И получите город по IP-адресу:
 
 ```csharp
-var response = api.Iplocate("213.180.193.3");
+var response = await api.Iplocate("213.180.193.3");
 var address = response.location.data;
 ```
 
@@ -183,9 +189,9 @@ var address = response.location.data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new OutwardClient(token);
+var api = new OutwardClientAsync(token);
 
-var response = api.Find<DeliveryCity>("3100400100000");
+var response = await api.Find<DeliveryCity>("3100400100000");
 var city = response.suggestions[0].data;
 ```
 
@@ -193,27 +199,27 @@ var city = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new OutwardClient(token);
+var api = new OutwardClientAsync(token);
 ```
 
 Полнотекстовый поиск:
 
 ```csharp
-var response = api.Suggest<PostalUnit>("дежнева 2а");
+var response = await api.Suggest<PostalUnit>("дежнева 2а");
 var unit = response.suggestions[0].data;
 ```
 
 Поиск по почтовому индексу:
 
 ```csharp
-var response = api.Find<PostalUnit>("127642");
+var response = await api.Find<PostalUnit>("127642");
 var unit = response.suggestions[0].data;
 ```
 
 Поиск ближайшего по координатам:
 
 ```csharp
-var response = api.Geolocate<PostalUnit>(lat: 55.878, lon: 37.653, radius_meters: 1000);
+var response = await api.Geolocate<PostalUnit>(lat: 55.878, lon: 37.653, radius_meters: 1000);
 var unit = response.suggestions[0].data;
 ```
 
@@ -221,13 +227,13 @@ var unit = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new OutwardClient(token);
+var api = new OutwardClientAsync(token);
 ```
 
 Полнотекстовый поиск:
 
 ```csharp
-var response = api.Suggest<MetroStation>("александр");
+var response = await api.Suggest<MetroStation>("александр");
 var station = response.suggestions[0].data;
 ```
 
@@ -238,7 +244,7 @@ var request = new SuggestOutwardRequest("александр")
 {
     filters = new Dictionary<string, string>() { { "city", "Санкт-Петербург" } }
 };
-var response = api.Suggest<MetroStation>(request);
+var response = await api.Suggest<MetroStation>(request);
 var station = response.suggestions[0].data;
 ```
 
@@ -246,9 +252,9 @@ var station = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new OutwardClient(token);
+var api = new OutwardClientAsync(token);
 
-var response = api.Suggest<Country>("ru");
+var response = await api.Suggest<Country>("ru");
 var country = response.suggestions[0].data;
 ```
 
@@ -258,24 +264,24 @@ var country = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new SuggestClient(token);
+var api = new SuggestClientAsync(token);
 ```
 
 И получите компанию по ИНН или ОГРН:
 
 ```csharp
-var response = api.FindParty("7719402047");
+var response = await api.FindParty("7719402047");
 var party = response.suggestions[0].data;
 ```
 
 ```csharp
-var response = api.FindParty("1157746078984");
+var response = await api.FindParty("1157746078984");
 var party = response.suggestions[0].data;
 ```
 
 ```csharp
 var request = new FindPartyRequest(query: "7728168971", kpp: "667102002");
-var response = api.FindParty(request);
+var response = await api.FindParty(request);
 var party = response.suggestions[0].data;
 ```
 
@@ -285,20 +291,22 @@ var party = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new SuggestClient(token);
+var api = new SuggestClientAsync(token);
 ```
 
 И найдите компании по ИНН учредителей и руководителей:
 
 ```csharp
-var response = api.FindAffiliated("7736207543");
+var response = await api.FindAffiliated("7736207543");
 var party = response.suggestions[0].data;
 ```
 
 ```csharp
-var request = new FindAffiliatedRequest("773006366201");
-request.scope = new FindAffiliatedScope[] { FindAffiliatedScope.MANAGERS };
-var response = api.FindAffiliated(request);
+var request = new FindAffiliatedRequest("773006366201")
+{
+    scope = new[] { FindAffiliatedScope.MANAGERS }
+};
+var response = await api.FindAffiliated(request);
 var party = response.suggestions[0].data;
 ```
 
@@ -308,26 +316,26 @@ var party = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new SuggestClient(token);
+var api = new SuggestClientAsync(token);
 ```
 
 И получите банк по идентификатору:
 
 ```csharp
 // БИК
-var response = api.FindBank("044525974");
+var response = await api.FindBank("044525974");
 var bank = response.suggestions[0].data;
 ```
 
 ```csharp
 // SWIFT
-var response = api.FindBank("TICSRUMMXXX");
+var response = await api.FindBank("TICSRUMMXXX");
 var bank = response.suggestions[0].data;
 ```
 
 ```csharp
 // Рег. номер
-var response = api.FindBank("2673");
+var response = await api.FindBank("2673");
 var bank = response.suggestions[0].data;
 ```
 
@@ -335,9 +343,9 @@ var bank = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new OutwardClient(token);
+var api = new OutwardClientAsync(token);
 
-var response = api.Suggest<FmsUnit>("772-053");
+var response = await api.Suggest<FmsUnit>("772-053");
 var unit = response.suggestions[0].data;
 ```
 
@@ -345,9 +353,9 @@ var unit = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new OutwardClient(token);
+var api = new OutwardClientAsync(token);
 
-var response = api.Find<FnsUnit>("5257");
+var response = await api.Find<FnsUnit>("5257");
 var unit = response.suggestions[0].data;
 ```
 
@@ -355,9 +363,9 @@ var unit = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new OutwardClient(token);
+var api = new OutwardClientAsync(token);
 
-var response = api.Suggest<CarBrand>("FORD");
+var response = await api.Suggest<CarBrand>("FORD");
 var brand = response.suggestions[0].data;
 ```
 
@@ -365,9 +373,9 @@ var brand = response.suggestions[0].data;
 
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
-var api = new OutwardClient(token);
+var api = new OutwardClientAsync(token);
 
-var response = api.Suggest<OkvedRecord>("51.22.3");
+var response = await api.Suggest<OkvedRecord>("51.22.3");
 var record = response.suggestions[0].data;
 ```
 
@@ -376,20 +384,20 @@ var record = response.suggestions[0].data;
 ```csharp
 var token = "ВАШ_API_КЛЮЧ";
 var secret = "ВАШ_СЕКРЕТНЫЙ_КЛЮЧ";
-var api = new ProfileClient(token, secret);
+var api = new ProfileClientAsync(token, secret);
 ```
 
 Баланс:
 
 ```csharp
-var response = api.GetBalance();
+var response = await api.GetBalance();
 var balance = response.balance;
 ```
 
 Статистика использования:
 
 ```csharp
-var response = api.GetDailyStats();
+var response = await api.GetDailyStats();
 var cleanCount = response.services.clean;
 var suggestionsCount = response.services.suggestions;
 var mergingCount = response.services.merging;
@@ -398,7 +406,7 @@ var mergingCount = response.services.merging;
 Версии справочников:
 
 ```csharp
-var response = api.GetVersions();
+var response = await api.GetVersions();
 var egrulVersion = response.suggestions.resources["ЕГРЮЛ"];
 var geoVersion = response.factor.resources["Геокоординаты"];
 ```

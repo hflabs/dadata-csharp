@@ -5,11 +5,11 @@ using Dadata.Model;
 
 namespace Dadata.Test
 {
-    public class GeolocateClientSyncTest
+    public class GeolocateClientAsyncTest
     {
         public SuggestClientAsync api { get; set; }
 
-        public GeolocateClientSyncTest()
+        public GeolocateClientAsyncTest()
         {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
             this.api = new SuggestClientAsync(token);

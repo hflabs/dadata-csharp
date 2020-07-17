@@ -4,11 +4,11 @@ using Xunit;
 
 namespace Dadata.Test
 {
-    public class IplocateClientTest
+    public class IplocateClientAsyncTest
     {
         public SuggestClientAsync api { get; set; }
 
-        public IplocateClientTest()
+        public IplocateClientAsyncTest()
         {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
             this.api = new SuggestClientAsync(token);
