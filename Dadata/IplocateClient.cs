@@ -8,7 +8,7 @@ using Dadata.Model;
 namespace Dadata
 {
     [Obsolete("Use SuggestClient instead")]
-    public class IplocateClient : ClientBase
+    public class IplocateClient : ClientBaseSync
     {
         const string BASE_URL = "https://suggestions.dadata.ru/suggestions/api/4_1/rs";
 

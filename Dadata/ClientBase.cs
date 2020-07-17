@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Dadata.Model;
 
@@ -20,9 +24,7 @@ namespace Dadata
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
         }
 
-        public ClientBase(string token, string baseUrl) : this(token, null, baseUrl)
-        {
-        }
+        public ClientBase(string token, string baseUrl) : this(token, null, baseUrl) { }
 
         public ClientBase(string token, string secret, string baseUrl)
         {
@@ -32,37 +34,7 @@ namespace Dadata
             this.serializer = new JsonSerializer();
         }
 
-        protected T ExecuteGet<T>(string method, string entity)
-        {
-            var parameters = new NameValueCollection();
-            return ExecuteGet<T>(method, entity, parameters);
-        }
-
-        protected T ExecuteGet<T>(string method, string entity, NameValueCollection parameters)
-        {
-            var queryString = SerializeParameters(parameters);
-            var httpRequest = CreateHttpRequest(verb: "GET", method: method, entity: entity, queryString: queryString);
-            var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
-            return Deserialize<T>(httpResponse);
-        }
-
-        protected T Execute<T>(string method, string entity, IDadataRequest request)
-        {
-            var httpRequest = CreateHttpRequest(verb: "POST", method: method, entity: entity);
-            httpRequest = Serialize(httpRequest, request);
-            var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
-            return Deserialize<T>(httpResponse);
-        }
-
-        protected T Execute<T>(IDadataRequest request)
-        {
-            var httpRequest = CreateHttpRequest(verb: "POST", url: baseUrl);
-            httpRequest = Serialize(httpRequest, request);
-            var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
-            return Deserialize<T>(httpResponse);
-        }
-
-        protected HttpWebRequest CreateHttpRequest(string verb, string method, string entity, string queryString = null)
+        protected string BuildUrl(string method, string entity, string queryString = null)
         {
             var url = String.Format("{0}/{1}", baseUrl, method);
             if (!String.IsNullOrEmpty(entity))
@@ -73,20 +45,7 @@ namespace Dadata
             {
                 url += "?" + queryString;
             }
-            return CreateHttpRequest(verb, url);
-        }
-
-        protected HttpWebRequest CreateHttpRequest(string verb, string url)
-        {
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = verb;
-            request.ContentType = "application/json";
-            request.Headers.Add("Authorization", "Token " + this.token);
-            if (this.secret != null)
-            {
-                request.Headers.Add("X-Secret", this.secret);
-            }
-            return request;
+            return url;
         }
 
         protected string SerializeParameters(NameValueCollection parameters)
@@ -95,27 +54,6 @@ namespace Dadata
             foreach (String key in parameters.AllKeys)
                 parts.Add(String.Format("{0}={1}", key, parameters[key]));
             return String.Join("&", parts);
-        }
-
-        protected HttpWebRequest Serialize(HttpWebRequest httpRequest, IDadataRequest request)
-        {
-            using (var w = new StreamWriter(httpRequest.GetRequestStream()))
-            {
-                using (JsonWriter writer = new JsonTextWriter(w))
-                {
-                    this.serializer.Serialize(writer, request);
-                }
-            }
-            return httpRequest;
-        }
-
-        protected virtual T Deserialize<T>(HttpWebResponse httpResponse)
-        {
-            using (var r = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                string responseText = r.ReadToEnd();
-                return JsonConvert.DeserializeObject<T>(responseText);
-            }
         }
     }
 }

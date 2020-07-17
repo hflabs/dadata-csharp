@@ -1,38 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Dadata.Test
 {
     public class ProfileClientTest
     {
-        public ProfileClient api { get; set; }
+        public ProfileClientAsync api { get; set; }
 
         public ProfileClientTest()
         {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
             var secret = Environment.GetEnvironmentVariable("DADATA_SECRET_KEY");
-            api = new ProfileClient(token, secret);
+            api = new ProfileClientAsync(token, secret);
         }
 
         [Fact]
-        public void GetBalanceTest()
+        public async Task GetBalanceTest()
         {
-            var response = api.GetBalance();
+            var response = await api.GetBalance();
             Assert.True(response.balance >= 0);
         }
 
         [Fact]
-        public void GetDailyStatsTest()
+        public async Task GetDailyStatsTest()
         {
-            var response = api.GetDailyStats();
+            var response = await api.GetDailyStats();
             Assert.Equal(DateTime.Today, response.date);
         }
 
         [Fact]
-        public void GetVersionsTest()
+        public async Task GetVersionsTest()
         {
-            var response = api.GetVersions();
+            var response = await api.GetVersions();
             Assert.StartsWith("stable", response.dadata.version);
             Assert.True(response.suggestions.resources.ContainsKey("ЕГРЮЛ"));
             Assert.True(response.factor.resources.ContainsKey("ФИАС"));

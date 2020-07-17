@@ -5,14 +5,14 @@ using Dadata.Model;
 
 namespace Dadata.Test
 {
-    public class OutwardClientTest
+    public class OutwardClientSyncTest
     {
-        public OutwardClient api { get; set; }
+        public OutwardClientSync api { get; set; }
 
-        public OutwardClientTest()
+        public OutwardClientSyncTest()
         {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
-            api = new OutwardClient(token);
+            api = new OutwardClientSync(token);
         }
 
         [Fact]

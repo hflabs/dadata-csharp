@@ -1,36 +1,37 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Dadata.Test
 {
     public class IplocateClientTest
     {
-        public SuggestClient api { get; set; }
+        public SuggestClientAsync api { get; set; }
 
         public IplocateClientTest()
         {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
-            this.api = new SuggestClient(token);
+            this.api = new SuggestClientAsync(token);
         }
 
         [Fact]
-        public void IplocateTest()
+        public async Task IplocateTest()
         {
-            var response = api.Iplocate("213.180.193.3");
+            var response = await api.Iplocate("213.180.193.3");
             Assert.Equal("Москва", response.location.data.city);
         }
 
         [Fact]
-        public void LanguageTest()
+        public async Task LanguageTest()
         {
-            var response = api.Iplocate("213.180.193.3", language: "en");
+            var response = await api.Iplocate("213.180.193.3", language: "en");
             Assert.Equal("Moscow", response.location.data.city);
         }
 
         [Fact]
-        public void NotFoundTest()
+        public async Task NotFoundTest()
         {
-            var response = api.Iplocate("192.168.0.1");
+            var response = await api.Iplocate("192.168.0.1");
             Assert.Null(response.location);
         }
     }

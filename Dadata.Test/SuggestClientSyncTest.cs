@@ -5,14 +5,14 @@ using Dadata.Model;
 
 namespace Dadata.Test
 {
-    public class SuggestClientTest
+    public class SuggestClientSyncTest
     {
-        public SuggestClient api { get; set; }
+        public SuggestClientSync api { get; set; }
 
-        public SuggestClientTest()
+        public SuggestClientSyncTest()
         {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
-            this.api = new SuggestClient(token);
+            this.api = new SuggestClientSync(token);
         }
 
         [Fact]
