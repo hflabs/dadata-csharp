@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.IO;
-using System.Net;
-using Newtonsoft.Json;
 using Dadata.Model;
 
 namespace Dadata

@@ -76,7 +76,8 @@ namespace Dadata.Test
         [Fact]
         public void SuggestAddressLocationsGeoTest()
         {
-            var request = new SuggestAddressRequest("сухонская ") {
+            var request = new SuggestAddressRequest("сухонская ")
+            {
                 locations_geo = new LocationGeo[]
                 {
                     new LocationGeo() { lat=59.244634, lon=39.913355, radius_meters=200}

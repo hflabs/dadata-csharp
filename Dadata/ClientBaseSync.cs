@@ -12,7 +12,7 @@ namespace Dadata
     {
         public ClientBaseSync(string token, string baseUrl) : this(token, null, baseUrl) { }
 
-        public ClientBaseSync(string token, string secret, string baseUrl): base(token, secret, baseUrl) { }
+        public ClientBaseSync(string token, string secret, string baseUrl) : base(token, secret, baseUrl) { }
 
         protected T ExecuteGet<T>(string method, string entity)
         {

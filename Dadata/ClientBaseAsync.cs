@@ -18,7 +18,7 @@ namespace Dadata
 
         public ClientBaseAsync(string token, string baseUrl) : this(token, null, baseUrl) { }
 
-        public ClientBaseAsync(string token, string secret, string baseUrl): base(token, secret, baseUrl)
+        public ClientBaseAsync(string token, string secret, string baseUrl) : base(token, secret, baseUrl)
         {
             this.client = new HttpClient();
         }

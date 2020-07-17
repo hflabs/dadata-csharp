@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Dadata.Model
 {
-    /// <summary>
-    /// Clean request.
-    /// </summary>
     public class CleanRequest : IDadataRequest
     {
         public IEnumerable<StructureType> structure { get; }

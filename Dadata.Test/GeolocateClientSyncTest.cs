@@ -8,7 +8,8 @@ namespace Dadata.Test
     {
         public SuggestClientSync api { get; set; }
 
-        public GeolocateClientTest() {
+        public GeolocateClientTest()
+        {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
             this.api = new SuggestClientSync(token);
         }

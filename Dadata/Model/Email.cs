@@ -1,7 +1,6 @@
-﻿using System;
-namespace Dadata.Model
+﻿namespace Dadata.Model
 {
-    public class Email: IDadataEntity
+    public class Email : IDadataEntity
     {
         public string source { get; set; }
         public string local { get; set; }

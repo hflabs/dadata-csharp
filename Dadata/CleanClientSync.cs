@@ -28,7 +28,7 @@ namespace Dadata
         };
 
 
-        public CleanClientSync(string token, string secret, string baseUrl=BASE_URL) : base(token, secret, baseUrl)
+        public CleanClientSync(string token, string secret, string baseUrl = BASE_URL) : base(token, secret, baseUrl)
         {
             // all response data entities look the same (IDadataEntity), 
             // need to manually convert them to specific types (address, phone etc)

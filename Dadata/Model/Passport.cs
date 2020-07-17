@@ -1,10 +1,6 @@
-﻿using System;
-namespace Dadata.Model
+﻿namespace Dadata.Model
 {
-    /// <summary>
-    /// Passport.
-    /// </summary>
-    public class Passport: IDadataEntity
+    public class Passport : IDadataEntity
     {
         public string source { get; set; }
         public string series { get; set; }

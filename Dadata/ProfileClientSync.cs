@@ -8,7 +8,7 @@ namespace Dadata
     {
         protected const string BASE_URL = "https://dadata.ru/api/v2";
 
-        public ProfileClientSync(string token, string secret, string baseUrl=BASE_URL) : base(token, secret, baseUrl) { }
+        public ProfileClientSync(string token, string secret, string baseUrl = BASE_URL) : base(token, secret, baseUrl) { }
 
 
         public GetBalanceResponse GetBalance()

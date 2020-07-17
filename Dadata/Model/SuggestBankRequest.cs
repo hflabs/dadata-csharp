@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Dadata.Model
+﻿namespace Dadata.Model
 {
-    public class SuggestBankRequest: SuggestRequest
+    public class SuggestBankRequest : SuggestRequest
     {
         public Address[] locations { get; set; }
         public Address[] locations_boost { get; set; }

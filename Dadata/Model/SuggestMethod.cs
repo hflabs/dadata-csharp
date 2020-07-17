@@ -1,5 +1,4 @@
-﻿using System;
-namespace Dadata.Model
+﻿namespace Dadata.Model
 {
     public static class SuggestionsMethod
     {

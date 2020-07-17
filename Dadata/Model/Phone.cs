@@ -1,10 +1,6 @@
-﻿using System;
-namespace Dadata.Model
+﻿namespace Dadata.Model
 {
-    /// <summary>
-    /// Phone.
-    /// </summary>
-    public class Phone: IDadataEntity
+    public class Phone : IDadataEntity
     {
         public string source { get; set; }
         public string type { get; set; }

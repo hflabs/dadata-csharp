@@ -1,7 +1,6 @@
-﻿using System;
-namespace Dadata.Model
+﻿namespace Dadata.Model
 {
-    public class SuggestNameRequest: SuggestRequest
+    public class SuggestNameRequest : SuggestRequest
     {
         public FullnamePart[] parts { get; set; }
         public Gender gender { get; set; }

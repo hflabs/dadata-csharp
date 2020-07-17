@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Dadata.Model
 {
-    public class Birthdate: IDadataEntity
+    public class Birthdate : IDadataEntity
     {
         public string source { get; set; }
         [JsonConverter(typeof(DateRuConverter))]

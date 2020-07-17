@@ -1,10 +1,6 @@
-﻿using System;
-namespace Dadata.Model
+﻿namespace Dadata.Model
 {
-    /// <summary>
-    /// Vehicle.
-    /// </summary>
-    public class Vehicle: IDadataEntity
+    public class Vehicle : IDadataEntity
     {
         public string source { get; set; }
         public string result { get; set; }

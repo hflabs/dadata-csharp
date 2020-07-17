@@ -1,10 +1,6 @@
-﻿using System;
-namespace Dadata.Model
+﻿namespace Dadata.Model
 {
-    /// <summary>
-    /// "As is" entity.
-    /// </summary>
-    public class AsIs: IDadataEntity
+    public class AsIs : IDadataEntity
     {
         public string source { get; set; }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using Dadata.Model;
+﻿using Dadata.Model;
 
 namespace Dadata
 {

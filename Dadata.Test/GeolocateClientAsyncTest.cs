@@ -9,7 +9,8 @@ namespace Dadata.Test
     {
         public SuggestClientAsync api { get; set; }
 
-        public GeolocateClientSyncTest() {
+        public GeolocateClientSyncTest()
+        {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
             this.api = new SuggestClientAsync(token);
         }

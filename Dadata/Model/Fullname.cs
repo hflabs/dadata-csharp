@@ -1,10 +1,6 @@
-﻿using System;
-namespace Dadata.Model
+﻿namespace Dadata.Model
 {
-    /// <summary>
-    /// Fullname.
-    /// </summary>
-    public class Fullname: IDadataEntity
+    public class Fullname : IDadataEntity
     {
         public string source { get; set; }
         public string result { get; set; }
