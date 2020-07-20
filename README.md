@@ -410,3 +410,8 @@ var response = await api.GetVersions();
 var egrulVersion = response.suggestions.resources["ЕГРЮЛ"];
 var geoVersion = response.factor.resources["Геокоординаты"];
 ```
+
+[История версий](https://github.com/hflabs/dadata-csharp/releases)
+-----
+
+Библиотека использует [CalVer](https://calver.org/) по схеме YY.MM.MINOR (например, 20.7.2 = третий релиз в июле 2020). Подробности изменений — в описании каждого релиза.
