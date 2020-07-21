@@ -85,8 +85,8 @@ var structure = new[] { StructureType.NAME, StructureType.ADDRESS, StructureType
 var data = new[] { "Кузнецов Петр Алексеич", "Москва Милютинский 13", "846)231.60.14" };
 var cleaned = await api.Clean(structure, data);
 var fullname = (Fullname)cleaned[0];
-var address = (Fullname)cleaned[1];
-var phone = (Fullname)cleaned[2];
+var address = (Address)cleaned[1];
+var phone = (Phone)cleaned[2];
 ```
 
 ### [API подсказок](https://dadata.ru/api/suggest/)
