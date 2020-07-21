@@ -108,9 +108,12 @@ var party = response.suggestions[0];
 ```
 
 ```csharp
-var request = new SuggestPartyRequest("витас")
+var request = new SuggestPartyRequest("вита")
 {
-    type = PartyType.INDIVIDUAL
+    type = PartyType.INDIVIDUAL,
+    locations = new[] {
+        new Address() { kladr_id = "78" },
+    }
 };
 var response = await api.SuggestParty(request);
 var party = response.suggestions[0];
