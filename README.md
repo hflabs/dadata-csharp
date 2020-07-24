@@ -1,114 +1,278 @@
-API DaData.ru для C# / .NET
-====================
+# Dadata API Client
 
-Описание
----------------
+> Data cleansing, enrichment and suggestions via [Dadata API](https://dadata.ru/api)
 
-Библиотека `dadata-csharp` — это обертка над [API «Дадаты»](https://dadata.ru/api/) для C# и других .NET-языков (.NET Standard 2.0).
+[![Nuget Version][nuget-image]][nuget-url]
+[![Downloads][downloads-image]][nuget-url]
 
-Установка
----------
+The official Dadata .NET library, supporting .NET Standard 2.0+
 
-### 1. Подключите библиотеку
+## Installation
 
-Можно установить через [NuGet](https://www.nuget.org/packages/Dadata) или скачать [бинарники](https://github.com/hflabs/dadata-csharp/releases/latest).
-
-Внешние зависимости: [JSON.NET](http://james.newtonking.com/json)
-
-Установить через [.NET Core CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/):
+Using the .NET Core command-line interface (CLI) tools:
 
 ```
 dotnet add package Newtonsoft.Json
 dotnet add package Dadata
 ```
 
-Установить через [NuGet CLI](https://docs.microsoft.com/en-us/nuget/reference/nuget-exe-cli-reference):
+Using the NuGet Command Line Interface (CLI):
 
 ```
 nuget install Newtonsoft.Json
 nuget install Dadata
 ```
 
-Установить через [Package Manager](https://docs.microsoft.com/en-us/nuget/consume-packages/install-use-packages-powershell):
+Using the Package Manager Console:
 
 ```
 Install-Package Newtonsoft.Json
 Install-Package Dadata
 ```
 
-### 2. Получите API-ключи
+From within Visual Studio:
 
-Зарегистрируйтесь на [dadata.ru](https://dadata.ru) и получите API-ключи в [личном кабинете](https://dadata.ru/profile/#info).
+1. Open the Solution Explorer.
+2. Right-click on a project within your solution.
+3. Click on *Manage NuGet Packages...*
+4. Click on the *Browse* tab and search for "Dadata".
+5. Click on the Dadata package, select the appropriate version in the right-tab and click *Install*.
 
-### 3. Пользуйтесь API!
+## Usage
 
-Примеры вызова API смотрите [в юнит-тестах](https://github.com/hflabs/dadata-csharp/blob/master/Dadata.Test) или ниже по тексту.
-
-Использование
----------
-
-В примерах используются асинхронные API-клиенты: `CleanClientAsync`, `SuggestClientAsync`, `OutwardClientAsync` и `ProfileClientAsync`. У них есть синхронные альтернативые с суффиксом `Sync` — они существуют для обратной совместимости и в будущих версиях будут удалены. Рекомендуем использовать асинхронные версии.
-
-Прежде всего, подключите пространства имён:
+Import namespaces:
 
 ```csharp
 using Dadata;
 using Dadata.Model;
 ```
 
-### [API стандартизации](https://dadata.ru/api/clean/)
-
-Создайте апи-клиента:
+Create API client instance:
 
 ```csharp
-var token = "ВАШ_API_КЛЮЧ";
-var secret = "ВАШ_СЕКРЕТНЫЙ_КЛЮЧ";
+var token = "Replace with Dadata API key";
+var secret = "Replace with Dadata secret key";
+
 var api = new CleanClientAsync(token, secret);
+// or any of the following, depending on the API method
+api = new SuggestClientAsync(token);
+api = new OutwardClientAsync(token);
+api = new ProfileClientAsync(token, secret);
 ```
 
-И используйте для обработки интересных вам типов данных:
+Then call API methods as specified below.
+
+Examples use async clients: `CleanClientAsync`, `SuggestClientAsync`, `OutwardClientAsync` and `ProfileClientAsync`. There are sync alternatives with `Sync` suffixes — they exist for backward compatibility and will be removed in future releases.
+
+## Postal Address
+
+### [Validate and cleanse address](https://dadata.ru/api/clean/address/)
 
 ```csharp
-var address = await api.Clean<Address>("Москва Милютинский 13");
-var birthdate = await api.Clean<Birthdate>("12.03.1990");
-var email = await api.Clean<Email>("anderson@matrix.ru");
-var fullname = await api.Clean<Fullname>("Ольга Викторовна Раздербань");
-var phone = await api.Clean<Phone>("89168459285");
-var passport = await api.Clean<Passport>("4506 629672");
-var vehicle = await api.Clean<Vehicle>("форд фокус");
+var api = new CleanClientAsync(token, secret);
+var address = await api.Clean<Address>("мск сухонская 11 89");
 ```
 
-Можно за один раз обработать запись из нескольких полей (например, ФИО + адрес + телефон):
+### [Geocode address](https://dadata.ru/api/geocode/)
+
+Same API method as "validate and cleanse":
 
 ```csharp
-var structure = new[] { StructureType.NAME, StructureType.ADDRESS, StructureType.PHONE };
-var data = new[] { "Кузнецов Петр Алексеич", "Москва Милютинский 13", "846)231.60.14" };
-var cleaned = await api.Clean(structure, data);
-var fullname = (Fullname)cleaned[0];
-var address = (Fullname)cleaned[1];
-var phone = (Fullname)cleaned[2];
+var api = new CleanClientAsync(token, secret);
+var address = await api.Clean<Address>("москва сухонская 11");
 ```
 
-### [API подсказок](https://dadata.ru/api/suggest/)
-
-Создайте апи-клиента:
+### [Reverse geocode address](https://dadata.ru/api/geolocate/)
 
 ```csharp
-var token = "ВАШ_API_КЛЮЧ";
 var api = new SuggestClientAsync(token);
+var response = await api.Geolocate(lat: 55.878, lon: 37.653);
+var address = response.suggestions[0].data;
 ```
 
-И используйте для обработки интересных вам типов данных.
-
-Например, компаний:
+### [GeoIP city](https://dadata.ru/api/iplocate/)
 
 ```csharp
-var response = await api.SuggestParty("моторика сколково");
+var api = new SuggestClientAsync(token);
+var response = await api.Iplocate("46.226.227.20");
+var address = response.location.data;
+```
+
+### [Autocomplete (suggest) address](https://dadata.ru/api/suggest/address/)
+
+```csharp
+var api = new SuggestClientAsync(token);
+var response = await api.SuggestAddress("самара метал");
+var address = response.suggestions[0].data;
+```
+
+Show suggestions in English:
+
+```csharp
+var request = new SuggestAddressRequest("samara metal") { language = "en" };
+var response = await api.SuggestAddress(request);
+var address = response.suggestions[0].data;
+```
+
+Constrain by city (Yuzhno-Sakhalinsk):
+
+```csharp
+var request = new SuggestAddressRequest("ватутина")
+{
+    locations = new[] {
+        new Address() { kladr_id = "6500000100000" },
+    }
+};
+var response = await api.SuggestAddress(request);
+var address = response.suggestions[0].data;
+```
+
+Constrain by specific geo point and radius (in Vologda city):
+
+```csharp
+var request = new SuggestAddressRequest("сухонская")
+{
+    locations_geo = new[]
+    {
+        new LocationGeo() { lat=59.244634, lon=39.913355, radius_meters=200}
+    }
+};
+var response = await api.SuggestAddress(request);
+var address = response.suggestions[0].data;
+```
+
+Boost city to top (Toliatti):
+
+```csharp
+var request = new SuggestAddressRequest("авто")
+{
+    locations_boost = new[]
+    {
+        new Address() { kladr_id = "6300000700000" },
+    }
+};
+var response = await api.SuggestAddress(request);
+var address = response.suggestions[0].data;
+```
+
+### [Find address by FIAS ID](https://dadata.ru/api/find-address/)
+
+```csharp
+var api = new SuggestClientAsync(token);
+var response = await api.FindAddress("9120b43f-2fae-4838-a144-85e43c2bfb29");
+var address = response.suggestions[0].data;
+```
+
+Find by KLADR ID:
+
+```csharp
+var response = await api.FindAddress("77000000000268400");
+var address = response.suggestions[0].data;
+```
+
+### [Find postal office](https://dadata.ru/api/suggest/postal_unit/)
+
+Suggest postal office by address or code:
+
+```csharp
+var api = new OutwardClientAsync(token);
+var response = await api.Suggest<PostalUnit>("дежнева 2а");
+var unit = response.suggestions[0].data;
+```
+
+Find postal office by code:
+
+```csharp
+var response = await api.Find<PostalUnit>("127642");
+var unit = response.suggestions[0].data;
+```
+
+Find nearest postal office:
+
+```csharp
+var response = await api.Geolocate<PostalUnit>(lat: 55.878, lon: 37.653, radius_meters: 1000);
+var unit = response.suggestions[0].data;
+```
+
+### [Get City ID for delivery services](https://dadata.ru/api/delivery/)
+
+```csharp
+var api = new OutwardClientAsync(token);
+var response = await api.Find<DeliveryCity>("3100400100000");
+var city = response.suggestions[0].data;
+```
+
+### [Get address strictly according to FIAS](https://dadata.ru/api/find-fias/)
+
+```csharp
+var api = new SuggestClientAsync(token);
+var response = await api.FindFias("9120b43f-2fae-4838-a144-85e43c2bfb29");
+var address = response.suggestions[0].data;
+```
+
+### [Suggest country](https://dadata.ru/api/suggest/country/)
+
+```csharp
+var api = new OutwardClientAsync(token);
+var response = await api.Suggest<Country>("та");
+var country = response.suggestions[0].data;
+```
+
+## Company or individual enterpreneur
+
+### [Find company by INN](https://dadata.ru/api/find-party/)
+
+```csharp
+var api = new SuggestClientAsync(token);
+var response = await api.FindParty("7707083893");
+var party = response.suggestions[0].data;
+```
+
+Find by INN and KPP:
+
+```csharp
+var request = new FindPartyRequest(query: "7707083893", kpp: "540602001");
+var response = await api.FindParty(request);
+var party = response.suggestions[0].data;
+```
+
+### [Suggest company](https://dadata.ru/api/suggest/party/)
+
+```csharp
+var api = new SuggestClientAsync(token);
+var response = await api.SuggestParty("сбер");
 var party = response.suggestions[0];
 ```
 
+Constrain by specific regions (Saint Petersburg and Leningradskaya oblast):
+
 ```csharp
-var request = new SuggestPartyRequest("витас")
+var request = new SuggestPartyRequest("сбер")
+{
+    locations = new[] {
+        new Address() { kladr_id = "7800000000000" },
+        new Address() { kladr_id = "4700000000000" },
+    }
+};
+var response = await api.SuggestParty(request);
+var party = response.suggestions[0];
+```
+
+Constrain by active companies:
+
+```csharp
+var request = new SuggestPartyRequest("сбер")
+{
+    status = new[] { PartyStatus.ACTIVE }
+};
+var response = await api.SuggestParty(request);
+var party = response.suggestions[0];
+```
+
+Constrain by individual entrepreneurs:
+
+```csharp
+var request = new SuggestPartyRequest("сбер")
 {
     type = PartyType.INDIVIDUAL
 };
@@ -116,190 +280,15 @@ var response = await api.SuggestParty(request);
 var party = response.suggestions[0];
 ```
 
-Или банков:
+### [Find affiliated companies](https://dadata.ru/api/find-affiliated/)
 
 ```csharp
-var response = await api.SuggestBank("тинь");
-var bank = response.suggestions[0].data;
-```
-
-```csharp
-var request = new SuggestBankRequest("я")
-{
-    type = new[] { BankType.NKO }
-};
-var response = await api.SuggestBank(request);
-var bank = response.suggestions[0].data;
-```
-
-### [Адрес по координатам](https://dadata.ru/api/geolocate/)
-
-Создайте апи-клиента:
-
-```csharp
-var token = "ВАШ_API_КЛЮЧ";
 var api = new SuggestClientAsync(token);
-```
-
-И получите список ближайших адресов по заданным координатам:
-
-```csharp
-var response = await api.Geolocate(lat: 55.7366021, lon: 37.597643);
-var address = response.suggestions[0].data;
-```
-
-### [Адрес по коду КЛАДР или ФИАС](https://dadata.ru/api/find-address/)
-
-Создайте апи-клиента:
-
-```csharp
-var token = "ВАШ_API_КЛЮЧ";
-var api = new SuggestClientAsync(token);
-```
-
-И получите адрес по КЛАДР- или ФИАС-коду:
-
-```csharp
-var response = await api.FindAddress("7700000000000");
-var address = response.suggestions[0].data;
-```
-
-```csharp
-var response = await api.FindAddress("95dbf7fb-0dd4-4a04-8100-4f6c847564b5");
-var address = response.suggestions[0].data;
-```
-
-### [Город по IP-адресу](https://dadata.ru/api/iplocate/)
-
-Создайте апи-клиента:
-
-```csharp
-var token = "ВАШ_API_КЛЮЧ";
-var api = new SuggestClientAsync(token);
-```
-
-И получите город по IP-адресу:
-
-```csharp
-var response = await api.Iplocate("213.180.193.3");
-var address = response.location.data;
-```
-
-### [Город в службе доставки](https://dadata.ru/api/delivery/)
-
-```csharp
-var token = "ВАШ_API_КЛЮЧ";
-var api = new OutwardClientAsync(token);
-
-var response = await api.Find<DeliveryCity>("3100400100000");
-var city = response.suggestions[0].data;
-```
-
-### [Почтовое отделение](https://dadata.ru/api/suggest/postal_unit/)
-
-```csharp
-var token = "ВАШ_API_КЛЮЧ";
-var api = new OutwardClientAsync(token);
-```
-
-Полнотекстовый поиск:
-
-```csharp
-var response = await api.Suggest<PostalUnit>("дежнева 2а");
-var unit = response.suggestions[0].data;
-```
-
-Поиск по почтовому индексу:
-
-```csharp
-var response = await api.Find<PostalUnit>("127642");
-var unit = response.suggestions[0].data;
-```
-
-Поиск ближайшего по координатам:
-
-```csharp
-var response = await api.Geolocate<PostalUnit>(lat: 55.878, lon: 37.653, radius_meters: 1000);
-var unit = response.suggestions[0].data;
-```
-
-### [Станция метро](https://dadata.ru/api/suggest/metro/)
-
-```csharp
-var token = "ВАШ_API_КЛЮЧ";
-var api = new OutwardClientAsync(token);
-```
-
-Полнотекстовый поиск:
-
-```csharp
-var response = await api.Suggest<MetroStation>("александр");
-var station = response.suggestions[0].data;
-```
-
-Фильтрация по городу:
-
-```csharp
-var request = new SuggestOutwardRequest("александр")
-{
-    filters = new Dictionary<string, string>() { { "city", "Санкт-Петербург" } }
-};
-var response = await api.Suggest<MetroStation>(request);
-var station = response.suggestions[0].data;
-```
-
-### [Страна](https://dadata.ru/api/suggest/country/)
-
-```csharp
-var token = "ВАШ_API_КЛЮЧ";
-var api = new OutwardClientAsync(token);
-
-var response = await api.Suggest<Country>("ru");
-var country = response.suggestions[0].data;
-```
-
-### [Организация по ИНН или ОГРН](https://dadata.ru/api/find-party/)
-
-Создайте апи-клиента:
-
-```csharp
-var token = "ВАШ_API_КЛЮЧ";
-var api = new SuggestClientAsync(token);
-```
-
-И получите компанию по ИНН или ОГРН:
-
-```csharp
-var response = await api.FindParty("7719402047");
-var party = response.suggestions[0].data;
-```
-
-```csharp
-var response = await api.FindParty("1157746078984");
-var party = response.suggestions[0].data;
-```
-
-```csharp
-var request = new FindPartyRequest(query: "7728168971", kpp: "667102002");
-var response = await api.FindParty(request);
-var party = response.suggestions[0].data;
-```
-
-### [Поиск аффилированных компаний](https://dadata.ru/api/find-affiliated/)
-
-Создайте апи-клиента:
-
-```csharp
-var token = "ВАШ_API_КЛЮЧ";
-var api = new SuggestClientAsync(token);
-```
-
-И найдите компании по ИНН учредителей и руководителей:
-
-```csharp
 var response = await api.FindAffiliated("7736207543");
 var party = response.suggestions[0].data;
 ```
+
+Search only by manager INN:
 
 ```csharp
 var request = new FindAffiliatedRequest("773006366201")
@@ -310,91 +299,184 @@ var response = await api.FindAffiliated(request);
 var party = response.suggestions[0].data;
 ```
 
-### [Банк по БИК, SWIFT или рег. номеру](https://dadata.ru/api/find-bank/)
+## Bank
 
-Создайте апи-клиента:
+### [Find bank by BIC, SWIFT or INN](https://dadata.ru/api/find-bank/)
 
 ```csharp
-var token = "ВАШ_API_КЛЮЧ";
 var api = new SuggestClientAsync(token);
-```
-
-И получите банк по идентификатору:
-
-```csharp
-// БИК
-var response = await api.FindBank("044525974");
+var response = await api.FindBank("044525225");
 var bank = response.suggestions[0].data;
 ```
 
+Find by SWIFT code:
+
 ```csharp
-// SWIFT
-var response = await api.FindBank("TICSRUMMXXX");
+var response = await api.FindBank("SABRRUMM");
 var bank = response.suggestions[0].data;
 ```
 
+Find by INN:
+
 ```csharp
-// Рег. номер
-var response = await api.FindBank("2673");
+var response = await api.FindBank("7728168971");
 var bank = response.suggestions[0].data;
 ```
 
-### [Кем выдан паспорт](https://dadata.ru/api/suggest/fms_unit/)
+Find by INN and KPP:
 
 ```csharp
-var token = "ВАШ_API_КЛЮЧ";
+var request = new FindBankRequest(query: "7728168971", kpp: "667102002");
+var response = await api.FindBank(request);
+var bank = response.suggestions[0].data;
+```
+
+Find by registration number:
+
+```csharp
+var response = await api.FindBank("1481");
+var bank = response.suggestions[0].data;
+```
+
+### [Suggest bank](https://dadata.ru/api/suggest/bank/)
+
+```csharp
+var api = new SuggestClientAsync(token);
+var response = await api.SuggestBank("ти");
+var bank = response.suggestions[0].data;
+```
+
+## Personal name
+
+### [Validate and cleanse name](https://dadata.ru/api/clean/name/)
+
+```csharp
+var api = new CleanClientAsync(token, secret);
+var fullname = await api.Clean<Fullname>("Срегей владимерович иванов");
+```
+
+### [Suggest name](https://dadata.ru/api/suggest/name/)
+
+```csharp
+var api = new SuggestClientAsync(token);
+var response = await api.SuggestName("викт");
+var fullname = response.suggestions[0].data;
+```
+
+Suggest female first name:
+
+```csharp
+var request = new SuggestNameRequest("викт")
+{
+    parts = new[] { FullnamePart.NAME },
+    gender = Gender.FEMALE
+};
+var response = await api.SuggestName(request);
+var fullname = response.suggestions[0].data;
+```
+
+## Phone
+
+### [Validate and cleanse phone](https://dadata.ru/api/clean/phone/)
+
+```csharp
+var api = new CleanClientAsync(token, secret);
+var phone = await api.Clean<Phone>("9168-233-454");
+```
+
+## Passport
+
+### [Validate passport](https://dadata.ru/api/clean/passport/)
+
+```csharp
+var api = new CleanClientAsync(token, secret);
+var passport = await api.Clean<Passport>("4509 235857");
+```
+
+### [Suggest issued by](https://dadata.ru/api/suggest/fms_unit/)
+
+```csharp
 var api = new OutwardClientAsync(token);
-
-var response = await api.Suggest<FmsUnit>("772-053");
+var response = await api.Suggest<FmsUnit>("772 053");
 var unit = response.suggestions[0].data;
 ```
 
-### [Налоговая инспекция](https://dadata.ru/api/suggest/fns_unit/)
+## Email
+
+### [Validate email](https://dadata.ru/api/clean/email/)
 
 ```csharp
-var token = "ВАШ_API_КЛЮЧ";
-var api = new OutwardClientAsync(token);
+var api = new CleanClientAsync(token, secret);
+var email = await api.Clean<Email>("serega@yandex/ru");
+```
 
+### [Suggest email](https://dadata.ru/api/suggest/email/)
+
+```csharp
+var api = new SuggestClientAsync(token);
+var response = await api.SuggestEmail("maria@");
+var email = response.suggestions[0].data;
+```
+
+## Other datasets
+
+### [Tax office](https://dadata.ru/api/suggest/fns_unit/)
+
+```csharp
+var api = new OutwardClientAsync(token);
 var response = await api.Find<FnsUnit>("5257");
 var unit = response.suggestions[0].data;
 ```
 
-### [Марка автомобиля](https://dadata.ru/api/suggest/car_brand/)
+### [Metro station](https://dadata.ru/api/suggest/metro/)
 
 ```csharp
-var token = "ВАШ_API_КЛЮЧ";
 var api = new OutwardClientAsync(token);
+var response = await api.Suggest<MetroStation>("алек");
+var station = response.suggestions[0].data;
+```
 
-var response = await api.Suggest<CarBrand>("FORD");
+Constrain by city (Saint Petersburg):
+
+```csharp
+var request = new SuggestOutwardRequest("алек")
+{
+    filters = new Dictionary<string, string>() { { "city", "Санкт-Петербург" } }
+};
+var response = await api.Suggest<MetroStation>(request);
+var station = response.suggestions[0].data;
+```
+
+### [Car brand](https://dadata.ru/api/suggest/car_brand/)
+
+```csharp
+var api = new OutwardClientAsync(token);
+var response = await api.Suggest<CarBrand>("фо");
 var brand = response.suggestions[0].data;
 ```
 
-### [ОКВЭД 2](https://dadata.ru/api/suggest/okved2/)
+### [OKVED 2](https://dadata.ru/api/suggest/okved2/)
 
 ```csharp
-var token = "ВАШ_API_КЛЮЧ";
 var api = new OutwardClientAsync(token);
-
-var response = await api.Suggest<OkvedRecord>("51.22.3");
+var response = await api.Suggest<OkvedRecord>("космических");
 var record = response.suggestions[0].data;
 ```
 
-### [API личного кабинета](https://dadata.ru/api/#profile)
+## Profile API
 
 ```csharp
-var token = "ВАШ_API_КЛЮЧ";
-var secret = "ВАШ_СЕКРЕТНЫЙ_КЛЮЧ";
 var api = new ProfileClientAsync(token, secret);
 ```
 
-Баланс:
+Balance:
 
 ```csharp
 var response = await api.GetBalance();
 var balance = response.balance;
 ```
 
-Статистика использования:
+Usage stats:
 
 ```csharp
 var response = await api.GetDailyStats();
@@ -403,10 +485,32 @@ var suggestionsCount = response.services.suggestions;
 var mergingCount = response.services.merging;
 ```
 
-Версии справочников:
+Dataset versions:
 
 ```csharp
 var response = await api.GetVersions();
 var egrulVersion = response.suggestions.resources["ЕГРЮЛ"];
 var geoVersion = response.factor.resources["Геокоординаты"];
 ```
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Make sure to add or update tests as appropriate.
+
+Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/) for commit messages.
+
+## [Changelog](https://github.com/hflabs/dadata-csharp/releases)
+
+This library uses [CalVer](https://calver.org/) with YY.MM.MICRO schema. See changelog for details specific to each release.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+<!-- Markdown link & img dfn's -->
+
+[nuget-image]: https://img.shields.io/nuget/v/dadata?style=flat-square
+[nuget-url]: https://www.nuget.org/packages/dadata/
+[downloads-image]: https://img.shields.io/nuget/dt/dadata?style=flat-square
