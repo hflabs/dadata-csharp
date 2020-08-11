@@ -2,7 +2,7 @@
 
 namespace Dadata
 {
-    public class OutwardClientSync : ClientBaseSync
+    public class OutwardClientSync : ClientBaseSync, IOutwardClientSync
     {
         protected const string BASE_URL = "https://suggestions.dadata.ru/suggestions/api/4_1/rs";
 

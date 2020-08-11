@@ -8,7 +8,7 @@ using Dadata.Model;
 
 namespace Dadata
 {
-    public class CleanClientSync : ClientBaseSync
+    public class CleanClientSync : ClientBaseSync, ICleanClientSync
     {
         protected const string BASE_URL = "https://cleaner.dadata.ru/api/v1/clean";
 

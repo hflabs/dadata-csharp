@@ -9,7 +9,7 @@ using Dadata.Model;
 
 namespace Dadata
 {
-    public class CleanClientAsync : ClientBaseAsync
+    public class CleanClientAsync : ClientBaseAsync, ICleanClientAsync
     {
         protected const string BASE_URL = "https://cleaner.dadata.ru/api/v1";
 

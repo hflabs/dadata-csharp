@@ -3,7 +3,7 @@ using Dadata.Model;
 
 namespace Dadata
 {
-    public class SuggestClientSync : ClientBaseSync
+    public class SuggestClientSync : ClientBaseSync, ISuggestClientSync
     {
         protected const string BASE_URL = "https://suggestions.dadata.ru/suggestions/api/4_1/rs";
 

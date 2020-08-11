@@ -5,7 +5,7 @@ using Dadata.Model;
 
 namespace Dadata
 {
-    public class ProfileClientAsync : ClientBaseAsync
+    public class ProfileClientAsync : ClientBaseAsync, IProfileClientAsync
     {
         protected const string BASE_URL = "https://dadata.ru/api/v2";
 
