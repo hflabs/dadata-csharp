@@ -4,7 +4,7 @@ using Dadata.Model;
 
 namespace Dadata
 {
-    public class ProfileClientSync : ClientBaseSync
+    public class ProfileClientSync : ClientBaseSync, IProfileClientSync
     {
         protected const string BASE_URL = "https://dadata.ru/api/v2";
 

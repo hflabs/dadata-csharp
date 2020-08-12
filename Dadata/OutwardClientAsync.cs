@@ -3,7 +3,7 @@ using Dadata.Model;
 
 namespace Dadata
 {
-    public class OutwardClientAsync : ClientBaseAsync
+    public class OutwardClientAsync : ClientBaseAsync, IOutwardClientAsync
     {
         protected const string BASE_URL = "https://suggestions.dadata.ru/suggestions/api/4_1/rs";
 
