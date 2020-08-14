@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Dadata.Model;
 
@@ -9,7 +10,8 @@ namespace Dadata
     {
         protected const string BASE_URL = "https://dadata.ru/api/v2";
 
-        public ProfileClientAsync(string token, string secret, string baseUrl = BASE_URL) : base(token, secret, baseUrl) { }
+        public ProfileClientAsync(string token, string secret, string baseUrl = BASE_URL, HttpClient client = null)
+            : base(token, secret, baseUrl, client) { }
 
 
         public async Task<GetBalanceResponse> GetBalance()

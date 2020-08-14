@@ -16,11 +16,13 @@ namespace Dadata
     {
         protected HttpClient client;
 
-        public ClientBaseAsync(string token, string baseUrl) : this(token, null, baseUrl) { }
+        public ClientBaseAsync(string token, string baseUrl, HttpClient client)
+            : this(token, null, baseUrl, client) { }
 
-        public ClientBaseAsync(string token, string secret, string baseUrl) : base(token, secret, baseUrl)
+        public ClientBaseAsync(string token, string secret, string baseUrl, HttpClient client)
+            : base(token, secret, baseUrl)
         {
-            this.client = new HttpClient();
+            this.client = client ?? new HttpClient();
         }
 
         protected async Task<T> ExecuteGet<T>(string method, string entity)

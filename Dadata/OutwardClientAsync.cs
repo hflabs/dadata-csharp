@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using Dadata.Model;
 
 namespace Dadata
@@ -7,7 +8,8 @@ namespace Dadata
     {
         protected const string BASE_URL = "https://suggestions.dadata.ru/suggestions/api/4_1/rs";
 
-        public OutwardClientAsync(string token, string baseUrl = BASE_URL) : base(token, baseUrl) { }
+        public OutwardClientAsync(string token, string baseUrl = BASE_URL, HttpClient client = null)
+            : base(token, baseUrl, client) { }
 
         public async Task<SuggestResponse<T>> Suggest<T>(string query, int count = 5) where T : IOutward
         {
