@@ -29,9 +29,10 @@ namespace Dadata
         };
 
 
-        public CleanClientAsync(string token, string secret, string baseUrl = BASE_URL) : base(token, secret, baseUrl)
+        public CleanClientAsync(string token, string secret, string baseUrl = BASE_URL, HttpClient client = null)
+            : base(token, secret, baseUrl, client)
         {
-            // all response data entities look the same (IDadataEntity), 
+            // all response data entities look the same (IDadataEntity),
             // need to manually convert them to specific types (address, phone etc)
             this.converter = new CleanResponseConverter();
             // need to serialize StructureType as string, not int

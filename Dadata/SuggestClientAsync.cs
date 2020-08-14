@@ -1,4 +1,5 @@
 ﻿using System.Collections.Specialized;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Dadata.Model;
 
@@ -8,7 +9,8 @@ namespace Dadata
     {
         protected const string BASE_URL = "https://suggestions.dadata.ru/suggestions/api/4_1/rs";
 
-        public SuggestClientAsync(string token, string baseUrl = BASE_URL) : base(token, baseUrl) { }
+        public SuggestClientAsync(string token, string baseUrl = BASE_URL, HttpClient client = null)
+            : base(token, baseUrl, client) { }
 
         #region Address
 
