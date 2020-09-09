@@ -10,7 +10,9 @@
         public string number { get; set; }
         public string extension { get; set; }
         public string provider { get; set; }
+        public string country { get; set; }
         public string region { get; set; }
+        public string city { get; set; }
         public string timezone { get; set; }
         public string qc_conflict { get; set; }
         public string qc { get; set; }

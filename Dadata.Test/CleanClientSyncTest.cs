@@ -63,6 +63,7 @@ namespace Dadata.Test
         {
             var cleaned = api.Clean<Phone>("89168459285");
             Assert.Equal("8459285", cleaned.number);
+            Assert.Equal("Россия", cleaned.country);
             Assert.Equal("0", cleaned.qc);
         }
 
