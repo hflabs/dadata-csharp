@@ -34,6 +34,7 @@ namespace Dadata.Model
         public PartyCapital capital { get; set; }
         public PartyAuthorities authorities { get; set; }
         public PartyCitizenship citizenship { get; set; }
+        public PartyDocuments documents { get; set; }
 
         public List<PartyFounder> founders { get; set; }
         public List<PartyManager> managers { get; set; }
