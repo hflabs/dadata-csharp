@@ -3,7 +3,7 @@
     <metadata>
         <id>Dadata</id>
         <title>Dadata</title>
-        <version>20.9.0</version>
+        <version>20.10.0</version>
         <authors>DaData.ru</authors>
         <owners>DaData.ru</owners>
         <license type="expression">MIT</license>
@@ -13,7 +13,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>DaData.ru API client for CLR languages.</description>
         <summary>DaData.ru API client for CLR languages.</summary>
-        <releaseNotes>Supports Dadata API as of July 2020.</releaseNotes>
+        <releaseNotes>Supports Dadata API as of October 2020.</releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>DaData.ru API C# .NET</tags>
         <dependencies>
