@@ -111,6 +111,14 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public async Task FindOktmo()
+        {
+            var response = await api.Find<OktmoRecord>("54623425");
+            var record = response.suggestions[0].data;
+            Assert.Equal("54623425", record.oktmo);
+        }
+
+        [Fact]
         public async Task SuggestOkved2()
         {
             var response = await api.Suggest<OkvedRecord>("51.22.3");
