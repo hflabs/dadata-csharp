@@ -15,6 +15,7 @@
         public string bank_name { get; set; }
         public string bank_bic { get; set; }
         public string bank_account { get; set; }
+        public string bank_correspondent_account { get; set; }
         public string parent_code { get; set; }
         public string parent_name { get; set; }
         public string parent_address { get; set; }
