@@ -249,6 +249,34 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public async Task SuggestPartyByOkvedTest()
+        {
+            var query = new SuggestPartyRequest("авиа") {
+                okved = new[] { "85.22" }
+            };
+            var response = await api.SuggestParty(query);
+            var party = response.suggestions[0];
+            Assert.Equal("7712038455", party.data.inn);
+            Console.WriteLine(string.Join("\n", response.suggestions));
+        }
+
+        [Fact]
+        public async Task SuggestPartyStatCodesTest()
+        {
+            var query = "7707083893";
+            var response = await api.SuggestParty(query);
+            var party = response.suggestions[0];
+            Assert.Equal("45293554000", party.data.okato);
+            Assert.Equal("45397000000", party.data.oktmo);
+            Assert.Equal("00032537", party.data.okpo);
+            Assert.Equal("4100104", party.data.okogu);
+            Assert.Equal("41", party.data.okfs);
+            Assert.Equal("2014", party.data.okved_type);
+            Assert.Equal("64.19", party.data.okved);
+            Console.WriteLine(string.Join("\n", response.suggestions));
+        }
+
+        [Fact]
         public async Task SuggestPartyStatusTest()
         {
             var request = new SuggestPartyRequest("витас")
@@ -257,6 +285,27 @@ namespace Dadata.Test
             };
             var response = await api.SuggestParty(request);
             Assert.Equal("4713008497", response.suggestions[0].data.inn);
+            Console.WriteLine(string.Join("\n", response.suggestions));
+        }
+
+        [Fact]
+        public async Task SuggestPartyStatusBankruptTest()
+        {
+            var request = new SuggestPartyRequest("7840046028")
+            {
+                status = new[] { PartyStatus.BANKRUPT }
+            };
+            var response = await api.SuggestParty(request);
+            Assert.Equal("7840046028", response.suggestions[0].data.inn);
+            Console.WriteLine(string.Join("\n", response.suggestions));
+        }
+
+        [Fact]
+        public async Task SuggestPartyStateCodeTest()
+        {
+            var request = new SuggestPartyRequest("7840046028");
+            var response = await api.SuggestParty(request);
+            Assert.Equal("114", response.suggestions[0].data.state.code);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
 
@@ -289,6 +338,17 @@ namespace Dadata.Test
             var response = await api.FindParty(request);
             var party = response.suggestions[0].data;
             Assert.Equal("ФИЛИАЛ \"ЕКАТЕРИНБУРГСКИЙ\" АО \"АЛЬФА-БАНК\"", party.name.short_with_opf);
+        }
+
+        [Fact]
+        public async Task FindPartyPredecessorsTest()
+        {
+            var response = await api.FindParty("7728168971");
+            var party = response.suggestions[0].data;
+            var predecessor = party.predecessors[1];
+            Assert.Equal("1027800011139", predecessor.ogrn);
+            Assert.Equal("7834002576", predecessor.inn);
+            Assert.Contains("БАЛТИЙСКИЙ БАНК", predecessor.name);
         }
 
         [Fact]

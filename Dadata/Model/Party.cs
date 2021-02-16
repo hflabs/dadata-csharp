@@ -19,7 +19,11 @@ namespace Dadata.Model
         public PartyManagement management { get; set; }
         public PartyName name { get; set; }
 
+        public string okato { get; set; }
+        public string oktmo { get; set; }
         public string okpo { get; set; }
+        public string okogu { get; set; }
+        public string okfs { get; set; }
         public string okved { get; set; }
         public List<PartyOkved> okveds { get; set; }
         public string okved_type { get; set; }
@@ -39,8 +43,17 @@ namespace Dadata.Model
         public List<PartyFounder> founders { get; set; }
         public List<PartyManager> managers { get; set; }
 
+        public List<PartyReference> predecessors { get; set; }
+        public List<PartyReference> successors { get; set; }
 
         public Suggestion<Address> address { get; set; }
+    }
+
+    public class PartyReference
+    {
+        public string ogrn { get; set; }
+        public string inn { get; set; }
+        public string name { get; set; }
     }
 
     public class PartyAuthorities
@@ -239,6 +252,7 @@ namespace Dadata.Model
         [JsonConverter(typeof(DateMillisConverter))]
         public DateTime? liquidation_date { get; set; }
         public PartyStatus status { get; set; }
+        public string code { get; set; }
     }
 
     public enum PartyStatus
@@ -246,7 +260,8 @@ namespace Dadata.Model
         ACTIVE,
         LIQUIDATING,
         LIQUIDATED,
-        REORGANIZING
+        REORGANIZING,
+        BANKRUPT
     }
 
     public enum PartyTaxSystem
