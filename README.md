@@ -455,6 +455,14 @@ var response = await api.Suggest<CarBrand>("фо");
 var brand = response.suggestions[0].data;
 ```
 
+### [OKTMO](https://dadata.ru/api/suggest/oktmo/)
+
+```csharp
+var api = new OutwardClientAsync(token);
+var response = await api.Find<OktmoRecord>("54623425");
+var record = response.suggestions[0].data;
+```
+
 ### [OKVED 2](https://dadata.ru/api/suggest/okved2/)
 
 ```csharp
