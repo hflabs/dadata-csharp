@@ -20,8 +20,8 @@ namespace Dadata
         Task<SuggestResponse<Email>> SuggestEmail(SuggestRequest request);
         Task<SuggestResponse<FiasAddress>> SuggestFias(string query, int count = 5);
         Task<SuggestResponse<FiasAddress>> SuggestFias(SuggestAddressRequest request);
-        Task<SuggestResponse<Address>> FindFias(string query);
-        Task<SuggestResponse<Address>> FindFias(SuggestRequest request);
+        Task<SuggestResponse<FiasAddress>> FindFias(string query);
+        Task<SuggestResponse<FiasAddress>> FindFias(SuggestRequest request);
         Task<SuggestResponse<Fullname>> SuggestName(string query, int count = 5);
         Task<SuggestResponse<Fullname>> SuggestName(SuggestNameRequest request);
         Task<SuggestResponse<Party>> SuggestParty(string query, int count = 5);

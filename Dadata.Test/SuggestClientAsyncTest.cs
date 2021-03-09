@@ -218,6 +218,7 @@ namespace Dadata.Test
             Assert.Equal("6", address.house);
             Assert.Equal("стр", address.building_type);
             Assert.Equal("2", address.building);
+            Assert.Equal("8c925e61-9173-48b3-999e-dc85c86d89e7", address.fias_id);
         }
 
         [Fact]

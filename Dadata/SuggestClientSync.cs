@@ -108,15 +108,15 @@ namespace Dadata
             return Execute<SuggestResponse<FiasAddress>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Fias, request: request);
         }
 
-        public SuggestResponse<Address> FindFias(string query)
+        public SuggestResponse<FiasAddress> FindFias(string query)
         {
             var request = new SuggestRequest(query);
             return FindFias(request);
         }
 
-        public SuggestResponse<Address> FindFias(SuggestRequest request)
+        public SuggestResponse<FiasAddress> FindFias(SuggestRequest request)
         {
-            return Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Fias, request: request);
+            return Execute<SuggestResponse<FiasAddress>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Fias, request: request);
         }
 
         #endregion

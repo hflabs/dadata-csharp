@@ -111,15 +111,15 @@ namespace Dadata
             return await Execute<SuggestResponse<FiasAddress>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Fias, request: request);
         }
 
-        public async Task<SuggestResponse<Address>> FindFias(string query)
+        public async Task<SuggestResponse<FiasAddress>> FindFias(string query)
         {
             var request = new SuggestRequest(query);
             return await FindFias(request);
         }
 
-        public async Task<SuggestResponse<Address>> FindFias(SuggestRequest request)
+        public async Task<SuggestResponse<FiasAddress>> FindFias(SuggestRequest request)
         {
-            return await Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Fias, request: request);
+            return await Execute<SuggestResponse<FiasAddress>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Fias, request: request);
         }
 
         #endregion

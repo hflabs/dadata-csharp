@@ -19,8 +19,8 @@ namespace Dadata
         SuggestResponse<Email> SuggestEmail(SuggestRequest request);
         SuggestResponse<FiasAddress> SuggestFias(string query, int count = 5);
         SuggestResponse<FiasAddress> SuggestFias(SuggestAddressRequest request);
-        SuggestResponse<Address> FindFias(string query);
-        SuggestResponse<Address> FindFias(SuggestRequest request);
+        SuggestResponse<FiasAddress> FindFias(string query);
+        SuggestResponse<FiasAddress> FindFias(SuggestRequest request);
         SuggestResponse<Fullname> SuggestName(string query, int count = 5);
         SuggestResponse<Fullname> SuggestName(SuggestNameRequest request);
         SuggestResponse<Party> SuggestParty(string query, int count = 5);

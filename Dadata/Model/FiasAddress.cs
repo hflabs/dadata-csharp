@@ -69,6 +69,7 @@ namespace Dadata.Model
 
         public string cadastral_number { get; set; }
 
+        public string fias_id { get; set; }
         public string fias_code { get; set; }
         public string fias_level { get; set; }
         public string fias_actuality_state { get; set; }
