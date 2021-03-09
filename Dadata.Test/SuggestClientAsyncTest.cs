@@ -152,11 +152,39 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public async Task SuggestBankOpfTest()
+        {
+            var response = await api.SuggestBank("044525974");  // Тинькофф
+            Assert.Equal(BankType.BANK, response.suggestions[0].data.opf.type);
+
+            response = await api.SuggestBank("044525444");  // Юмани
+            Assert.Equal(BankType.NKO, response.suggestions[0].data.opf.type);
+
+            response = await api.SuggestBank("046577964");  // Альфа Екатеринбург
+            Assert.Equal(BankType.BANK_BRANCH, response.suggestions[0].data.opf.type);
+
+            response = await api.SuggestBank("044525000");  // ГУ Банка России по ЦФО
+            Assert.Equal(BankType.CBR, response.suggestions[0].data.opf.type);
+
+            response = await api.SuggestBank("041236100");  // УФК по Астраханской области
+            Assert.Equal(BankType.TREASURY, response.suggestions[0].data.opf.type);
+
+            response = await api.SuggestBank("044501002");  // Операционный департамент БР
+            Assert.Equal(BankType.OTHER, response.suggestions[0].data.opf.type);
+        }
+
+        [Fact]
         public async Task FindBankTest()
         {
             var response = await api.FindBank("044525974");
             var bank = response.suggestions[0].data;
             Assert.Equal("TICSRUMMXXX", bank.swift);
+            Assert.Equal("044525000", bank.cbr.bic);
+
+            response = await api.FindBank("011203901");
+            bank = response.suggestions[0].data;
+            Assert.Equal("40102810445370000017", bank.treasury_accounts[0]);
+
         }
 
         [Fact]

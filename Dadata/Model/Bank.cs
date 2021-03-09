@@ -1,4 +1,6 @@
-﻿namespace Dadata.Model
+﻿using System.Collections.Generic;
+
+namespace Dadata.Model
 {
     public class Bank
     {
@@ -8,6 +10,7 @@
         public string kpp { get; set; }
         public string registration_number { get; set; }
         public string correspondent_account { get; set; }
+        public List<string> treasury_accounts { get; set; }
 
         public BankName name { get; set; }
         public string payment_city { get; set; }
@@ -15,6 +18,7 @@
         public BankOpf opf { get; set; }
         public string phone { get; set; }
         public string rkc { get; set; }
+        public Bank cbr { get; set; }
         public PartyState state { get; set; }
 
         public Suggestion<Address> address { get; set; }
@@ -42,6 +46,8 @@
         BANK_BRANCH,
         NKO_BRANCH,
         RKC,
+        CBR,
+        TREASURY,
         OTHER
     }
 }
