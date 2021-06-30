@@ -141,7 +141,7 @@ namespace Dadata.Test
         [Fact]
         public void SuggestBankTypeTest()
         {
-            var request = new SuggestBankRequest("я")
+            var request = new SuggestBankRequest("юмани")
             {
                 type = new[] { BankType.NKO }
             };
@@ -243,15 +243,15 @@ namespace Dadata.Test
             var address = response.suggestions[0].data.address;
             Assert.Equal("7707083893", party.data.inn);
             Assert.Equal("г Москва, ул Вавилова, д 19", address.value);
-            Assert.Equal("117997, ГОРОД МОСКВА, УЛИЦА ВАВИЛОВА, 19", address.data.source);
-            Assert.Equal("117312", address.data.postal_code);
+            Assert.Contains("ГОРОД МОСКВА, УЛИЦА ВАВИЛОВА, 19", address.data.source);
+            Assert.Equal("Вавилова", address.data.street);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
 
         [Fact]
         public void SuggestPartyStatusTest()
         {
-            var request = new SuggestPartyRequest("витас")
+            var request = new SuggestPartyRequest("4713008497")
             {
                 status = new[] { PartyStatus.LIQUIDATED }
             };
@@ -279,7 +279,7 @@ namespace Dadata.Test
             var party = response.suggestions[0].data;
             Assert.Equal("МОТОРИКА", party.name.@short);
             Assert.Equal(PartyFounderShareType.PERCENT, party.founders[0].share.type);
-            Assert.Equal(100, party.founders[0].share.value);
+            Assert.True(party.founders[0].share.value > 50);
         }
 
         [Fact]

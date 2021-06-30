@@ -18,6 +18,7 @@ namespace Dadata.Model
 
         public PartyManagement management { get; set; }
         public PartyName name { get; set; }
+        public Fullname fio { get; set; }
 
         public string okato { get; set; }
         public string oktmo { get; set; }
@@ -39,6 +40,7 @@ namespace Dadata.Model
         public PartyAuthorities authorities { get; set; }
         public PartyCitizenship citizenship { get; set; }
         public PartyDocuments documents { get; set; }
+        public List<PartyLicense> licenses { get; set; }
 
         public List<PartyFounder> founders { get; set; }
         public List<PartyManager> managers { get; set; }
@@ -47,6 +49,9 @@ namespace Dadata.Model
         public List<PartyReference> successors { get; set; }
 
         public Suggestion<Address> address { get; set; }
+
+        public List<Suggestion<Phone>> phones { get; set; }
+        public List<Suggestion<Email>> emails { get; set; }
     }
 
     public class PartyReference
@@ -175,8 +180,8 @@ namespace Dadata.Model
         public DateTime? valid_from { get; set; }
         [JsonConverter(typeof(DateMillisConverter))]
         public DateTime? valid_to { get; set; }
-        public string[] activities { get; set; }
-        public string[] addresses { get; set; }
+        public List<string> activities { get; set; }
+        public List<string> addresses { get; set; }
     }
 
     public class PartyManagement

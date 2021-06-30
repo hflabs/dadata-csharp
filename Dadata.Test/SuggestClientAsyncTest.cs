@@ -290,6 +290,18 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public async Task SuggestPartyFioTest()
+        {
+            var query = "780251009376";
+            var response = await api.SuggestParty(query);
+            var party = response.suggestions[0];
+            Assert.Equal("Кораева", party.data.fio.surname);
+            Assert.Equal("Вероника", party.data.fio.name);
+            Assert.Equal("Сергеевна", party.data.fio.patronymic);
+            Console.WriteLine(string.Join("\n", response.suggestions));
+        }
+
+        [Fact]
         public async Task SuggestPartyStatCodesTest()
         {
             var query = "7707083893";
@@ -320,21 +332,21 @@ namespace Dadata.Test
         [Fact]
         public async Task SuggestPartyStatusBankruptTest()
         {
-            var request = new SuggestPartyRequest("7840046028")
+            var request = new SuggestPartyRequest("6102019481")
             {
                 status = new[] { PartyStatus.BANKRUPT }
             };
             var response = await api.SuggestParty(request);
-            Assert.Equal("7840046028", response.suggestions[0].data.inn);
+            Assert.Equal("6102019481", response.suggestions[0].data.inn);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
 
         [Fact]
         public async Task SuggestPartyStateCodeTest()
         {
-            var request = new SuggestPartyRequest("7840046028");
+            var request = new SuggestPartyRequest("6102019481");
             var response = await api.SuggestParty(request);
-            Assert.Equal("114", response.suggestions[0].data.state.code);
+            Assert.Equal("117", response.suggestions[0].data.state.code);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
 
@@ -378,6 +390,26 @@ namespace Dadata.Test
             Assert.Equal("1027800011139", predecessor.ogrn);
             Assert.Equal("7834002576", predecessor.inn);
             Assert.Contains("БАЛТИЙСКИЙ БАНК", predecessor.name);
+        }
+
+        [Fact]
+        public async Task FindPartyLicenseTest()
+        {
+            var response = await api.FindParty("7704865540");
+            var party = response.suggestions[0].data;
+            Assert.NotEmpty(party.licenses);
+            Assert.Equal("Фармацевтическая деятельность", party.licenses[0].activities[0]);
+        }
+
+        [Fact]
+        public async Task FindPartyContactsTest()
+        {
+            var response = await api.FindParty("7719402047");
+            var party = response.suggestions[0].data;
+            Assert.Single(party.phones);
+            Assert.Equal("+7 911 241 0309", party.phones[0].data.source);
+            Assert.Single(party.emails);
+            Assert.Equal("info@motorica.org", party.emails[0].data.source);
         }
 
         [Fact]
