@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -13,7 +14,7 @@ namespace Dadata
     {
         protected const string BASE_URL = "https://cleaner.dadata.ru/api/v1";
 
-        CustomCreationConverter<IDadataEntity> converter;
+        readonly CustomCreationConverter<IDadataEntity> converter;
 
         // maps concrete IDadataEntity types to corresponding structure types
         static Dictionary<Type, StructureType> TYPE_TO_STRUCTURE = new Dictionary<Type, StructureType>()
@@ -39,22 +40,23 @@ namespace Dadata
             serializer.Converters.Add(new StringEnumConverter());
         }
 
-        public async Task<T> Clean<T>(string source) where T : IDadataEntity
+        public async Task<T> Clean<T>(string source, CancellationToken cancellationToken = default) where T : IDadataEntity
         {
             // infer structure from target entity type
             var structure = new List<StructureType>(
                 new StructureType[] { TYPE_TO_STRUCTURE[typeof(T)] }
             );
-            // transform enity list to CleanRequest data structure
+            // transform entity list to CleanRequest data structure
             var data = new string[] { source };
-            var response = await Clean(structure, data);
+            var response = await Clean(structure, data, cancellationToken);
             return (T)response[0];
         }
 
-        public async Task<IList<IDadataEntity>> Clean(IEnumerable<StructureType> structure, IEnumerable<string> data)
+        public async Task<IList<IDadataEntity>> Clean(IEnumerable<StructureType> structure, IEnumerable<string> data,
+            CancellationToken cancellationToken = default)
         {
             var request = new CleanRequest(structure, data);
-            var response = await Execute<CleanResponse>(method: "clean", entity: null, request: request);
+            var response = await Execute<CleanResponse>(method: "clean", entity: null, request: request, cancellationToken);
             return response.data[0];
         }
 
