@@ -420,7 +420,7 @@ namespace Dadata.Test
         }
 
         [Fact]
-        public async Task FindAffilliatedScopeTest()
+        public async Task FindAffiliatedScopeTest()
         {
             var request = new FindAffiliatedRequest("773006366201")
             {

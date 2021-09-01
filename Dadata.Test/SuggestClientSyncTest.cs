@@ -299,7 +299,7 @@ namespace Dadata.Test
         }
 
         [Fact]
-        public void FindAffilliatedScopeTest()
+        public void FindAffiliatedScopeTest()
         {
             var request = new FindAffiliatedRequest("773006366201")
             {
