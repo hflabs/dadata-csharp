@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Dadata.Model;
@@ -14,7 +12,7 @@ namespace Dadata
 {
     public abstract class ClientBaseAsync : ClientBase
     {
-        protected HttpClient client;
+        protected readonly HttpClient client;
 
         public ClientBaseAsync(string token, string baseUrl, HttpClient client)
             : this(token, null, baseUrl, client) { }
@@ -25,32 +23,34 @@ namespace Dadata
             this.client = client ?? new HttpClient();
         }
 
-        protected async Task<T> ExecuteGet<T>(string method, string entity)
+        protected async Task<T> ExecuteGet<T>(string method, string entity, CancellationToken cancellationToken)
         {
             var parameters = new NameValueCollection();
-            return await ExecuteGet<T>(method, entity, parameters);
+            return await ExecuteGet<T>(method, entity, parameters, cancellationToken);
         }
 
-        protected async Task<T> ExecuteGet<T>(string method, string entity, NameValueCollection parameters)
+        protected async Task<T> ExecuteGet<T>(string method, string entity, NameValueCollection parameters,
+            CancellationToken cancellationToken)
         {
             var queryString = SerializeParameters(parameters);
             var url = BuildUrl(method: method, entity: entity, queryString: queryString);
             using (var httpRequest = CreateHttpRequest(verb: HttpMethod.Get, url: url))
-            using (var httpResponse = await client.SendAsync(httpRequest))
+            using (var httpResponse = await client.SendAsync(httpRequest, cancellationToken))
             {
                 httpResponse.EnsureSuccessStatusCode();
                 return await Deserialize<T>(httpResponse);
             }
         }
 
-        protected async Task<T> Execute<T>(string method, string entity, IDadataRequest request)
+        protected async Task<T> Execute<T>(string method, string entity, IDadataRequest request,
+            CancellationToken cancellationToken)
         {
             var url = BuildUrl(method: method, entity: entity);
             using (var httpRequest = CreateHttpRequest(verb: HttpMethod.Post, url: url))
             using (var httpContent = Serialize(httpRequest, request))
             {
                 httpRequest.Content = httpContent;
-                using (var httpResponse = await client.SendAsync(httpRequest))
+                using (var httpResponse = await client.SendAsync(httpRequest, cancellationToken))
                 {
                     httpResponse.EnsureSuccessStatusCode();
                     return await Deserialize<T>(httpResponse);

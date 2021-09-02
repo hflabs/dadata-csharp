@@ -1,5 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Dadata.Model;
 
@@ -14,164 +15,203 @@ namespace Dadata
 
         #region Address
 
-        public async Task<SuggestResponse<Address>> SuggestAddress(string query, int count = 5)
+        public async Task<SuggestResponse<Address>> SuggestAddress(string query, int count = 5,
+            CancellationToken cancellationToken = default)
         {
             var request = new SuggestAddressRequest(query, count);
             return await SuggestAddress(request);
         }
 
-        public async Task<SuggestResponse<Address>> SuggestAddress(SuggestAddressRequest request)
+        public async Task<SuggestResponse<Address>> SuggestAddress(SuggestAddressRequest request,
+            CancellationToken cancellationToken = default)
         {
-            return await Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Address, request: request);
+            return await Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Suggest,
+                entity: SuggestionsEntity.Address, request: request, cancellationToken: cancellationToken);
         }
 
-        public async Task<SuggestResponse<Address>> FindAddress(string query)
+        public async Task<SuggestResponse<Address>> FindAddress(string query,
+            CancellationToken cancellationToken = default)
         {
             var request = new FindAddressRequest(query);
-            return await FindAddress(request);
+            return await FindAddress(request, cancellationToken);
         }
 
-        public async Task<SuggestResponse<Address>> FindAddress(FindAddressRequest request)
+        public async Task<SuggestResponse<Address>> FindAddress(FindAddressRequest request,
+            CancellationToken cancellationToken = default)
         {
-            return await Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Address, request: request);
+            return await Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Find,
+                entity: SuggestionsEntity.Address, request: request, cancellationToken: cancellationToken);
         }
 
-        public async Task<SuggestResponse<Address>> Geolocate(double lat, double lon, int radius_meters = 100, int count = 5)
+        public async Task<SuggestResponse<Address>> Geolocate(double lat, double lon, int radius_meters = 100,
+            int count = 5, CancellationToken cancellationToken = default)
         {
             var request = new GeolocateRequest(lat, lon, radius_meters, count);
-            return await Geolocate(request);
+            return await Geolocate(request, cancellationToken);
         }
 
-        public async Task<SuggestResponse<Address>> Geolocate(GeolocateRequest request)
+        public async Task<SuggestResponse<Address>> Geolocate(GeolocateRequest request,
+            CancellationToken cancellationToken = default)
         {
-            return await Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Geolocate, entity: SuggestionsEntity.Address, request: request);
+            return await Execute<SuggestResponse<Address>>(method: SuggestionsMethod.Geolocate,
+                entity: SuggestionsEntity.Address, request: request, cancellationToken: cancellationToken);
         }
 
-        public async Task<IplocateResponse> Iplocate(string ip, string language = "ru")
+        public async Task<IplocateResponse> Iplocate(string ip, string language = "ru",
+            CancellationToken cancellationToken = default)
         {
-            var parameters = new NameValueCollection();
-            parameters.Add("ip", ip);
-            parameters.Add("language", language);
-            return await ExecuteGet<IplocateResponse>(method: SuggestionsMethod.Iplocate, entity: SuggestionsEntity.Address, parameters: parameters);
+            var parameters = new NameValueCollection
+            {
+                { "ip", ip },
+                { "language", language }
+            };
+            return await ExecuteGet<IplocateResponse>(
+                method: SuggestionsMethod.Iplocate,
+                entity: SuggestionsEntity.Address,
+                parameters: parameters,
+                cancellationToken: cancellationToken);
         }
 
         #endregion
 
         #region Bank
 
-        public async Task<SuggestResponse<Bank>> SuggestBank(string query, int count = 5)
+        public async Task<SuggestResponse<Bank>> SuggestBank(string query, int count = 5, CancellationToken cancellationToken = default)
         {
             var request = new SuggestBankRequest(query, count);
-            return await SuggestBank(request);
+            return await SuggestBank(request, cancellationToken);
         }
 
-        public async Task<SuggestResponse<Bank>> SuggestBank(SuggestBankRequest request)
+        public async Task<SuggestResponse<Bank>> SuggestBank(SuggestBankRequest request,
+            CancellationToken cancellationToken = default)
         {
-            return await Execute<SuggestResponse<Bank>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Bank, request: request);
+            return await Execute<SuggestResponse<Bank>>(method: SuggestionsMethod.Suggest,
+                entity: SuggestionsEntity.Bank, request: request, cancellationToken: cancellationToken);
         }
 
-        public async Task<SuggestResponse<Bank>> FindBank(string query)
+        public async Task<SuggestResponse<Bank>> FindBank(string query, CancellationToken cancellationToken = default)
         {
             var request = new FindBankRequest(query);
-            return await FindBank(request);
+            return await FindBank(request, cancellationToken);
         }
 
-        public async Task<SuggestResponse<Bank>> FindBank(FindBankRequest request)
+        public async Task<SuggestResponse<Bank>> FindBank(FindBankRequest request,
+            CancellationToken cancellationToken = default)
         {
-            return await Execute<SuggestResponse<Bank>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Bank, request: request);
+            return await Execute<SuggestResponse<Bank>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Bank,
+                request: request, cancellationToken: cancellationToken);
         }
 
         #endregion
 
         #region Email
 
-        public async Task<SuggestResponse<Email>> SuggestEmail(string query, int count = 5)
+        public async Task<SuggestResponse<Email>> SuggestEmail(string query, int count = 5,
+            CancellationToken cancellationToken = default)
         {
             var request = new SuggestRequest(query, count);
-            return await SuggestEmail(request);
+            return await SuggestEmail(request, cancellationToken);
         }
 
-        public async Task<SuggestResponse<Email>> SuggestEmail(SuggestRequest request)
+        public async Task<SuggestResponse<Email>> SuggestEmail(SuggestRequest request,
+            CancellationToken cancellationToken = default)
         {
-            return await Execute<SuggestResponse<Email>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Email, request: request);
+            return await Execute<SuggestResponse<Email>>(method: SuggestionsMethod.Suggest,
+                entity: SuggestionsEntity.Email, request: request, cancellationToken: cancellationToken);
         }
 
         #endregion
 
         #region Fias
 
-        public async Task<SuggestResponse<FiasAddress>> SuggestFias(string query, int count = 5)
+        public async Task<SuggestResponse<FiasAddress>> SuggestFias(string query, int count = 5,
+            CancellationToken cancellationToken = default)
         {
             var request = new SuggestAddressRequest(query, count);
-            return await SuggestFias(request);
+            return await SuggestFias(request, cancellationToken);
         }
 
-        public async Task<SuggestResponse<FiasAddress>> SuggestFias(SuggestAddressRequest request)
+        public async Task<SuggestResponse<FiasAddress>> SuggestFias(SuggestAddressRequest request,
+            CancellationToken cancellationToken = default)
         {
-            return await Execute<SuggestResponse<FiasAddress>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Fias, request: request);
+            return await Execute<SuggestResponse<FiasAddress>>(method: SuggestionsMethod.Suggest,
+                entity: SuggestionsEntity.Fias, request: request, cancellationToken: cancellationToken);
         }
 
-        public async Task<SuggestResponse<FiasAddress>> FindFias(string query)
+        public async Task<SuggestResponse<FiasAddress>> FindFias(string query, CancellationToken cancellationToken = default)
         {
             var request = new SuggestRequest(query);
-            return await FindFias(request);
+            return await FindFias(request, cancellationToken);
         }
 
-        public async Task<SuggestResponse<FiasAddress>> FindFias(SuggestRequest request)
+        public async Task<SuggestResponse<FiasAddress>> FindFias(SuggestRequest request,
+            CancellationToken cancellationToken = default)
         {
-            return await Execute<SuggestResponse<FiasAddress>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Fias, request: request);
+            return await Execute<SuggestResponse<FiasAddress>>(method: SuggestionsMethod.Find,
+                entity: SuggestionsEntity.Fias, request: request, cancellationToken: cancellationToken);
         }
 
         #endregion
 
         #region Name
 
-        public async Task<SuggestResponse<Fullname>> SuggestName(string query, int count = 5)
+        public async Task<SuggestResponse<Fullname>> SuggestName(string query, int count = 5,
+            CancellationToken cancellationToken = default)
         {
             var request = new SuggestNameRequest(query, count);
-            return await SuggestName(request);
+            return await SuggestName(request, cancellationToken);
         }
 
-        public async Task<SuggestResponse<Fullname>> SuggestName(SuggestNameRequest request)
+        public async Task<SuggestResponse<Fullname>> SuggestName(SuggestNameRequest request,
+            CancellationToken cancellationToken = default)
         {
-            return await Execute<SuggestResponse<Fullname>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Name, request: request);
+            return await Execute<SuggestResponse<Fullname>>(method: SuggestionsMethod.Suggest,
+                entity: SuggestionsEntity.Name, request: request, cancellationToken: cancellationToken);
         }
 
         #endregion
 
         #region Party
 
-        public async Task<SuggestResponse<Party>> SuggestParty(string query, int count = 5)
+        public async Task<SuggestResponse<Party>> SuggestParty(string query, int count = 5,
+            CancellationToken cancellationToken = default)
         {
             var request = new SuggestPartyRequest(query, count);
-            return await SuggestParty(request);
+            return await SuggestParty(request, cancellationToken);
         }
 
-        public async Task<SuggestResponse<Party>> SuggestParty(SuggestPartyRequest request)
+        public async Task<SuggestResponse<Party>> SuggestParty(SuggestPartyRequest request,
+            CancellationToken cancellationToken = default)
         {
-            return await Execute<SuggestResponse<Party>>(method: SuggestionsMethod.Suggest, entity: SuggestionsEntity.Party, request: request);
+            return await Execute<SuggestResponse<Party>>(method: SuggestionsMethod.Suggest,
+                entity: SuggestionsEntity.Party, request: request, cancellationToken: cancellationToken);
         }
 
-        public async Task<SuggestResponse<Party>> FindParty(string query)
+        public async Task<SuggestResponse<Party>> FindParty(string query, CancellationToken cancellationToken = default)
         {
             var request = new FindPartyRequest(query);
-            return await FindParty(request);
+            return await FindParty(request, cancellationToken);
         }
 
-        public async Task<SuggestResponse<Party>> FindParty(FindPartyRequest request)
+        public async Task<SuggestResponse<Party>> FindParty(FindPartyRequest request,
+            CancellationToken cancellationToken = default)
         {
-            return await Execute<SuggestResponse<Party>>(method: SuggestionsMethod.Find, entity: SuggestionsEntity.Party, request: request);
+            return await Execute<SuggestResponse<Party>>(method: SuggestionsMethod.Find,
+                entity: SuggestionsEntity.Party, request: request, cancellationToken: cancellationToken);
         }
 
-        public async Task<SuggestResponse<Party>> FindAffiliated(string query)
+        public async Task<SuggestResponse<Party>> FindAffiliated(string query,
+            CancellationToken cancellationToken = default)
         {
             var request = new FindAffiliatedRequest(query);
-            return await FindAffiliated(request);
+            return await FindAffiliated(request, cancellationToken);
         }
 
-        public async Task<SuggestResponse<Party>> FindAffiliated(FindAffiliatedRequest request)
+        public async Task<SuggestResponse<Party>> FindAffiliated(FindAffiliatedRequest request,
+            CancellationToken cancellationToken = default)
         {
-            return await Execute<SuggestResponse<Party>>(method: SuggestionsMethod.FindAffiliated, entity: SuggestionsEntity.Party, request: request);
+            return await Execute<SuggestResponse<Party>>(method: SuggestionsMethod.FindAffiliated,
+                entity: SuggestionsEntity.Party, request: request, cancellationToken: cancellationToken);
         }
 
         #endregion
