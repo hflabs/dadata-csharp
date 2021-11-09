@@ -19,7 +19,7 @@ namespace Dadata.Test
         public async Task SuggestAddressTest()
         {
             var query = "москва турчанинов 6с2";
-            var response = await api.SuggestAddress(query);
+            var response = await api.SuggestAddress(query, count: 1);
             var address_data = response.suggestions[0].data;
             Assert.Equal("119034", address_data.postal_code);
             Assert.Equal("7704", address_data.tax_office);
@@ -370,6 +370,8 @@ namespace Dadata.Test
             Assert.Equal("МОТОРИКА", party.name.@short);
             Assert.Equal(PartyFounderShareType.PERCENT, party.founders[0].share.type);
             Assert.True(party.founders[0].share.value > 50);
+            Assert.NotNull(party.finance.year);
+            Assert.NotNull(party.documents.fts_report.issue_authority);
         }
 
         [Fact]

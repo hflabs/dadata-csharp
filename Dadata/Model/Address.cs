@@ -59,6 +59,7 @@ namespace Dadata.Model
 
         public string house_fias_id { get; set; }
         public string house_kladr_id { get; set; }
+        public string house_cadnum { get; set; }
         public string house_with_type { get; set; }
         public string house_type { get; set; }
         public string house_type_full { get; set; }
@@ -72,6 +73,7 @@ namespace Dadata.Model
         public string floor { get; set; }
 
         public string flat_fias_id { get; set; }
+        public string flat_cadnum { get; set; }
         public string flat_type { get; set; }
         public string flat_type_full { get; set; }
         public string flat { get; set; }

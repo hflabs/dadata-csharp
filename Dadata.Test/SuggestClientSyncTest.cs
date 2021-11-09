@@ -19,7 +19,7 @@ namespace Dadata.Test
         public void SuggestAddressTest()
         {
             var query = "москва турчанинов 6с2";
-            var response = api.SuggestAddress(query);
+            var response = api.SuggestAddress(query, count: 1);
             var address_data = response.suggestions[0].data;
             Assert.Equal("119034", address_data.postal_code);
             Assert.Equal("7704", address_data.tax_office);

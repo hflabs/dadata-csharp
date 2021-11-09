@@ -114,6 +114,7 @@ namespace Dadata.Model
     public class PartyDocuments
     {
         public PartyDocument fts_registration { get; set; }
+        public PartyDocument fts_report { get; set; }
         public PartyDocument pf_registration { get; set; }
         public PartyDocument sif_registration { get; set; }
         public PartySmb smb { get; set; }
@@ -132,6 +133,7 @@ namespace Dadata.Model
         public decimal? expense { get; set; }
         public decimal? debt { get; set; }
         public decimal? penalty { get; set; }
+        public int? year { get; set; }
     }
 
     public class PartyFounder
