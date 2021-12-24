@@ -384,6 +384,18 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public async Task FindPartyWithBranchTypeTest()
+        {
+            var request = new FindPartyRequest(query: "7728168971")
+            {
+                branch_type = PartyBranchType.MAIN
+            };
+            var response = await api.FindParty(request);
+            var party = response.suggestions[0].data;
+            Assert.Equal("АО \"АЛЬФА-БАНК\"", party.name.short_with_opf);
+        }
+
+        [Fact]
         public async Task FindPartyPredecessorsTest()
         {
             var response = await api.FindParty("7728168971");

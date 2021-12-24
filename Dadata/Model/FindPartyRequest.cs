@@ -3,6 +3,7 @@
     public class FindPartyRequest : SuggestRequest
     {
         public string kpp { get; set; }
+        public PartyBranchType? branch_type { get; set; }
         public PartyType? type { get; set; }
         public FindPartyRequest(string query, string kpp = null, int count = 1) : base(query, count)
         {
