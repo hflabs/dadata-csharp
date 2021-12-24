@@ -369,7 +369,7 @@ namespace Dadata.Test
             var party = response.suggestions[0].data;
             Assert.Equal("МОТОРИКА", party.name.@short);
             Assert.Equal(PartyFounderShareType.PERCENT, party.founders[0].share.type);
-            Assert.True(party.founders[0].share.value > 50);
+            Assert.True(party.founders[0].share.value > 0);
             Assert.NotNull(party.finance.year);
             Assert.NotNull(party.documents.fts_report.issue_authority);
         }
@@ -400,10 +400,9 @@ namespace Dadata.Test
         {
             var response = await api.FindParty("7728168971");
             var party = response.suggestions[0].data;
-            var predecessor = party.predecessors[1];
-            Assert.Equal("1027800011139", predecessor.ogrn);
-            Assert.Equal("7834002576", predecessor.inn);
-            Assert.Contains("БАЛТИЙСКИЙ БАНК", predecessor.name);
+            var inns = new[] { party.predecessors[0].inn, party.predecessors[1].inn };
+            Assert.Contains<string>("6608007160", inns);
+            Assert.Contains<string>("7834002576", inns);
         }
 
         [Fact]

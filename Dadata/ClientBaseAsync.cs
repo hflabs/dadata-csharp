@@ -89,8 +89,9 @@ namespace Dadata
             var stream = await httpResponse.Content.ReadAsStreamAsync();
             using (var r = new StreamReader(stream))
             {
-                string responseText = r.ReadToEnd();
-                return JsonConvert.DeserializeObject<T>(responseText);
+                string responseText = await r.ReadToEndAsync();
+                var obj = await Task.Run(() => JsonConvert.DeserializeObject<T>(responseText));
+                return obj;
             }
         }
     }
