@@ -91,8 +91,8 @@ namespace Dadata.Model
 
     public class PartyCitizenship
     {
-        public PartyNameUnit code { get; set; }
-        public PartyCodeUnit name { get; set; }
+        public PartyCodeUnit code { get; set; }
+        public PartyNameUnit name { get; set; }
     }
 
     public class PartyCodeUnit
