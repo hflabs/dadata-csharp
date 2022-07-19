@@ -272,7 +272,7 @@ namespace Dadata.Test
             var address = response.suggestions[0].data.address;
             Assert.Equal("7707083893", party.data.inn);
             Assert.Equal("г Москва, ул Вавилова, д 19", address.value);
-            Assert.Contains("ГОРОД МОСКВА, УЛИЦА ВАВИЛОВА, 19", address.data.source);
+            Assert.Contains("ВАВИЛОВА", address.data.source);
             Assert.Equal("Вавилова", address.data.street);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
