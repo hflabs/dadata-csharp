@@ -8,6 +8,7 @@
         public AddressBound from_bound { get; set; }
         public AddressBound to_bound { get; set; }
         public bool restrict_value { get; set; }
+        public AddressDivision division { get; set; }
         public string language { get; set; }
 
         public SuggestAddressRequest(string query, int count = 5) : base(query, count) { }
@@ -20,5 +21,11 @@
         {
             this.value = name;
         }
+    }
+
+    public enum AddressDivision
+    {
+        ADMINISTRATIVE,
+        MUNICIPAL
     }
 }

@@ -28,6 +28,18 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public async Task SuggestAddressMunicipalTest()
+        {
+            var query = "самара сакко и ванцетти д 20";
+            var request = new SuggestAddressRequest(query) { division = AddressDivision.MUNICIPAL };
+            var response = await api.SuggestAddress(request);
+            var address_data = response.suggestions[0].data;
+            Assert.Equal("Самара", address_data.area);
+            Assert.Equal("Железнодорожный", address_data.sub_area);
+            Console.WriteLine(string.Join("\n", response.suggestions));
+        }
+
+        [Fact]
         public async Task SuggestAddressLanguageTest()
         {
             var request = new SuggestAddressRequest("samara metallurgov") { language = "en" };

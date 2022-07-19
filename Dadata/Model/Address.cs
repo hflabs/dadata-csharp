@@ -27,6 +27,13 @@ namespace Dadata.Model
         public string area_type_full { get; set; }
         public string area { get; set; }
 
+        public string sub_area_fias_id { get; set; }
+        public string sub_area_kladr_id { get; set; }
+        public string sub_area_with_type { get; set; }
+        public string sub_area_type { get; set; }
+        public string sub_area_type_full { get; set; }
+        public string sub_area { get; set; }
+
         public string city_fias_id { get; set; }
         public string city_kladr_id { get; set; }
         public string city_with_type { get; set; }
