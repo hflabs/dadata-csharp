@@ -16,6 +16,9 @@ namespace Dadata
         static ClientBase()
         {
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+            // Improper Handling of Exceptional Conditions in Newtonsoft.Json
+            // https://github.com/advisories/GHSA-5crp-9r3c-p9vr
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings { MaxDepth = 128 };
         }
 
         public ClientBase(string token, string baseUrl) : this(token, null, baseUrl) { }
