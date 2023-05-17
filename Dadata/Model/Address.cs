@@ -84,6 +84,12 @@ namespace Dadata.Model
         public string flat_type { get; set; }
         public string flat_type_full { get; set; }
         public string flat { get; set; }
+        
+        public string stead_fias_id { get; set; }
+        public string stead_kladr_id { get; set; }
+        public string stead_type { get; set; }
+        public string stead_type_full { get; set; }
+        public string stead { get; set; }
 
         public string flat_area { get; set; }
         public string square_meter_price { get; set; }
