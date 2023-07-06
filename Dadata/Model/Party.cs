@@ -273,6 +273,7 @@ namespace Dadata.Model
 
     public enum PartyTaxSystem
     {
+        AUSN,
         ENVD,
         ENVD_ESHN,
         ESHN,
