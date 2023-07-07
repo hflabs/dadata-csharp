@@ -1,23 +1,25 @@
 <?xml version="1.0"?>
-<package >
+<package>
     <metadata>
         <id>Dadata</id>
         <title>Dadata</title>
-        <version>23.6.0</version>
+        <version>23.6.1</version>
         <authors>DaData.ru</authors>
         <owners>DaData.ru</owners>
         <license type="expression">MIT</license>
         <projectUrl>https://github.com/hflabs/dadata-csharp</projectUrl>
         <repository type="git" url="https://github.com/hflabs/dadata-csharp.git" />
-        <iconUrl>https://dadata.ru/static/i/dadata-logo.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>DaData.ru API client for CLR languages.</description>
         <summary>DaData.ru API client for CLR languages.</summary>
         <releaseNotes>Supports Dadata API as of June 2023.</releaseNotes>
-        <copyright>Copyright 2023</copyright>
+        <copyright>DaData.ru</copyright>
         <tags>DaData.ru API C# .NET</tags>
         <dependencies>
-            <dependency id="Newtonsoft.Json" version="12.0.2"/>
+            <group targetFramework=".NETStandard2.0" />
+            <group>
+                <dependency id="Newtonsoft.Json" version="12.0.2"/>
+            </group>
         </dependencies>
     </metadata>
     <files>
