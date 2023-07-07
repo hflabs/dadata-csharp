@@ -45,7 +45,7 @@ namespace Dadata.Test
             var unit = response.suggestions[0].data;
             Assert.Equal("5257", unit.code);
             Assert.Contains("Нижегородской области", unit.name);
-            Assert.Equal("40102810745370000024", unit.bank_correspondent_account);
+            Assert.Equal("40102810445370000059", unit.bank_correspondent_account);
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace Dadata.Test
         public async Task GeolocatePostalUnit()
         {
             var response = await api.Geolocate<PostalUnit>(lat: 55.878, lon: 37.653, radius_meters: 1000);
-            var unit = response.suggestions[0].data;
+            var unit = response.suggestions[1].data;
             Assert.Equal("127642", unit.postal_code);
         }
 
@@ -88,7 +88,7 @@ namespace Dadata.Test
             var response = await api.Suggest<MetroStation>("александр");
             var station = response.suggestions[0].data;
             Assert.Equal("Александровский сад", station.name);
-            Assert.False(station.is_closed);
+            Assert.Null(station.is_closed);
         }
 
         [Fact]

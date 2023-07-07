@@ -11,6 +11,6 @@
         public double geo_lat { get; set; }
         public double geo_lon { get; set; }
         public string color { get; set; }
-        public bool is_closed { get; set; }
+        public bool? is_closed { get; set; }
     }
 }

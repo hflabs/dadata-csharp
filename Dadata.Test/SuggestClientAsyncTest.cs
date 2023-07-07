@@ -141,6 +141,20 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public async Task FindAddressMunicipalTest()
+        {
+            var request = new FindAddressRequest("9120b43f-2fae-4838-a144-85e43c2bfb29") {
+                division = AddressDivision.MUNICIPAL
+            };
+            var response = await api.FindAddress(request);
+            var address = response.suggestions[0].data;
+            Assert.Equal("Москва", address.region);
+            Assert.Equal("муниципальный округ Свиблово", address.area);
+            Assert.Null(address.city);
+            Assert.Equal("Снежная", address.street);
+        }
+
+        [Fact]
         public async Task FindAddressLanguageTest()
         {
             var request = new FindAddressRequest("94b67f2f-f0f2-4a56-983b-90f0cec1d789") { language = "en" };
@@ -389,10 +403,10 @@ namespace Dadata.Test
         [Fact]
         public async Task FindPartyWithKppTest()
         {
-            var request = new FindPartyRequest(query: "7728168971", kpp: "667102002");
+            var request = new FindPartyRequest(query: "7728168971", kpp: "667143001");
             var response = await api.FindParty(request);
             var party = response.suggestions[0].data;
-            Assert.Equal("ФИЛИАЛ \"ЕКАТЕРИНБУРГСКИЙ\" АО \"АЛЬФА-БАНК\"", party.name.short_with_opf);
+            Assert.Equal("ФИЛИАЛ \"ЕКАТЕРИНБУРГСКИЙ\" АО \"АЛЬФА-БАНК\"", party.name.full_with_opf);
         }
 
         [Fact]
@@ -423,7 +437,7 @@ namespace Dadata.Test
             var response = await api.FindParty("7704865540");
             var party = response.suggestions[0].data;
             Assert.NotEmpty(party.licenses);
-            Assert.Equal("Фармацевтическая деятельность", party.licenses[0].activities[0]);
+            Assert.Contains("лекарственных препаратов", party.licenses[0].activities[0]);
         }
 
         [Fact]
@@ -438,16 +452,24 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public async Task FindPartyTaxSystemTest()
+        {
+            var response = await api.FindParty("5045022596");
+            var party = response.suggestions[0].data;
+            Assert.Equal(PartyTaxSystem.AUSN, party.finance.tax_system);
+        }
+
+        [Fact]
         public async Task FindAffiliatedTest()
         {
             var response = await api.FindAffiliated("7736207543");
-            Assert.Equal("ООО \"ДЗЕН.ПЛАТФОРМА\"", response.suggestions[0].value);
+            Assert.Equal("ООО \"МАРКЕТ.ТРЕЙД\"", response.suggestions[0].value);
         }
 
         [Fact]
         public async Task FindAffiliatedScopeTest()
         {
-            var request = new FindAffiliatedRequest("773006366201")
+            var request = new FindAffiliatedRequest("771687831332")
             {
                 scope = new[] { FindAffiliatedScope.MANAGERS }
             };

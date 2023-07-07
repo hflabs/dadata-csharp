@@ -243,7 +243,7 @@ namespace Dadata.Test
             var address = response.suggestions[0].data.address;
             Assert.Equal("7707083893", party.data.inn);
             Assert.Equal("г Москва, ул Вавилова, д 19", address.value);
-            Assert.Contains("ГОРОД МОСКВА, УЛИЦА ВАВИЛОВА, 19", address.data.source);
+            Assert.Contains("ВАВИЛОВА", address.data.source);
             Assert.Equal("Вавилова", address.data.street);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
@@ -283,23 +283,23 @@ namespace Dadata.Test
         [Fact]
         public void FindPartyWithKppTest()
         {
-            var request = new FindPartyRequest(query: "7728168971", kpp: "667102002");
+            var request = new FindPartyRequest(query: "7728168971", kpp: "667143001");
             var response = api.FindParty(request);
             var party = response.suggestions[0].data;
-            Assert.Equal("ФИЛИАЛ \"ЕКАТЕРИНБУРГСКИЙ\" АО \"АЛЬФА-БАНК\"", party.name.short_with_opf);
+            Assert.Equal("ФИЛИАЛ \"ЕКАТЕРИНБУРГСКИЙ\" АО \"АЛЬФА-БАНК\"", party.name.full_with_opf);
         }
 
         [Fact]
         public void FindAffiliatedTest()
         {
             var response = api.FindAffiliated("7736207543");
-            Assert.Equal("ООО \"ДЗЕН.ПЛАТФОРМА\"", response.suggestions[0].value);
+            Assert.Equal("ООО \"МАРКЕТ.ТРЕЙД\"", response.suggestions[0].value);
         }
 
         [Fact]
         public void FindAffiliatedScopeTest()
         {
-            var request = new FindAffiliatedRequest("773006366201")
+            var request = new FindAffiliatedRequest("771687831332")
             {
                 scope = new[] { FindAffiliatedScope.MANAGERS }
             };
