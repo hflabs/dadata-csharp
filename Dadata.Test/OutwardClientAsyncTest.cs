@@ -69,7 +69,7 @@ namespace Dadata.Test
         {
             var response = await api.Geolocate<PostalUnit>(lat: 55.878, lon: 37.653, radius_meters: 1000);
             var unit = response.suggestions[1].data;
-            Assert.Equal("127642", unit.postal_code);
+            Assert.Equal("910909", unit.postal_code);
         }
 
         [Fact]

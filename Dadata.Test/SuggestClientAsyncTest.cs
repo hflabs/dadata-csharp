@@ -448,7 +448,7 @@ namespace Dadata.Test
             Assert.Single(party.phones);
             Assert.Equal("+7 911 241 0309", party.phones[0].data.source);
             Assert.Single(party.emails);
-            Assert.Equal("info@motorica.org", party.emails[0].data.source);
+            Assert.Equal("DAP@MOTORICA.ORG", party.emails[0].data.source);
         }
 
         [Fact]
@@ -474,7 +474,7 @@ namespace Dadata.Test
                 scope = new[] { FindAffiliatedScope.MANAGERS }
             };
             var response = await api.FindAffiliated(request);
-            Assert.Equal("ООО \"ЯНДЕКС\"", response.suggestions[0].value);
+            Assert.Equal("МКПАО \"ЯНДЕКС\"", response.suggestions[0].value);
         }
     }
 }

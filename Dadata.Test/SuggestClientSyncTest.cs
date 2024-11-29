@@ -304,7 +304,7 @@ namespace Dadata.Test
                 scope = new[] { FindAffiliatedScope.MANAGERS }
             };
             var response = api.FindAffiliated(request);
-            Assert.Equal("ООО \"ЯНДЕКС\"", response.suggestions[0].value);
+            Assert.Equal("МКПАО \"ЯНДЕКС\"", response.suggestions[0].value);
         }
     }
 }
