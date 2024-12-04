@@ -34,9 +34,9 @@ From within Visual Studio:
 
 1. Open the Solution Explorer.
 2. Right-click on a project within your solution.
-3. Click on *Manage NuGet Packages...*
-4. Click on the *Browse* tab and search for "Dadata".
-5. Click on the Dadata package, select the appropriate version in the right-tab and click *Install*.
+3. Click on _Manage NuGet Packages..._
+4. Click on the _Browse_ tab and search for "Dadata".
+5. Click on the Dadata package, select the appropriate version in the right-tab and click _Install_.
 
 ## Usage
 
@@ -503,15 +503,11 @@ var geoVersion = response.factor.resources["Геокоординаты"];
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Make sure to add or update tests as appropriate.
-
-Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/) for commit messages.
+This project only accepts bug fixes.
 
 ## [Changelog](https://github.com/hflabs/dadata-csharp/releases)
 
-This library uses [CalVer](https://calver.org/) with YY.MM.MICRO schema. See changelog for details specific to each release.
+This project uses [CalVer](https://calver.org/) with YY.MM.MICRO schema. See changelog for details specific to each release.
 
 ## License
 
