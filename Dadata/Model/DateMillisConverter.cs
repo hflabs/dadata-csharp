@@ -24,7 +24,17 @@ namespace Dadata.Model
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            if (value == null)
+            {
+                writer.WriteNull();
+            }
+            else
+            {
+                DateTime dateTimeValue = (DateTime)value;
+
+                string formattedDateTime = dateTimeValue.ToString("yyyy-MM-ddTHH:mm:ss");
+                writer.WriteValue(formattedDateTime);
+            }
         }
     }
 }
