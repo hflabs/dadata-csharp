@@ -9,7 +9,7 @@ namespace Dadata.Model
 
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(DateTime);
+            return objectType == typeof(DateTime?);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -24,7 +24,14 @@ namespace Dadata.Model
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            if (value == null)
+            {
+                writer.WriteNull();
+                return;
+            }
+            DateTime dateTime = (DateTime)value;
+            long ticks = (long)(dateTime - epoch).TotalMilliseconds;
+            writer.WriteValue(ticks);
         }
     }
 }

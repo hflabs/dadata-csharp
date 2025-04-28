@@ -1,8 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using System.Text.Json;
+using Newtonsoft.Json;
 using Xunit;
-using Dadata.Model;
 
 namespace Dadata.Test
 {
@@ -20,8 +19,10 @@ namespace Dadata.Test
         public async Task SerializeResponseTest()
         {
             var response = await api.FindParty("7707083893");
-            var json = JsonSerializer.Serialize(response.suggestions);
-            Assert.NotEqual("{}", json);
+            var json = JsonConvert.SerializeObject(response.suggestions);
+            Assert.Contains("\"value\":\"ПАО СБЕРБАНК\"", json);
+            Assert.Contains("\"registration_date\":677376000000", json);
+            Assert.Contains("\"liquidation_date\":null", json);
         }
     }
 }
