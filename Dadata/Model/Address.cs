@@ -84,7 +84,7 @@ namespace Dadata.Model
         public string flat_type { get; set; }
         public string flat_type_full { get; set; }
         public string flat { get; set; }
-        
+
         public string stead_fias_id { get; set; }
         public string stead_kladr_id { get; set; }
         public string stead_type { get; set; }
@@ -124,6 +124,7 @@ namespace Dadata.Model
 
         public List<string> history_values { get; set; }
         public List<AddressMetro> metro { get; set; }
+        public AddressDivisions divisions { get; set; }
 
         public StructureType structure_type
         {
@@ -144,5 +145,39 @@ namespace Dadata.Model
         public string name { get; set; }
         public string line { get; set; }
         public decimal distance { get; set; }
+    }
+
+    public class AddressDivisions
+    {
+        public AddressAdministrative administrative { get; set; }
+        public AddressMunicipal municipal { get; set; }
+    }
+
+    public class AddressAdministrative
+    {
+        public AddressPart area { get; set; }
+        public AddressPart city { get; set; }
+        public AddressPart city_district { get; set; }
+        public AddressPart settlement { get; set; }
+        public AddressPart planning_structure { get; set; }
+    }
+
+    public class AddressMunicipal
+    {
+        public AddressPart area { get; set; }
+        public AddressPart sub_area { get; set; }
+        public AddressPart city { get; set; }
+        public AddressPart settlement { get; set; }
+        public AddressPart planning_structure { get; set; }
+    }
+
+    public class AddressPart
+    {
+        public string fias_id { get; set; }
+        public string kladr_id { get; set; }
+        public string type { get; set; }
+        public string type_full { get; set; }
+        public string name { get; set; }
+        public string name_with_type { get; set; }
     }
 }
