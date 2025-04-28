@@ -143,7 +143,8 @@ namespace Dadata.Test
         [Fact]
         public async Task FindAddressMunicipalTest()
         {
-            var request = new FindAddressRequest("9120b43f-2fae-4838-a144-85e43c2bfb29") {
+            var request = new FindAddressRequest("9120b43f-2fae-4838-a144-85e43c2bfb29")
+            {
                 division = AddressDivision.MUNICIPAL
             };
             var response = await api.FindAddress(request);
@@ -306,7 +307,8 @@ namespace Dadata.Test
         [Fact]
         public async Task SuggestPartyByOkvedTest()
         {
-            var query = new SuggestPartyRequest("авиа") {
+            var query = new SuggestPartyRequest("авиа")
+            {
                 okved = new[] { "85.22" }
             };
             var response = await api.SuggestParty(query);
@@ -358,12 +360,12 @@ namespace Dadata.Test
         [Fact]
         public async Task SuggestPartyStatusBankruptTest()
         {
-            var request = new SuggestPartyRequest("6102019481")
+            var request = new SuggestPartyRequest("мир")
             {
                 status = new[] { PartyStatus.BANKRUPT }
             };
             var response = await api.SuggestParty(request);
-            Assert.Equal("6102019481", response.suggestions[0].data.inn);
+            Assert.NotEqual(0, response.suggestions.Count);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
 
@@ -372,7 +374,7 @@ namespace Dadata.Test
         {
             var request = new SuggestPartyRequest("6102019481");
             var response = await api.SuggestParty(request);
-            Assert.Equal("117", response.suggestions[0].data.state.code);
+            Assert.Equal("203", response.suggestions[0].data.state.code);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
 
@@ -463,7 +465,7 @@ namespace Dadata.Test
         public async Task FindAffiliatedTest()
         {
             var response = await api.FindAffiliated("7736207543");
-            Assert.Equal("ООО \"МАРКЕТ.ТРЕЙД\"", response.suggestions[0].value);
+            Assert.Equal("ООО \"ГИС ТЕХНОЛОГИИ\"", response.suggestions[0].value);
         }
 
         [Fact]

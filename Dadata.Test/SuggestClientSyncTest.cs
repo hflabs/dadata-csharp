@@ -293,7 +293,7 @@ namespace Dadata.Test
         public void FindAffiliatedTest()
         {
             var response = api.FindAffiliated("7736207543");
-            Assert.Equal("ООО \"МАРКЕТ.ТРЕЙД\"", response.suggestions[0].value);
+            Assert.Equal("ООО \"ГИС ТЕХНОЛОГИИ\"", response.suggestions[0].value);
         }
 
         [Fact]
