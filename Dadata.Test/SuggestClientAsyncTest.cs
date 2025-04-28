@@ -396,8 +396,20 @@ namespace Dadata.Test
             var response = await api.FindParty("7719402047");
             var party = response.suggestions[0].data;
             Assert.Equal("МОТОРИКА", party.name.@short);
+            Assert.Equal(PartyType.LEGAL, party.type);
+            Assert.Equal(PartyStatus.ACTIVE, party.state.status);
+            Assert.NotNull(party.employee_count);
+            Assert.Null(party.invalid);
+            Assert.NotNull(party.capital.value);
+            Assert.NotNull(party.management.start_date);
+            Assert.True(party.founders.Count > 0);
             Assert.Equal(PartyFounderShareType.PERCENT, party.founders[0].share.type);
             Assert.True(party.founders[0].share.value > 0);
+            Assert.True(party.managers.Count > 0);
+            Assert.NotNull(party.managers[0].start_date);
+            Assert.NotNull(party.managers[0].fio.surname);
+            Assert.True(party.okveds.Count > 0);
+            Assert.NotNull(party.finance.revenue);
             Assert.NotNull(party.finance.year);
             Assert.NotNull(party.documents.fts_report.issue_authority);
         }
@@ -459,6 +471,17 @@ namespace Dadata.Test
             var response = await api.FindParty("5045022596");
             var party = response.suggestions[0].data;
             Assert.Equal(PartyTaxSystem.AUSN, party.finance.tax_system);
+        }
+
+        [Fact]
+        public async Task FindInvalidTest()
+        {
+            var response = await api.FindParty("7804225864");
+            var party = response.suggestions[0].data;
+            Assert.True(party.invalid);
+            Assert.True(party.managers.Count > 0);
+            var manager = party.managers[0];
+            Assert.Equal(PartyInvalidityCode.FTS, manager.invalidity.code);
         }
 
         [Fact]

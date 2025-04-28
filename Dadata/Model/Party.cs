@@ -11,6 +11,7 @@ namespace Dadata.Model
 
         public string inn { get; set; }
         public string kpp { get; set; }
+        public string kpp_largest { get; set; }
         public string ogrn { get; set; }
         [JsonConverter(typeof(DateMillisConverter))]
         public DateTime? ogrn_date { get; set; }
@@ -34,6 +35,7 @@ namespace Dadata.Model
         public PartyType type { get; set; }
 
         public int? employee_count { get; set; }
+        public bool? invalid { get; set; }
 
         public PartyFinance finance { get; set; }
         public PartyCapital capital { get; set; }
@@ -131,6 +133,7 @@ namespace Dadata.Model
         public PartyTaxSystem? tax_system { get; set; }
         public decimal? income { get; set; }
         public decimal? expense { get; set; }
+        public decimal? revenue { get; set; }
         public decimal? debt { get; set; }
         public decimal? penalty { get; set; }
         public int? year { get; set; }
@@ -138,13 +141,16 @@ namespace Dadata.Model
 
     public class PartyFounder
     {
-        public string ogrn { get; set; }
-        public string inn { get; set; }
-        public string name { get; set; }
-        public Fullname fio { get; set; }
         public string hid { get; set; }
         public PartyFounderType type { get; set; }
         public PartyFounderShare share { get; set; }
+        [JsonConverter(typeof(DateMillisConverter))]
+        public DateTime? start_date { get; set; }
+        public PartyInvalidity invalidity { get; set; }
+        public string inn { get; set; }
+        public Fullname fio { get; set; }
+        public string ogrn { get; set; }
+        public string name { get; set; }
     }
 
     public class PartyFounderShare
@@ -166,6 +172,28 @@ namespace Dadata.Model
     {
         LEGAL,
         PHYSICAL
+    }
+
+    public class PartyInvalidity
+    {
+        public PartyInvalidityCode code { get; set; }
+        public PartyCourtDecision decision { get; set; }
+    }
+
+    public enum PartyInvalidityCode
+    {
+        PARTY,
+        FTS,
+        COURT,
+        OTHER
+    }
+
+    public class PartyCourtDecision
+    {
+        public string court_name { get; set; }
+        public string number { get; set; }
+        [JsonConverter(typeof(DateMillisConverter))]
+        public DateTime date { get; set; }
     }
 
     public class PartyLicense
@@ -190,18 +218,23 @@ namespace Dadata.Model
     {
         public string name { get; set; }
         public string post { get; set; }
+        [JsonConverter(typeof(DateMillisConverter))]
+        public DateTime? start_date { get; set; }
         public string disqualified { get; set; }
     }
 
     public class PartyManager
     {
-        public string ogrn { get; set; }
+        public string hid { get; set; }
+        public PartyManagerType type { get; set; }
+        [JsonConverter(typeof(DateMillisConverter))]
+        public DateTime? start_date { get; set; }
+        public PartyInvalidity invalidity { get; set; }
         public string inn { get; set; }
-        public string name { get; set; }
         public Fullname fio { get; set; }
         public string post { get; set; }
-        public string hid { get; set; }
-        public string type { get; set; }
+        public string ogrn { get; set; }
+        public string name { get; set; }
     }
 
     public enum PartyManagerType
