@@ -46,6 +46,16 @@ namespace Dadata.Test
         }
 
         [Fact]
+        public async Task CleanAddressRoomTest()
+        {
+            var cleaned = await api.Clean<Address>("г Москва, Куркинское шоссе, д 17, кв 173, ком 2");
+            Assert.Equal("17", cleaned.house);
+            Assert.Equal("253", cleaned.house_flat_count);
+            Assert.Equal("173", cleaned.flat);
+            Assert.Equal("2", cleaned.room);
+        }
+
+        [Fact]
         public async Task CleanBirthdateTest()
         {
             var cleaned = await api.Clean<Birthdate>("12.03.1990");
