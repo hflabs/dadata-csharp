@@ -157,6 +157,7 @@ namespace Dadata.Test
             var response = await api.Suggest<MktuRecord>("валенки");
             var record = response.suggestions[0].data;
             Assert.Equal("250173", record.number);
+            Assert.Equal("25", record.@class);
         }
 
         [Fact]
