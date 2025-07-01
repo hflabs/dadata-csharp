@@ -29,5 +29,6 @@ namespace Dadata
         SuggestResponse<Party> FindParty(FindPartyRequest request);
         SuggestResponse<Party> FindAffiliated(string query);
         SuggestResponse<Party> FindAffiliated(FindAffiliatedRequest request);
+        SuggestResponse<CompanyWithEmail> FindByEmail(string query);
     }
 }

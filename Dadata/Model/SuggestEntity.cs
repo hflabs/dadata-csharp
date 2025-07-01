@@ -5,6 +5,7 @@
         public static readonly string Address = "address";
         public static readonly string Bank = "bank";
         public static readonly string CarBrand = "car_brand";
+        public static readonly string Company = "company";
         public static readonly string Country = "country";
         public static readonly string Currency = "currency";
         public static readonly string Delivery = "delivery";

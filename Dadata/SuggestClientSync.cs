@@ -7,7 +7,7 @@ namespace Dadata
     {
         protected const string BASE_URL = "https://suggestions.dadata.ru/suggestions/api/4_1/rs";
 
-        public SuggestClientSync(string token, string baseUrl = BASE_URL) : base(token, baseUrl) { }
+        public SuggestClientSync(string token, string secret = null, string baseUrl = BASE_URL) : base(token, secret, baseUrl) { }
 
         #region Address
 
@@ -169,6 +169,11 @@ namespace Dadata
         public SuggestResponse<Party> FindAffiliated(FindAffiliatedRequest request)
         {
             return Execute<SuggestResponse<Party>>(method: SuggestionsMethod.FindAffiliated, entity: SuggestionsEntity.Party, request: request);
+        }
+
+        public SuggestResponse<CompanyWithEmail> FindByEmail(string query)
+        {
+            return Execute<SuggestResponse<CompanyWithEmail>>(method: SuggestionsMethod.FindByEmail, entity: SuggestionsEntity.Company, request: new SuggestRequest(query));
         }
 
         #endregion

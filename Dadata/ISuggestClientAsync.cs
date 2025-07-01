@@ -31,5 +31,6 @@ namespace Dadata
         Task<SuggestResponse<Party>> FindParty(FindPartyRequest request, CancellationToken cancellationToken = default);
         Task<SuggestResponse<Party>> FindAffiliated(string query, CancellationToken cancellationToken = default);
         Task<SuggestResponse<Party>> FindAffiliated(FindAffiliatedRequest request, CancellationToken cancellationToken = default);
+        Task<SuggestResponse<CompanyWithEmail>> FindByEmail(string query, CancellationToken cancellationToken = default);
     }
 }

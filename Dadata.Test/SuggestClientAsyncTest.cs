@@ -12,7 +12,8 @@ namespace Dadata.Test
         public SuggestClientAsyncTest()
         {
             var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
-            this.api = new SuggestClientAsync(token);
+            var secret = Environment.GetEnvironmentVariable("DADATA_SECRET_KEY");
+            this.api = new SuggestClientAsync(token, secret);
         }
 
         [Fact]
@@ -500,6 +501,15 @@ namespace Dadata.Test
             };
             var response = await api.FindAffiliated(request);
             Assert.Equal("МКПАО \"ЯНДЕКС\"", response.suggestions[0].value);
+        }
+
+        [Fact]
+        public async Task FindByEmailTest()
+        {
+            var response = await api.FindByEmail("info@dadata.ru");
+            var data = response.suggestions[0].data;
+            Assert.Equal("ROLE", data.email.type);
+            Assert.Equal("7721581040", data.company.inn);
         }
     }
 }

@@ -10,8 +10,8 @@ namespace Dadata
     {
         protected const string BASE_URL = "https://suggestions.dadata.ru/suggestions/api/4_1/rs";
 
-        public SuggestClientAsync(string token, string baseUrl = BASE_URL, HttpClient client = null)
-            : base(token, baseUrl, client) { }
+        public SuggestClientAsync(string token, string secret = null, string baseUrl = BASE_URL, HttpClient client = null)
+            : base(token, secret, baseUrl, client) { }
 
         #region Address
 
@@ -212,6 +212,13 @@ namespace Dadata
         {
             return await Execute<SuggestResponse<Party>>(method: SuggestionsMethod.FindAffiliated,
                 entity: SuggestionsEntity.Party, request: request, cancellationToken: cancellationToken);
+        }
+
+        public async Task<SuggestResponse<CompanyWithEmail>> FindByEmail(string query,
+            CancellationToken cancellationToken = default)
+        {
+            return await Execute<SuggestResponse<CompanyWithEmail>>(method: SuggestionsMethod.FindByEmail,
+                entity: SuggestionsEntity.Company, request: new SuggestRequest(query), cancellationToken: cancellationToken);
         }
 
         #endregion
