@@ -21,5 +21,6 @@
         public static readonly string Okved2 = "okved2";
         public static readonly string Party = "party";
         public static readonly string PostalUnit = "postal_unit";
+        public static readonly string RegionCourt = "region_court";
     }
 }

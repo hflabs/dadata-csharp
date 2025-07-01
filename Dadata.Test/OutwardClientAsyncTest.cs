@@ -166,5 +166,13 @@ namespace Dadata.Test
             var record = response.suggestions[0].data;
             Assert.Equal("95.23.10.133", record.kod);
         }
+
+        [Fact]
+        public async Task SuggestRegionCourt()
+        {
+            var response = await api.Suggest<RegionCourt>("52MS0022");
+            var court = response.suggestions[0].data;
+            Assert.StartsWith("Судебный участок № 1", court.name);
+        }
     }
 }
