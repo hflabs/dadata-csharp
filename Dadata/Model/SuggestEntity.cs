@@ -16,6 +16,7 @@
         public static readonly string Metro = "metro";
         public static readonly string Mktu = "mktu";
         public static readonly string Name = "fio";
+        public static readonly string Okpd2 = "okpd2";
         public static readonly string Oktmo = "oktmo";
         public static readonly string Okved2 = "okved2";
         public static readonly string Party = "party";

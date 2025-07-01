@@ -158,5 +158,13 @@ namespace Dadata.Test
             var record = response.suggestions[0].data;
             Assert.Equal("250173", record.number);
         }
+
+        [Fact]
+        public async Task SuggestOkpd2()
+        {
+            var response = await api.Suggest<OkpdRecord>("калоши");
+            var record = response.suggestions[0].data;
+            Assert.Equal("95.23.10.133", record.kod);
+        }
     }
 }

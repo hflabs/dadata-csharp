@@ -15,6 +15,7 @@ namespace Dadata.Model
             { typeof(FtsUnit), SuggestionsEntity.FtsUnit },
             { typeof(MetroStation), SuggestionsEntity.Metro },
             { typeof(MktuRecord), SuggestionsEntity.Mktu },
+            { typeof(OkpdRecord), SuggestionsEntity.Okpd2},
             { typeof(OktmoRecord), SuggestionsEntity.Oktmo},
             { typeof(OkvedRecord), SuggestionsEntity.Okved2},
             { typeof(PostalUnit), SuggestionsEntity.PostalUnit },
