@@ -18,6 +18,8 @@ namespace Dadata.Model
             { typeof(OkpdRecord), SuggestionsEntity.Okpd2 },
             { typeof(OktmoRecord), SuggestionsEntity.Oktmo },
             { typeof(OkvedRecord), SuggestionsEntity.Okved2 },
+            { typeof(PartyBy), SuggestionsEntity.PartyBy },
+            { typeof(PartyKz), SuggestionsEntity.PartyKz },
             { typeof(PostalUnit), SuggestionsEntity.PostalUnit },
             { typeof(RegionCourt), SuggestionsEntity.RegionCourt },
         };

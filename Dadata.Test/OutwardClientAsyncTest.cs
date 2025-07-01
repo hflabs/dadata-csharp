@@ -174,5 +174,25 @@ namespace Dadata.Test
             var court = response.suggestions[0].data;
             Assert.StartsWith("Судебный участок № 1", court.name);
         }
+
+        [Fact]
+        public async Task SuggestPartyBy()
+        {
+            var response = await api.Suggest<PartyBy>("онлайнер");
+            var party = response.suggestions[0].data;
+            Assert.Equal("190657494", party.unp);
+            Assert.Equal(PartyByType.LEGAL, party.type);
+            Assert.Equal(PartyByStatus.ACTIVE, party.status);
+        }
+
+        [Fact]
+        public async Task SuggestPartyKz()
+        {
+            var response = await api.Suggest<PartyKz>("онлайн бухгалтерия");
+            var party = response.suggestions[0].data;
+            Assert.Equal("230940037236", party.bin);
+            Assert.Equal(PartyKzType.LEGAL, party.type);
+            Assert.Equal(PartyKzStatus.ACTIVE, party.status);
+        }
     }
 }

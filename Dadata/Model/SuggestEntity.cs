@@ -21,6 +21,8 @@
         public static readonly string Oktmo = "oktmo";
         public static readonly string Okved2 = "okved2";
         public static readonly string Party = "party";
+        public static readonly string PartyBy = "party_by";
+        public static readonly string PartyKz = "party_kz";
         public static readonly string PostalUnit = "postal_unit";
         public static readonly string RegionCourt = "region_court";
     }
