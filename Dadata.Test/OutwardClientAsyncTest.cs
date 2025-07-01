@@ -150,5 +150,13 @@ namespace Dadata.Test
             var unit = response.suggestions[0].data;
             Assert.Equal("ДОМОДЕДОВСКАЯ ТАМОЖНЯ", unit.name);
         }
+
+        [Fact]
+        public async Task SuggestMktu()
+        {
+            var response = await api.Suggest<MktuRecord>("валенки");
+            var record = response.suggestions[0].data;
+            Assert.Equal("250173", record.number);
+        }
     }
 }

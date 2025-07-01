@@ -14,6 +14,7 @@
         public static readonly string FnsUnit = "fns_unit";
         public static readonly string FtsUnit = "fts_unit";
         public static readonly string Metro = "metro";
+        public static readonly string Mktu = "mktu";
         public static readonly string Name = "fio";
         public static readonly string Oktmo = "oktmo";
         public static readonly string Okved2 = "okved2";
