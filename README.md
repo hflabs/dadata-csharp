@@ -55,7 +55,7 @@ var secret = "Replace with Dadata secret key";
 
 var api = new CleanClientAsync(token, secret);
 // or any of the following, depending on the API method
-api = new SuggestClientAsync(token);
+api = new SuggestClientAsync(token, secret);
 api = new OutwardClientAsync(token);
 api = new ProfileClientAsync(token, secret);
 ```
@@ -63,6 +63,12 @@ api = new ProfileClientAsync(token, secret);
 Then call API methods as specified below.
 
 Examples use async clients: `CleanClientAsync`, `SuggestClientAsync`, `OutwardClientAsync` and `ProfileClientAsync`. There are sync alternatives with `Sync` suffixes — they exist for backward compatibility and will be removed in future releases.
+
+The library does not enforce a specific TLS version. If you need to set one, do it in your code like this:
+
+```csharp
+ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+```
 
 ## Postal Address
 
