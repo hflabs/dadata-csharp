@@ -134,5 +134,13 @@ namespace Dadata.Test
             var country = response.suggestions[0].data;
             Assert.Equal("Россия", country.name_short);
         }
+
+        [Fact]
+        public async Task SuggestCurrency()
+        {
+            var response = await api.Suggest<Currency>("rub");
+            var currency = response.suggestions[0].data;
+            Assert.Equal("Российский рубль", currency.name);
+        }
     }
 }
