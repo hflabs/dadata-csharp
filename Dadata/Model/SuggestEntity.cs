@@ -12,6 +12,7 @@
         public static readonly string Fias = "fias";
         public static readonly string FmsUnit = "fms_unit";
         public static readonly string FnsUnit = "fns_unit";
+        public static readonly string FtsUnit = "fts_unit";
         public static readonly string Metro = "metro";
         public static readonly string Name = "fio";
         public static readonly string Oktmo = "oktmo";

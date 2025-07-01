@@ -142,5 +142,13 @@ namespace Dadata.Test
             var currency = response.suggestions[0].data;
             Assert.Equal("Российский рубль", currency.name);
         }
+
+        [Fact]
+        public async Task SuggestFtsUnit()
+        {
+            var response = await api.Suggest<FtsUnit>("10002000");
+            var unit = response.suggestions[0].data;
+            Assert.Equal("ДОМОДЕДОВСКАЯ ТАМОЖНЯ", unit.name);
+        }
     }
 }
