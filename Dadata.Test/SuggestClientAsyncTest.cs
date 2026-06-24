@@ -207,6 +207,7 @@ namespace Dadata.Test
             var response = await api.FindBank("044525974");
             var bank = response.suggestions[0].data;
             Assert.Equal("TICSRUMMXXX", bank.swift);
+            Assert.Equal("TICSRUMMXXX", bank.swifts[0]);
             Assert.Equal("044525000", bank.cbr.bic);
 
             response = await api.FindBank("011203901");
@@ -413,6 +414,9 @@ namespace Dadata.Test
             Assert.NotNull(party.finance.revenue);
             Assert.NotNull(party.finance.year);
             Assert.NotNull(party.documents.fts_report.issue_authority);
+            Assert.Equal(5, party.finance_history.Count);
+            Assert.Equal("1100", party.finance_history[0].metrics[0].code);
+            Assert.True(party.finance_history[0].metrics[0].value > 0);
         }
 
         [Fact]
@@ -480,6 +484,7 @@ namespace Dadata.Test
             var response = await api.FindParty("7804225864");
             var party = response.suggestions[0].data;
             Assert.True(party.invalid);
+            Assert.Equal(PartyInvalidityCode.FTS, party.address.invalidity.code);
             Assert.True(party.managers.Count > 0);
             var manager = party.managers[0];
             Assert.Equal(PartyInvalidityCode.FTS, manager.invalidity.code);

@@ -38,6 +38,7 @@ namespace Dadata.Model
         public bool? invalid { get; set; }
 
         public PartyFinance finance { get; set; }
+        public List<PartyFinanceYear> finance_history { get; set; }
         public PartyCapital capital { get; set; }
         public PartyAuthorities authorities { get; set; }
         public PartyCitizenship citizenship { get; set; }
@@ -50,7 +51,7 @@ namespace Dadata.Model
         public List<PartyReference> predecessors { get; set; }
         public List<PartyReference> successors { get; set; }
 
-        public Suggestion<Address> address { get; set; }
+        public PartyAddress address { get; set; }
 
         public List<Suggestion<Phone>> phones { get; set; }
         public List<Suggestion<Email>> emails { get; set; }
@@ -61,6 +62,14 @@ namespace Dadata.Model
         public string ogrn { get; set; }
         public string inn { get; set; }
         public string name { get; set; }
+    }
+
+    public class PartyAddress
+    {
+        public string value { get; set; }
+        public string unrestricted_value { get; set; }
+        public PartyInvalidity invalidity { get; set; }
+        public Address data { get; set; }
     }
 
     public class PartyAuthorities
@@ -137,6 +146,18 @@ namespace Dadata.Model
         public decimal? debt { get; set; }
         public decimal? penalty { get; set; }
         public int? year { get; set; }
+    }
+
+    public class PartyFinanceYear
+    {
+        public int year { get; set; }
+        public List<PartyFinanceMetric> metrics { get; set; }
+    }
+
+    public class PartyFinanceMetric
+    {
+        public string code { get; set; }
+        public decimal value { get; set; }
     }
 
     public class PartyFounder

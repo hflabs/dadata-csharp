@@ -6,6 +6,7 @@ namespace Dadata.Model
     {
         public string bic { get; set; }
         public string swift { get; set; }
+        public List<string> swifts { get; set; }
         public string inn { get; set; }
         public string kpp { get; set; }
         public string registration_number { get; set; }
