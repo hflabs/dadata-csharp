@@ -33,7 +33,7 @@ namespace Dadata.Test
         public void GetVersionsTest()
         {
             var response = api.GetVersions();
-            Assert.StartsWith("stable", response.dadata.version);
+            Assert.StartsWith("latest", response.dadata.version);
             Assert.True(response.suggestions.resources.ContainsKey("ЕГРЮЛ"));
             Assert.True(response.factor.resources.ContainsKey("ФИАС"));
         }

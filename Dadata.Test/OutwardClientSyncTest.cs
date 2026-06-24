@@ -40,9 +40,9 @@ namespace Dadata.Test
         [Fact]
         public void FindFnsUnit()
         {
-            var response = api.Find<FnsUnit>("5257");
+            var response = api.Find<FnsUnit>("5252");
             var unit = response.suggestions[0].data;
-            Assert.Equal("5257", unit.code);
+            Assert.Equal("5252", unit.code);
             Assert.Contains("Нижегородской области", unit.name);
             Assert.Equal("40102810445370000059", unit.bank_correspondent_account);
         }
@@ -52,7 +52,7 @@ namespace Dadata.Test
         {
             var response = api.Suggest<PostalUnit>("дежнева 2а");
             var unit = response.suggestions[0].data;
-            Assert.Equal("127642", unit.postal_code);
+            Assert.Equal("127081", unit.postal_code);
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace Dadata.Test
         {
             var response = api.Geolocate<PostalUnit>(lat: 55.878, lon: 37.653, radius_meters: 1000);
             var unit = response.suggestions[1].data;
-            Assert.Equal("910909", unit.postal_code);
+            Assert.Equal("915354", unit.postal_code);
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace Dadata.Test
         {
             var response = api.Find<DeliveryCity>("3100400100000");
             var city = response.suggestions[0].data;
-            Assert.Equal("01929", city.boxberry_id);
+            Assert.Equal("7720193", city.boxberry_id);
             Assert.Equal("344", city.cdek_id);
             Assert.Equal("196006461", city.dpd_id);
         }
@@ -115,7 +115,7 @@ namespace Dadata.Test
         {
             var response = api.Suggest<OkvedRecord>("51.22.3");
             var record = response.suggestions[0].data;
-            Assert.Equal("H.51.22.3", record.idx);
+            Assert.Equal("H51.22.3", record.idx);
         }
 
         [Fact]

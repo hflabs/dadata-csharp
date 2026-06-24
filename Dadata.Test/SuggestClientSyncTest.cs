@@ -218,7 +218,7 @@ namespace Dadata.Test
                 parts = new FullnamePart[] { FullnamePart.SURNAME }
             };
             var response = api.SuggestName(request);
-            Assert.Equal("Викторова", response.suggestions[0].data.surname);
+            Assert.Equal("Викторов", response.suggestions[0].data.surname);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
 
@@ -293,7 +293,7 @@ namespace Dadata.Test
         public void FindAffiliatedTest()
         {
             var response = api.FindAffiliated("7736207543");
-            Assert.Equal("ООО \"ГИС ТЕХНОЛОГИИ\"", response.suggestions[0].value);
+            Assert.Equal("ООО \"ИТ-ИНФРА\"", response.suggestions[0].value);
         }
 
         [Fact]

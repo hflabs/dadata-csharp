@@ -31,12 +31,12 @@ namespace Dadata.Test
         [Fact]
         public async Task SuggestAddressMunicipalTest()
         {
-            var query = "самара сакко и ванцетти д 20";
+            var query = "Самарская обл, пгт Безенчук";
             var request = new SuggestAddressRequest(query) { division = AddressDivision.MUNICIPAL };
             var response = await api.SuggestAddress(request);
             var address_data = response.suggestions[0].data;
-            Assert.Equal("Самара", address_data.area);
-            Assert.Equal("Железнодорожный", address_data.sub_area);
+            Assert.Equal("Безенчукский", address_data.area);
+            Assert.Equal("Безенчук", address_data.sub_area);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
 
@@ -275,7 +275,7 @@ namespace Dadata.Test
                 parts = new[] { FullnamePart.SURNAME }
             };
             var response = await api.SuggestName(request);
-            Assert.Equal("Викторова", response.suggestions[0].data.surname);
+            Assert.Equal("Викторов", response.suggestions[0].data.surname);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
 
@@ -314,7 +314,7 @@ namespace Dadata.Test
             };
             var response = await api.SuggestParty(query);
             var party = response.suggestions[0];
-            Assert.Equal("7712038455", party.data.inn);
+            Assert.Equal("5050124434", party.data.inn);
             Console.WriteLine(string.Join("\n", response.suggestions));
         }
 
@@ -489,7 +489,7 @@ namespace Dadata.Test
         public async Task FindAffiliatedTest()
         {
             var response = await api.FindAffiliated("7736207543");
-            Assert.Equal("ООО \"ГИС ТЕХНОЛОГИИ\"", response.suggestions[0].value);
+            Assert.Equal("ООО \"ИТ-ИНФРА\"", response.suggestions[0].value);
         }
 
         [Fact]

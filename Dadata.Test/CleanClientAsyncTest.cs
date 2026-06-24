@@ -27,21 +27,22 @@ namespace Dadata.Test
         [Fact]
         public async Task CleanAddressTest()
         {
-            var cleaned = await api.Clean<Address>("москва курьяновская наб 17");
+            var cleaned = await api.Clean<Address>("москва сухонская 11 89");
             Assert.Equal("Москва", cleaned.region);
             Assert.Null(cleaned.city);
-            Assert.Equal("Печатники", cleaned.city_district);
-            Assert.Equal("Курьяновская", cleaned.settlement);
-            Assert.Null(cleaned.street);
-            Assert.Equal("17", cleaned.house);
-            Assert.Equal("65", cleaned.fias_level);
+            Assert.Null(cleaned.settlement);
+            Assert.Equal("Северное Медведково", cleaned.city_district);
+            Assert.Equal("Сухонская", cleaned.street);
+            Assert.Equal("11", cleaned.house);
+            Assert.Equal("89", cleaned.flat);
+            Assert.Equal("9", cleaned.fias_level);
             Assert.Equal("0", cleaned.qc);
             Assert.Equal(3, cleaned.metro.Count);
             Assert.Null(cleaned.divisions.administrative.area);
             Assert.Null(cleaned.divisions.administrative.city);
-            Assert.Equal("Печатники", cleaned.divisions.administrative.city_district.name);
+            Assert.Equal("Северное Медведково", cleaned.divisions.administrative.city_district.name);
             Assert.Null(cleaned.divisions.administrative.settlement);
-            Assert.Equal("Курьяновская", cleaned.divisions.administrative.planning_structure.name);
+            Assert.Null(cleaned.divisions.administrative.planning_structure);
             Assert.Null(cleaned.divisions.municipal);
         }
 
