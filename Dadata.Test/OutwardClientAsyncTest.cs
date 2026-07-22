@@ -212,5 +212,17 @@ namespace Dadata.Test
             Assert.Equal("https://vk.com/roboshkola24", brand.vk_url);
             Assert.Contains("cdn.dadata.ru/logo/roboshkola.com", brand.logo_url);
         }
+
+        [Fact]
+        public async Task FindForwarder()
+        {
+            var response = await api.Find<Forwarder>("390520526613");
+            var forwarder = response.suggestions[0].data;
+            Assert.Equal("GL-B044-00112-00/00000041", forwarder.number);
+            Assert.Equal("2026-03-30", forwarder.issue_date);
+            Assert.Equal("390520526613", forwarder.inn);
+            Assert.Equal("322392600011344", forwarder.ogrn);
+            Assert.Equal("ИП КАСПАРАВИЧЮС ЖИЛЬВИНАС", forwarder.name);
+        }
     }
 }

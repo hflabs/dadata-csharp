@@ -13,6 +13,7 @@ namespace Dadata.Model
             { typeof(DeliveryCity), SuggestionsEntity.Delivery },
             { typeof(FmsUnit), SuggestionsEntity.FmsUnit },
             { typeof(FnsUnit), SuggestionsEntity.FnsUnit },
+            { typeof(Forwarder), SuggestionsEntity.Forwarder },
             { typeof(FtsUnit), SuggestionsEntity.FtsUnit },
             { typeof(MetroStation), SuggestionsEntity.Metro },
             { typeof(MktuRecord), SuggestionsEntity.Mktu },
