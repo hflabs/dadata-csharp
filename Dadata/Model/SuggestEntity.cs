@@ -8,6 +8,7 @@
         public static readonly string Company = "company";
         public static readonly string CompanyBrand = "brand";
         public static readonly string Country = "country";
+        public static readonly string Court = "court";
         public static readonly string Currency = "currency";
         public static readonly string Delivery = "delivery";
         public static readonly string Email = "email";

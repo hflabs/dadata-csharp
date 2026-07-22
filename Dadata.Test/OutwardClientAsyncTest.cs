@@ -224,5 +224,18 @@ namespace Dadata.Test
             Assert.Equal("322392600011344", forwarder.ogrn);
             Assert.Equal("ИП КАСПАРАВИЧЮС ЖИЛЬВИНАС", forwarder.name);
         }
+
+        [Fact]
+        public async Task FindCourt()
+        {
+            var response = await api.Find<Court>("52MS0022");
+            var court = response.suggestions[0].data;
+            Assert.Equal("52MS0022", court.code);
+            Assert.StartsWith("Судебный участок № 1", court.name);
+            Assert.Equal("MS", court.court_type);
+            Assert.Equal("Мировой суд", court.court_type_name);
+            Assert.EndsWith("Нижний Новгород, ул Памирская, д 13", court.address);
+            Assert.Equal("http://lenin1.nnov.msudrf.ru", court.website);
+        }
     }
 }
