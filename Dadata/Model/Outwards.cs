@@ -8,6 +8,7 @@ namespace Dadata.Model
         static Dictionary<Type, string> TYPE_TO_ENTITY = new Dictionary<Type, string>() {
             { typeof(CarBrand), SuggestionsEntity.CarBrand },
             { typeof(Country), SuggestionsEntity.Country },
+            { typeof(CompanyBrand), SuggestionsEntity.CompanyBrand },
             { typeof(Currency), SuggestionsEntity.Currency },
             { typeof(DeliveryCity), SuggestionsEntity.Delivery },
             { typeof(FmsUnit), SuggestionsEntity.FmsUnit },

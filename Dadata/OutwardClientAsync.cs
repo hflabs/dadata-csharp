@@ -9,8 +9,8 @@ namespace Dadata
     {
         protected const string BASE_URL = "https://suggestions.dadata.ru/suggestions/api/4_1/rs";
 
-        public OutwardClientAsync(string token, string baseUrl = BASE_URL, HttpClient client = null)
-            : base(token, baseUrl, client) { }
+        public OutwardClientAsync(string token, string secret = "", string baseUrl = BASE_URL, HttpClient client = null)
+            : base(token, secret, baseUrl, client) { }
 
         public async Task<SuggestResponse<T>> Suggest<T>(string query, int count = 5, CancellationToken cancellationToken = default) where T : IOutward
         {

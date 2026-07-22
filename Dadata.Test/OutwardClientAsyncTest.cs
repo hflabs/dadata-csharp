@@ -195,5 +195,22 @@ namespace Dadata.Test
             Assert.Equal(PartyKzType.LEGAL, party.type);
             Assert.Equal(PartyKzStatus.ACTIVE, party.status);
         }
+
+        [Fact]
+        public async Task FindCompanyBrand()
+        {
+            var baseUrl = "https://api.dadata.ru";
+            var token = Environment.GetEnvironmentVariable("DADATA_API_KEY");
+            var secret = Environment.GetEnvironmentVariable("DADATA_SECRET_KEY");
+            api = new OutwardClientAsync(token, secret, baseUrl);
+
+            var response = await api.Find<CompanyBrand>("560404424247");
+            var brand = response.suggestions[0].data;
+            Assert.Equal("roboshkola.com", brand.domain);
+            Assert.Equal("РобоШкола", brand.name);
+            Assert.Equal("560404424247", brand.inn);
+            Assert.Equal("https://vk.com/roboshkola24", brand.vk_url);
+            Assert.Contains("cdn.dadata.ru/logo/roboshkola.com", brand.logo_url);
+        }
     }
 }

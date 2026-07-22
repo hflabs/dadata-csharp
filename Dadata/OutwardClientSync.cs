@@ -6,7 +6,7 @@ namespace Dadata
     {
         protected const string BASE_URL = "https://suggestions.dadata.ru/suggestions/api/4_1/rs";
 
-        public OutwardClientSync(string token, string baseUrl = BASE_URL) : base(token, baseUrl) { }
+        public OutwardClientSync(string token, string secret = "", string baseUrl = BASE_URL) : base(token, secret, baseUrl) { }
 
         public SuggestResponse<T> Suggest<T>(string query, int count = 5) where T : IOutward
         {
