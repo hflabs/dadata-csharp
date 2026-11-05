@@ -90,7 +90,7 @@ namespace Dadata
             using (var r = new StreamReader(stream))
             {
                 string responseText = await r.ReadToEndAsync();
-                var obj = await Task.Run(() => JsonConvert.DeserializeObject<T>(responseText));
+                var obj = await Task.Run(() => DeserializeText<T>(responseText));
                 return obj;
             }
         }

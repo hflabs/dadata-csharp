@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Dadata.Model;
 
@@ -13,8 +11,6 @@ namespace Dadata
     public class CleanClientAsync : ClientBaseAsync, ICleanClientAsync
     {
         protected const string BASE_URL = "https://cleaner.dadata.ru/api/v1";
-
-        readonly CustomCreationConverter<IDadataEntity> converter;
 
         // maps concrete IDadataEntity types to corresponding structure types
         static Dictionary<Type, StructureType> TYPE_TO_STRUCTURE = new Dictionary<Type, StructureType>()
@@ -35,7 +31,7 @@ namespace Dadata
         {
             // all response data entities look the same (IDadataEntity),
             // need to manually convert them to specific types (address, phone etc)
-            this.converter = new CleanResponseConverter();
+            serializer.Converters.Add(new CleanResponseConverter());
             // need to serialize StructureType as string, not int
             serializer.Converters.Add(new StringEnumConverter());
         }
@@ -58,16 +54,6 @@ namespace Dadata
             var request = new CleanRequest(structure, data);
             var response = await Execute<CleanResponse>(method: "clean", entity: null, request: request, cancellationToken);
             return response.data[0];
-        }
-
-        protected override async Task<T> Deserialize<T>(HttpResponseMessage httpResponse)
-        {
-            var stream = await httpResponse.Content.ReadAsStreamAsync();
-            using (var r = new StreamReader(stream))
-            {
-                string responseText = r.ReadToEnd();
-                return JsonConvert.DeserializeObject<T>(responseText, this.converter);
-            }
         }
     }
 }

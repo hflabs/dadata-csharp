@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO;
 using System.Net;
 using Newtonsoft.Json;
 
@@ -13,13 +14,6 @@ namespace Dadata
         protected string baseUrl;
         protected JsonSerializer serializer;
 
-        static ClientBase()
-        {
-            // Improper Handling of Exceptional Conditions in Newtonsoft.Json
-            // https://github.com/advisories/GHSA-5crp-9r3c-p9vr
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings { MaxDepth = 128 };
-        }
-
         public ClientBase(string token, string baseUrl) : this(token, null, baseUrl) { }
 
         public ClientBase(string token, string secret, string baseUrl)
@@ -27,7 +21,18 @@ namespace Dadata
             this.token = token;
             this.secret = secret;
             this.baseUrl = baseUrl;
-            this.serializer = new JsonSerializer();
+            // JsonSerializer.Create ignores JsonConvert.DefaultSettings,
+            // so the client neither depends on nor changes the global Newtonsoft settings
+            this.serializer = JsonSerializer.Create();
+        }
+
+        protected T DeserializeText<T>(string text)
+        {
+            using (var r = new StringReader(text))
+            using (var reader = new JsonTextReader(r))
+            {
+                return this.serializer.Deserialize<T>(reader);
+            }
         }
 
         protected string BuildUrl(string method, string entity, string queryString = null)

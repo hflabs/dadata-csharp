@@ -66,7 +66,7 @@ namespace Dadata
             using (var r = new StreamReader(httpResponse.GetResponseStream()))
             {
                 string responseText = r.ReadToEnd();
-                return JsonConvert.DeserializeObject<T>(responseText);
+                return DeserializeText<T>(responseText);
             }
         }
     }

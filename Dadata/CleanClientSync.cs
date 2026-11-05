@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Dadata.Model;
 
@@ -11,8 +9,6 @@ namespace Dadata
     public class CleanClientSync : ClientBaseSync, ICleanClientSync
     {
         protected const string BASE_URL = "https://cleaner.dadata.ru/api/v1/clean";
-
-        CustomCreationConverter<IDadataEntity> converter;
 
         // maps concrete IDadataEntity types to corresponding structure types
         static Dictionary<Type, StructureType> TYPE_TO_STRUCTURE = new Dictionary<Type, StructureType>()
@@ -32,7 +28,7 @@ namespace Dadata
         {
             // all response data entities look the same (IDadataEntity), 
             // need to manually convert them to specific types (address, phone etc)
-            this.converter = new CleanResponseConverter();
+            serializer.Converters.Add(new CleanResponseConverter());
             // need to serialize StructureType as string, not int
             serializer.Converters.Add(new StringEnumConverter());
         }
@@ -57,15 +53,6 @@ namespace Dadata
             var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
             var response = Deserialize<CleanResponse>(httpResponse);
             return response.data[0];
-        }
-
-        protected override T Deserialize<T>(HttpWebResponse httpResponse)
-        {
-            using (var r = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                string responseText = r.ReadToEnd();
-                return JsonConvert.DeserializeObject<T>(responseText, this.converter);
-            }
         }
     }
 }
