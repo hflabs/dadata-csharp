@@ -194,7 +194,7 @@ namespace Dadata.Test
             response = await api.SuggestBank("044525000");  // ГУ Банка России по ЦФО
             Assert.Equal(BankType.CBR, response.suggestions[0].data.opf.type);
 
-            response = await api.SuggestBank("041236100");  // УФК по Астраханской области
+            response = await api.SuggestBank("011203901");  // УФК по Астраханской области
             Assert.Equal(BankType.TREASURY, response.suggestions[0].data.opf.type);
 
             response = await api.SuggestBank("044501002");  // Операционный департамент БР
@@ -464,10 +464,11 @@ namespace Dadata.Test
         {
             var response = await api.FindParty("7719402047");
             var party = response.suggestions[0].data;
-            Assert.Single(party.phones);
-            Assert.Equal("+7 911 241 0309", party.phones[0].data.source);
-            Assert.Single(party.emails);
-            Assert.Equal("DAP@MOTORICA.ORG", party.emails[0].data.source);
+            // contacts change often, so check only that they are present and parsed
+            Assert.NotEmpty(party.phones);
+            Assert.All(party.phones, phone => Assert.False(string.IsNullOrEmpty(phone.data.source)));
+            Assert.NotEmpty(party.emails);
+            Assert.All(party.emails, email => Assert.False(string.IsNullOrEmpty(email.data.source)));
         }
 
         [Fact]
